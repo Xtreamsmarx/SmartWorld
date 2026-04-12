@@ -23,6 +23,8 @@ const fileDraft = document.querySelector('#fileDraft');
 const applyDraftBtn = document.querySelector('#applyDraftBtn');
 
 const CONFIG_KEY = 'und_chatbot_llm_config';
+const LOCAL_CHECKPOINT = 'qwen2.5-coder:3b';
+const LOCAL_BRIDGE = 'http://127.0.0.1:8765';
 const history = [];
 let workspaceHandle = null;
 let fileMap = new Map();
@@ -31,7 +33,7 @@ let activeFileText = '';
 
 const defaultConfig = {
   provider: 'ollama',
-  model: 'llama3.2:3b',
+  model: LOCAL_CHECKPOINT,
   apiKey: '',
   prompt: 'You are an UND coding assistant. Prioritize working code, clear debugging steps, and Python-first help.'
 };
@@ -41,19 +43,19 @@ let activeTopic = 'General';
 
 const PRESETS = {
   python: {
-    model: 'llama3.2:3b',
+    model: LOCAL_CHECKPOINT,
     prompt: 'You are a Python tutor. Always provide runnable code, short explanation, and one test example.'
   },
   debug: {
-    model: 'qwen2.5-coder:3b',
+    model: LOCAL_CHECKPOINT,
     prompt: 'You are a debugger. Find root cause quickly, explain the failing line, and return a corrected version.'
   },
   architect: {
-    model: 'llama3.2:3b',
+    model: LOCAL_CHECKPOINT,
     prompt: 'You are a software architect. Propose clean modular structure, tradeoffs, and implementation steps.'
   },
   review: {
-    model: 'qwen2.5-coder:3b',
+    model: LOCAL_CHECKPOINT,
     prompt: 'You are a strict code reviewer. Prioritize bugs, risks, and missing tests first, then improvements.'
   }
 };
@@ -64,7 +66,12 @@ const loadConfig = () => {
     if (!raw) {
       return { ...defaultConfig };
     }
-    return { ...defaultConfig, ...JSON.parse(raw) };
+    const parsed = { ...defaultConfig, ...JSON.parse(raw) };
+    // Keep one shared local provider/model for all chatbot modes.
+    parsed.provider = 'ollama';
+    parsed.model = LOCAL_CHECKPOINT;
+    parsed.apiKey = '';
+    return parsed;
   } catch {
     return { ...defaultConfig };
   }
@@ -82,9 +89,9 @@ const fillConfigForm = (config) => {
 };
 
 const readConfigForm = () => ({
-  provider: providerSelect ? providerSelect.value : defaultConfig.provider,
-  model: modelInput ? modelInput.value.trim() : defaultConfig.model,
-  apiKey: apiKeyInput ? apiKeyInput.value.trim() : '',
+  provider: 'ollama',
+  model: LOCAL_CHECKPOINT,
+  apiKey: '',
   prompt: systemPrompt ? systemPrompt.value.trim() : defaultConfig.prompt
 });
 
@@ -238,46 +245,28 @@ const writeSelectedFile = async (text) => {
 
 const askOllama = async (config, messages, onChunk) => {
   const prompt = messages.map((m) => `${m.role.toUpperCase()}: ${m.content}`).join('\n\n');
-  const response = await fetch('http://localhost:11434/api/generate', {
+  const response = await fetch(`${LOCAL_BRIDGE}/ollama/generate`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      model: config.model || 'llama3.2:3b',
-      prompt,
-      stream: true
+      model: config.model || LOCAL_CHECKPOINT,
+      prompt
     })
   });
   if (!response.ok) {
-    throw new Error('Ollama request failed. Make sure Ollama is running and model is installed.');
+    throw new Error('Local bridge request failed. Make sure the Smart World bridge is running.');
   }
 
-  if (!response.body) {
-    throw new Error('Ollama stream not available.');
+  const data = await response.json();
+  if (!data.ok) {
+    throw new Error(data.error || 'Local model request failed.');
   }
 
-  const reader = response.body.getReader();
-  const decoder = new TextDecoder();
-  let buffer = '';
-  let full = '';
-
-  while (true) {
-    const { value, done } = await reader.read();
-    if (done) break;
-    buffer += decoder.decode(value, { stream: true });
-    const lines = buffer.split('\n');
-    buffer = lines.pop() || '';
-    for (const line of lines) {
-      if (!line.trim()) continue;
-      try {
-        const json = JSON.parse(line);
-        const piece = json.response || '';
-        if (piece) {
-          full += piece;
-          if (onChunk) onChunk(piece);
-        }
-      } catch {
-        // ignore partial JSON lines
-      }
+  const full = (data.response || '').trim();
+  if (onChunk) {
+    for (const piece of full.match(/.{1,80}/g) || []) {
+      onChunk(piece);
+      await new Promise((resolve) => setTimeout(resolve, 10));
     }
   }
   return full.trim();
@@ -285,19 +274,21 @@ const askOllama = async (config, messages, onChunk) => {
 
 const askOllamaNonStream = async (config, messages) => {
   const prompt = messages.map((m) => `${m.role.toUpperCase()}: ${m.content}`).join('\n\n');
-  const response = await fetch('http://localhost:11434/api/generate', {
+  const response = await fetch(`${LOCAL_BRIDGE}/ollama/generate`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      model: config.model || 'llama3.2:3b',
-      prompt,
-      stream: false
+      model: config.model || LOCAL_CHECKPOINT,
+      prompt
     })
   });
   if (!response.ok) {
-    throw new Error('Ollama request failed. Make sure Ollama is running and model is installed.');
+    throw new Error('Local bridge request failed. Make sure the Smart World bridge is running.');
   }
   const data = await response.json();
+  if (!data.ok) {
+    throw new Error(data.error || 'Local model request failed.');
+  }
   return (data.response || '').trim();
 };
 
@@ -417,15 +408,9 @@ const askModel = async (config, userText, onChunk) => {
   ];
 
   try {
-    if (config.provider === 'openrouter') {
-      return await askOpenRouter(config, messages, onChunk);
-    }
     return await askOllama(config, messages, onChunk);
-  } catch (error) {
+  } catch {
     // Fallback to non-stream request for environments that block streaming.
-    if (config.provider === 'openrouter') {
-      return askOpenRouterNonStream(config, messages);
-    }
     return askOllamaNonStream(config, messages);
   }
 };
@@ -437,14 +422,12 @@ const testModelConnection = async (config) => {
     { role: 'user', content: ping }
   ];
 
-  if (config.provider === 'openrouter') {
-    return askOpenRouterNonStream(config, messages);
-  }
   return askOllamaNonStream(config, messages);
 };
 
 const startConfig = loadConfig();
 fillConfigForm(startConfig);
+updateLlmStatus(`Ready (local / ${LOCAL_CHECKPOINT})`);
 
 if (saveConfigBtn) {
   saveConfigBtn.addEventListener('click', () => {
@@ -454,7 +437,7 @@ if (saveConfigBtn) {
       return;
     }
     saveConfig(config);
-    if (configNote) configNote.textContent = `Saved. Provider: ${config.provider}, Model: ${config.model}`;
+    if (configNote) configNote.textContent = `Saved. Local model: ${config.model}`;
   });
 }
 
@@ -465,14 +448,14 @@ if (testConfigBtn) {
     try {
       const result = await testModelConnection(config);
       if (result && result.toUpperCase().includes('UND_LLM_OK')) {
-        updateLlmStatus(`Connected (${config.provider} / ${config.model})`);
+        updateLlmStatus(`Connected (local / ${config.model})`);
       } else {
-        updateLlmStatus(`Connected with unexpected response (${config.provider})`);
+        updateLlmStatus('Connected with unexpected response');
       }
     } catch (error) {
       const msg = String(error && error.message ? error.message : error);
       if (msg.toLowerCase().includes('failed to fetch')) {
-        updateLlmStatus('Connection blocked. For local files, use Ollama or run via http server.');
+        updateLlmStatus('Bridge offline. Start the Smart World bridge from Terminal.');
       } else {
         updateLlmStatus(`Failed: ${msg}`);
       }

@@ -10,25 +10,32 @@
     <main class="window">
       <header class="head">
         <div>
-          <h1>UND Terminal</h1>
-          <p>Run workspace-like commands and inspect OS context.</p>
+          <h1>Smart World Terminal</h1>
+          <p>Run real PowerShell commands inside the Smart World workspace.</p>
         </div>
         <a href="../../os.html">Back to Desktop</a>
       </header>
 
+      <section class="bridge-bar">
+        <span id="bridgeStatus">Bridge: checking...</span>
+        <span id="cwdLabel">cwd: loading...</span>
+        <button id="startBridgeBtn" type="button">Start Bridge</button>
+      </section>
+
       <section class="terminal" id="terminalOutput"></section>
 
       <form id="cmdForm" class="cmd-form">
-        <span class="prompt">und@os:~$</span>
-        <input id="cmdInput" type="text" autocomplete="off" placeholder="Type command: help, ls, status, clear" />
+        <span class="prompt" id="promptLabel">sw@os:~$</span>
+        <input id="cmdInput" type="text" autocomplete="off" placeholder="Type a real command: dir, git status, pwd, cd os" />
         <button type="submit">Run</button>
       </form>
 
       <section class="chips">
-        <button type="button" class="chip" data-cmd="help">help</button>
-        <button type="button" class="chip" data-cmd="ls">ls</button>
-        <button type="button" class="chip" data-cmd="status">status</button>
-        <button type="button" class="chip" data-cmd="open learning">open learning</button>
+        <button type="button" class="chip" data-cmd="dir">dir</button>
+        <button type="button" class="chip" data-cmd="pwd">pwd</button>
+        <button type="button" class="chip" data-cmd="git status --short">git status</button>
+        <button type="button" class="chip" data-cmd="cd os">cd os</button>
+        <button type="button" class="chip" data-cmd="clear">clear</button>
       </section>
 
       <section class="stats" id="termStats"></section>

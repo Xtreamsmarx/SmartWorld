@@ -42,6 +42,32 @@ body {
 	border-radius: 9px;
 }
 
+.bridge-bar {
+	margin-top: 0.8rem;
+	display: flex;
+	gap: 0.5rem;
+	align-items: center;
+	flex-wrap: wrap;
+	font-size: 0.8rem;
+	color: #b8cbef;
+}
+
+.bridge-bar span {
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	background: rgba(255, 255, 255, 0.06);
+	padding: 0.32rem 0.55rem;
+	border-radius: 9px;
+}
+
+.bridge-bar button {
+	border: 1px solid rgba(255, 255, 255, 0.24);
+	border-radius: 9px;
+	background: rgba(10, 22, 48, 0.7);
+	color: #e9f3ff;
+	padding: 0.42rem 0.65rem;
+	cursor: pointer;
+}
+
 .terminal {
 	margin-top: 0.8rem;
 	border: 1px solid rgba(135, 255, 220, 0.3);

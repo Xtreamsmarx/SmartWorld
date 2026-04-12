@@ -19,18 +19,17 @@
       <section class="llm-config">
         <div class="field-row">
           <label for="providerSelect">Provider</label>
-          <select id="providerSelect">
-            <option value="ollama">Ollama (Local Free)</option>
-            <option value="openrouter">OpenRouter (Free Models)</option>
+          <select id="providerSelect" disabled>
+            <option value="ollama">Smart World Local Ollama</option>
           </select>
         </div>
         <div class="field-row">
           <label for="modelInput">Model</label>
-          <input id="modelInput" type="text" placeholder="llama3.2:3b or mistralai/mistral-7b-instruct:free" />
+          <input id="modelInput" type="text" placeholder="qwen2.5-coder:3b" readonly />
         </div>
         <div class="field-row">
           <label for="apiKeyInput">API Key (for OpenRouter)</label>
-          <input id="apiKeyInput" type="password" placeholder="Leave empty for local Ollama" />
+          <input id="apiKeyInput" type="password" placeholder="Not used in local mode" disabled />
         </div>
         <div class="field-row grow">
           <label for="systemPrompt">Assistant Behavior</label>
@@ -38,7 +37,7 @@
         </div>
         <button type="button" id="saveConfigBtn" class="save-btn">Save AI Settings</button>
         <button type="button" id="testConfigBtn" class="save-btn">Test LLM Connection</button>
-        <p class="config-note" id="configNote">Tip: Ollama needs a local model running. OpenRouter needs a free API key.</p>
+        <p class="config-note" id="configNote">This chatbot is locked to the local Smart World model for reliable responses.</p>
         <p class="config-note" id="llmStatus">LLM status: Not tested</p>
       </section>
 
