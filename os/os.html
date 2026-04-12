@@ -14,6 +14,12 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
     />
+    <script src="auth.js"></script>
+    <script>
+      if (!window.SmartWorldAuth || !window.SmartWorldAuth.isAuthenticated()) {
+        window.location.replace('./login.html');
+      }
+    </script>
     <link rel="stylesheet" href="os.css" />
   </head>
   <body>
@@ -21,6 +27,7 @@
       <div class="start-pill">Smart World</div>
       <input class="os-search" type="text" placeholder="Search apps" />
       <div class="topbar-right">
+        <button id="logoutBtn" type="button" title="Logout">Logout</button>
         <span id="topClock">--:--:--</span>
       </div>
     </header>
@@ -77,6 +84,21 @@
         <p>Agent Market</p>
       </article>
 
+      <article class="app-icon" data-app="simlab" data-target="./apps/simulation-lab/simulation-lab.html" style="left: 290px; top: 150px;">
+        <div class="icon-tile"><i class="bi bi-diagram-3"></i></div>
+        <p>Simulation Lab</p>
+      </article>
+
+      <article class="app-icon" data-app="gf-twin" data-target="./apps/grand-forks-twin/grand-forks-twin.html" style="left: 290px; top: 272px;">
+        <div class="icon-tile"><i class="bi bi-buildings"></i></div>
+        <p>GF Digital Twin</p>
+      </article>
+
+      <article class="app-icon" data-app="teamhub" data-target="../team/team.html" style="left: 290px; top: 394px;">
+        <div class="icon-tile"><i class="bi bi-people-fill"></i></div>
+        <p>Team Hub</p>
+      </article>
+
       <section class="app-window hidden" id="appWindow" aria-label="App window">
         <header class="window-bar" id="windowBar">
           <p id="windowTitle">App</p>
@@ -107,6 +129,9 @@
           <button type="button" class="quick-open" data-open="./apps/python-computer/python-computer.html" data-title="Python Computer">Open Python Comp</button>
           <button type="button" class="quick-open" data-open="./apps/control-center/control-center.html" data-title="Control Center">Open Control Center</button>
           <button type="button" class="quick-open" data-open="./apps/agent-market/agent-market.html" data-title="Agent Market">Open Agent Market</button>
+          <button type="button" class="quick-open" data-open="./apps/simulation-lab/simulation-lab.html" data-title="Simulation Lab">Open Simulation Lab</button>
+          <button type="button" class="quick-open" data-open="./apps/grand-forks-twin/grand-forks-twin.html" data-title="Grand Forks Digital Twin">Open GF Twin</button>
+          <button type="button" class="quick-open" data-open="../team/team.html" data-title="Team Avatar Hub">Open Team Hub</button>
         </article>
       </aside>
     </main>
@@ -117,6 +142,15 @@
       <a href="../index.html">Back To Gateway</a>
     </footer>
 
+    <script>
+      const logoutBtn = document.querySelector('#logoutBtn');
+      logoutBtn?.addEventListener('click', () => {
+        if (window.SmartWorldAuth) {
+          window.SmartWorldAuth.logout();
+        }
+        window.location.replace('./login.html');
+      });
+    </script>
     <script src="os.js"></script>
   </body>
 </html>

@@ -1,0 +1,248 @@
+:root {
+  --bg-1: #071122;
+  --bg-2: #0f2647;
+  --panel: rgba(7, 18, 38, 0.86);
+  --line: rgba(255, 255, 255, 0.15);
+  --ink: #edf4ff;
+  --muted: #9eb6d8;
+  --cyan: #00d6c7;
+  --blue: #63b5ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--ink);
+  background: linear-gradient(140deg, var(--bg-1), var(--bg-2));
+}
+
+.bg {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 12% 14%, rgba(99, 181, 255, 0.3), transparent 28%),
+    radial-gradient(circle at 85% 16%, rgba(0, 214, 199, 0.22), transparent 24%),
+    radial-gradient(circle at 68% 90%, rgba(255, 130, 68, 0.14), transparent 30%);
+  pointer-events: none;
+}
+
+.shell {
+  position: relative;
+  z-index: 1;
+  width: min(1240px, 100%);
+  margin: 0 auto;
+  padding: 0.9rem;
+}
+
+.top {
+  margin-bottom: 0.7rem;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+  padding: 0.9rem;
+}
+
+.back {
+  color: var(--ink);
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.24rem 0.58rem;
+  display: inline-block;
+  margin-bottom: 0.45rem;
+}
+
+.top h1 {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+}
+
+.top p {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 0.7rem;
+}
+
+.profiles,
+.chat-panel {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+  overflow: hidden;
+}
+
+.profiles {
+  padding: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.profile-card {
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  padding: 0.62rem;
+  display: grid;
+  grid-template-columns: 64px 1fr;
+  gap: 0.62rem;
+  cursor: pointer;
+}
+
+.profile-card:hover,
+.profile-card.active {
+  border-color: rgba(99, 181, 255, 0.68);
+  background: rgba(99, 181, 255, 0.14);
+}
+
+.profile-card img {
+  width: 64px;
+  height: 64px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.profile-card h3 {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.profile-card p {
+  margin: 0.22rem 0 0;
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+.chat-panel {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  min-height: 74vh;
+}
+
+.chat-head {
+  border-bottom: 1px solid var(--line);
+  padding: 0.7rem;
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 0.7rem;
+  align-items: center;
+}
+
+.avatar-wrap img {
+  width: 72px;
+  height: 72px;
+  border-radius: 16px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.chat-head h2 {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+}
+
+.chat-head p {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+}
+
+.status {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.26rem 0.6rem;
+  color: var(--muted);
+  font-size: 0.76rem;
+}
+
+.profile-summary {
+  border-bottom: 1px solid var(--line);
+  padding: 0.65rem 0.8rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.profile-summary ul {
+  margin: 0.38rem 0 0;
+  padding-left: 1rem;
+}
+
+.chat-log {
+  overflow-y: auto;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.msg {
+  margin: 0;
+  padding: 0.55rem 0.64rem;
+  border-radius: 12px;
+  border: 1px solid var(--line);
+  max-width: 86%;
+  line-height: 1.4;
+}
+
+.msg.user {
+  align-self: flex-end;
+  background: rgba(99, 181, 255, 0.2);
+}
+
+.msg.bot {
+  align-self: flex-start;
+  background: rgba(0, 214, 199, 0.12);
+}
+
+.chat-form {
+  border-top: 1px solid var(--line);
+  padding: 0.7rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.55rem;
+}
+
+.chat-form input {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(8, 20, 40, 0.92);
+  color: var(--ink);
+  padding: 0.65rem 0.72rem;
+  font: inherit;
+}
+
+.chat-form button {
+  border: 1px solid rgba(0, 214, 199, 0.45);
+  border-radius: 12px;
+  background: linear-gradient(135deg, rgba(99, 181, 255, 0.94), rgba(0, 214, 199, 0.85));
+  color: #062039;
+  font: 700 0.92rem "Sora", sans-serif;
+  padding: 0.56rem 0.82rem;
+  cursor: pointer;
+}
+
+@media (max-width: 980px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .chat-panel {
+    min-height: 68vh;
+  }
+}

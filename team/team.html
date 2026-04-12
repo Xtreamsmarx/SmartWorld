@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart World Team Avatars</title>
+    <meta name="description" content="Team avatar hub with profile chat for Smart World." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="team.css" />
+  </head>
+  <body>
+    <div class="bg"></div>
+    <main class="shell">
+      <header class="top">
+        <a class="back" href="../home/home.html">Back</a>
+        <h1>Team Avatar Hub</h1>
+        <p>Pick a profile, view a realistic avatar, and chat directly with that team persona.</p>
+      </header>
+
+      <section class="layout">
+        <aside class="profiles" id="profiles"></aside>
+
+        <section class="chat-panel">
+          <header class="chat-head">
+            <div class="avatar-wrap">
+              <img id="activeAvatar" alt="Active profile avatar" />
+            </div>
+            <div>
+              <h2 id="activeName">Select a Team Member</h2>
+              <p id="activeRole">Choose a profile card to begin.</p>
+            </div>
+            <span class="status" id="bridgeStatus">Bridge: checking...</span>
+          </header>
+
+          <section class="profile-summary" id="profileSummary">
+            <p>Select a profile to view bio, skills, and talk context.</p>
+          </section>
+
+          <section class="chat-log" id="chatLog" aria-live="polite">
+            <p class="msg bot">Start by selecting a team member on the left.</p>
+          </section>
+
+          <form id="chatForm" class="chat-form">
+            <input id="chatInput" type="text" placeholder="Ask this profile about projects, skills, or decisions..." required />
+            <button type="submit">Talk</button>
+          </form>
+        </section>
+      </section>
+    </main>
+
+    <script src="team.js"></script>
+  </body>
+</html>
