@@ -24,7 +24,7 @@
   </head>
   <body>
     <header class="topbar">
-      <div class="start-pill">Smart World</div>
+      <div class="start-pill" id="startPill">Smart World</div>
       <input class="os-search" type="text" placeholder="Search apps" />
       <div class="topbar-right">
         <button id="logoutBtn" type="button" title="Logout">Logout</button>
@@ -99,6 +99,11 @@
         <p>Team Hub</p>
       </article>
 
+      <article class="app-icon" data-app="campus" data-target="./apps/campus/campus.html" style="left: 420px; top: 28px;">
+        <div class="icon-tile"><i class="bi bi-building"></i></div>
+        <p>Campus</p>
+      </article>
+
       <section class="app-window hidden" id="appWindow" aria-label="App window">
         <header class="window-bar" id="windowBar">
           <p id="windowTitle">App</p>
@@ -132,6 +137,7 @@
           <button type="button" class="quick-open" data-open="./apps/simulation-lab/simulation-lab.html" data-title="Simulation Lab">Open Simulation Lab</button>
           <button type="button" class="quick-open" data-open="./apps/grand-forks-twin/grand-forks-twin.html" data-title="Grand Forks Digital Twin">Open GF Twin</button>
           <button type="button" class="quick-open" data-open="../team/team.html" data-title="Team Avatar Hub">Open Team Hub</button>
+          <button type="button" class="quick-open" data-open="./apps/campus/campus.html" data-title="Campus Operations">Open Campus</button>
         </article>
       </aside>
     </main>

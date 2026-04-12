@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Campus Operations Twin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="campus.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="top">
+        <div>
+          <p class="eyebrow">Smart World Campus</p>
+          <h1>University Operations Room</h1>
+        </div>
+        <div class="top-actions">
+          <button id="toggleSimBtn" type="button">Pause Simulation</button>
+          <button id="nextTickBtn" type="button">Next Minute</button>
+        </div>
+      </header>
+
+      <section class="kpis" id="kpis"></section>
+
+      <section class="layout">
+        <aside class="panel room-panel">
+          <header>
+            <h2>Campus Spaces</h2>
+            <p>Conference halls, classrooms, and labs</p>
+          </header>
+          <div id="roomList" class="room-list"></div>
+        </aside>
+
+        <section class="panel map-panel">
+          <header>
+            <h2>Live Room Grid</h2>
+            <p>Color indicates occupancy pressure and alert level</p>
+          </header>
+          <div id="roomGrid" class="room-grid"></div>
+          <article class="event-log">
+            <h3>Live Event Log</h3>
+            <div id="eventLog" class="log-list"></div>
+          </article>
+        </section>
+
+        <aside class="panel detail-panel">
+          <header>
+            <h2>Selected Room</h2>
+          </header>
+          <article id="roomDetail" class="detail-card"></article>
+
+          <article class="agents">
+            <h3>AI Agents On Duty</h3>
+            <div id="agentStatus" class="agent-status"></div>
+          </article>
+        </aside>
+      </section>
+    </main>
+
+    <script src="campus.js"></script>
+  </body>
+</html>

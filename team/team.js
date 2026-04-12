@@ -7,6 +7,7 @@ const chatLog = document.querySelector('#chatLog');
 const chatForm = document.querySelector('#chatForm');
 const chatInput = document.querySelector('#chatInput');
 const bridgeStatus = document.querySelector('#bridgeStatus');
+const agentListNode = document.querySelector('#agentList');
 
 const LOCAL_BRIDGE = 'http://127.0.0.1:8765';
 const LOCAL_MODEL = 'qwen2.5-coder:3b';
@@ -15,12 +16,14 @@ const LOCAL_MODEL = 'qwen2.5-coder:3b';
 const TEAM_PROFILES = [
   {
     id: 'smartworld-lead',
-    name: 'SmartWorld Lead',
-    role: 'Founder and Digital Twin Architect',
+    name: 'Meisam Moradi',
+    role: 'Team Lead and Digital Twin Architect',
     avatar: 'https://i.pravatar.cc/320?img=12',
     bio: 'Leads Smart World strategy, digital twin design, and practical AI product direction.',
     skills: ['Digital Twin Modeling', 'Product Strategy', 'AI Workflow Design'],
-    style: 'Direct, strategic, practical, and focused on execution.'
+    style: 'Direct, strategic, practical, and focused on execution.',
+    lead: true,
+    cvUrl: './cv/cv-smartworld-lead.html'
   },
   {
     id: 'xtream-engineer',
@@ -29,7 +32,95 @@ const TEAM_PROFILES = [
     avatar: 'https://i.pravatar.cc/320?img=32',
     bio: 'Builds simulation systems, web platform experiences, and local AI integrations for Smart World.',
     skills: ['JavaScript Systems', '3D Interaction', 'Infrastructure Integration'],
-    style: 'Technical, implementation-first, and detail-oriented.'
+    style: 'Technical, implementation-first, and detail-oriented.',
+    cvUrl: './cv/cv-xtream-engineer.html'
+  },
+  {
+    id: 'sara-rahimi',
+    name: 'Sara Rahimi',
+    role: 'Data Scientist and Urban Analytics Specialist',
+    avatar: 'https://i.pravatar.cc/320?img=47',
+    bio: 'Designs forecasting models and decision analytics for smart city and campus operations.',
+    skills: ['Predictive Analytics', 'Data Modeling', 'Decision Intelligence'],
+    style: 'Analytical, evidence-driven, and clear.',
+    cvUrl: './cv/cv-sara-rahimi.html'
+  },
+  {
+    id: 'ali-rezaei',
+    name: 'Ali Rezaei',
+    role: 'GIS and Urban Systems Analyst',
+    avatar: 'https://i.pravatar.cc/320?img=15',
+    bio: 'Builds spatial intelligence layers and geospatial workflows for city-scale digital twins.',
+    skills: ['GIS Modeling', 'Spatial Data Pipelines', 'Urban Scenario Mapping'],
+    style: 'Structured, practical, and map-first.',
+    cvUrl: './cv/cv-ali-rezaei.html'
+  },
+  {
+    id: 'neda-farhadi',
+    name: 'Neda Farhadi',
+    role: 'Water Infrastructure Engineer',
+    avatar: 'https://i.pravatar.cc/320?img=5',
+    bio: 'Leads water treatment and distribution simulation logic for resilience and reliability planning.',
+    skills: ['Water Systems', 'Reliability Engineering', 'Operational Planning'],
+    style: 'Systems-minded, safety-focused, and concise.',
+    cvUrl: './cv/cv-neda-farhadi.html'
+  },
+  {
+    id: 'arman-hosseini',
+    name: 'Arman Hosseini',
+    role: 'Transportation Systems Engineer',
+    avatar: 'https://i.pravatar.cc/320?img=56',
+    bio: 'Develops corridor models, traffic optimization strategies, and mobility scenario dashboards.',
+    skills: ['Traffic Engineering', 'Mobility Modeling', 'Network Optimization'],
+    style: 'Operational, scenario-based, and impact-driven.',
+    cvUrl: './cv/cv-arman-hosseini.html'
+  },
+  {
+    id: 'fatemeh-kazemi',
+    name: 'Fatemeh Kazemi',
+    role: 'AI and NLP Engineer',
+    avatar: 'https://i.pravatar.cc/320?img=23',
+    bio: 'Builds conversational AI personas and language interfaces for profile and operations assistants.',
+    skills: ['NLP Systems', 'Prompt Engineering', 'Conversational UX'],
+    style: 'User-centered, precise, and adaptive.',
+    cvUrl: './cv/cv-fatemeh-kazemi.html'
+  },
+  {
+    id: 'reza-ghasemi',
+    name: 'Reza Ghasemi',
+    role: 'Cloud and DevOps Engineer',
+    avatar: 'https://i.pravatar.cc/320?img=68',
+    bio: 'Maintains deployment pipelines, reliability automation, and infrastructure observability for Smart World.',
+    skills: ['CI/CD', 'Infrastructure Reliability', 'Monitoring and Automation'],
+    style: 'Reliability-first, methodical, and delivery-focused.',
+    cvUrl: './cv/cv-reza-ghasemi.html'
+  }
+];
+
+const AI_AGENTS = [
+  {
+    id: 'campus-ops-agent',
+    name: 'Campus Ops Agent',
+    scope: 'Conference Rooms and Classrooms',
+    status: 'Monitoring room occupancy and schedule drift.'
+  },
+  {
+    id: 'vision-guard-agent',
+    name: 'Vision Guard Agent',
+    scope: 'Cameras and Safety Coverage',
+    status: 'Tracking camera uptime and blind-spot risk.'
+  },
+  {
+    id: 'speech-intel-agent',
+    name: 'Speech Intel Agent',
+    scope: 'Lecture and Speech Activity',
+    status: 'Estimating attendance and session engagement.'
+  },
+  {
+    id: 'facility-risk-agent',
+    name: 'Facility Risk Agent',
+    scope: 'Environmental and Incident Signals',
+    status: 'Prioritizing alerts for rapid response.'
   }
 ];
 
@@ -54,6 +145,7 @@ const renderSummary = (profile) => {
       <li><strong>Core Skills:</strong> ${profile.skills.join(', ')}</li>
       <li><strong>Conversation Style:</strong> ${profile.style}</li>
     </ul>
+    <a class="cv-link" href="${profile.cvUrl}">Open Full CV</a>
   `;
 };
 
@@ -68,12 +160,35 @@ const renderProfiles = () => {
     card.innerHTML = `
       <img src="${profile.avatar}" alt="${profile.name} avatar" loading="lazy" />
       <div>
-        <h3>${profile.name}</h3>
+        <h3>${profile.name}${profile.lead ? ' <span class="lead-tag">LEAD</span>' : ''}</h3>
         <p>${profile.role}</p>
       </div>
     `;
     card.addEventListener('click', () => setActiveProfile(profile.id));
     profilesNode.appendChild(card);
+  });
+};
+
+const renderAgents = () => {
+  if (!agentListNode) return;
+  agentListNode.innerHTML = '';
+  AI_AGENTS.forEach((agent) => {
+    const card = document.createElement('article');
+    card.className = 'agent-card';
+    card.innerHTML = `
+      <h4>${agent.name}</h4>
+      <span class="agent-meta">${agent.scope}</span>
+      <p>${agent.status}</p>
+    `;
+
+    card.addEventListener('click', () => {
+      if (chatInput) {
+        chatInput.value = `Give me ${agent.name} recommendations for campus operations.`;
+        chatInput.focus();
+      }
+    });
+
+    agentListNode.appendChild(card);
   });
 };
 
@@ -93,7 +208,7 @@ const setActiveProfile = (profileId) => {
     activeName.textContent = profile.name;
   }
   if (activeRole) {
-    activeRole.textContent = profile.role;
+    activeRole.textContent = profile.lead ? `${profile.role} | Lead` : profile.role;
   }
 
   renderSummary(profile);
@@ -204,5 +319,6 @@ chatForm?.addEventListener('submit', async (event) => {
 });
 
 renderProfiles();
+renderAgents();
 setActiveProfile(TEAM_PROFILES[0].id);
 updateBridgeStatus();

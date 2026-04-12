@@ -14,10 +14,59 @@ const taskbarApps = document.querySelector('#taskbarApps');
 const quickOpenButtons = document.querySelectorAll('.quick-open');
 const topClock = document.querySelector('#topClock');
 const widgetClock = document.querySelector('#widgetClock');
+const startPill = document.querySelector('#startPill');
 
 let currentApp = null;
 let isMaximized = false;
 let restoreRect = null;
+
+const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+
+const getScaleFromWindow = () => {
+  const widthScale = window.innerWidth / 1366;
+  const heightScale = window.innerHeight / 768;
+  return clamp(Math.min(widthScale, heightScale), 0.78, 1);
+};
+
+const applyOsResponsiveScale = () => {
+  const scale = getScaleFromWindow();
+  document.documentElement.style.setProperty('--ui-scale', String(scale));
+};
+
+const applyFrameResponsiveScale = () => {
+  if (!appFrame || !appWindow || appWindow.classList.contains('hidden')) {
+    return;
+  }
+
+  let contentBody = null;
+  try {
+    contentBody = appFrame.contentDocument && appFrame.contentDocument.body;
+  } catch {
+    contentBody = null;
+  }
+
+  if (!contentBody) {
+    return;
+  }
+
+  const frameRect = appFrame.getBoundingClientRect();
+  const widthScale = frameRect.width / 980;
+  const heightScale = frameRect.height / 620;
+  const scale = clamp(Math.min(widthScale, heightScale), 0.78, 1);
+
+  // Keep app internals proportional to the available app window size.
+  contentBody.style.zoom = String(scale);
+  contentBody.style.transformOrigin = 'top left';
+};
+
+applyOsResponsiveScale();
+
+if (startPill && window.SmartWorldAuth && typeof window.SmartWorldAuth.getTenant === 'function') {
+  const tenant = window.SmartWorldAuth.getTenant();
+  if (tenant && tenant.label) {
+    startPill.textContent = tenant.label;
+  }
+}
 
 const showWindow = () => {
   if (!appWindow) {
@@ -89,7 +138,14 @@ const openInWindow = (target, title) => {
   }
   showWindow();
   renderTaskbarApp();
+  applyFrameResponsiveScale();
 };
+
+if (appFrame) {
+  appFrame.addEventListener('load', () => {
+    applyFrameResponsiveScale();
+  });
+}
 
 if (btnClose && appWindow && appFrame) {
   btnClose.addEventListener('pointerdown', (event) => {
@@ -125,6 +181,7 @@ if (btnMax && appWindow) {
       appWindow.classList.add('maximized');
       btnMax.textContent = 'R';
       isMaximized = true;
+      applyFrameResponsiveScale();
       return;
     }
 
@@ -137,6 +194,7 @@ if (btnMax && appWindow) {
     }
     btnMax.textContent = '[]';
     isMaximized = false;
+    applyFrameResponsiveScale();
   });
 }
 
@@ -190,6 +248,7 @@ if (windowBar && appWindow) {
     const nextY = Math.min(Math.max(0, wOriginY + deltaY), desktop.clientHeight - appWindow.offsetHeight);
     appWindow.style.left = `${nextX}px`;
     appWindow.style.top = `${nextY}px`;
+    applyFrameResponsiveScale();
   });
 
   windowBar.addEventListener('pointerup', (event) => {
@@ -267,6 +326,8 @@ if (appWindow) {
         const nextHeight = Math.min(maxHeight, Math.max(minHeight, startHeight + deltaY));
         appWindow.style.height = `${nextHeight}px`;
       }
+
+      applyFrameResponsiveScale();
     });
 
     handle.addEventListener('pointerup', (event) => {
@@ -334,3 +395,8 @@ for (const icon of appIcons) {
     }
   });
 }
+
+window.addEventListener('resize', () => {
+  applyOsResponsiveScale();
+  applyFrameResponsiveScale();
+});

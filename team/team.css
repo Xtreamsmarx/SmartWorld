@@ -51,6 +51,12 @@ body {
   padding: 0.9rem;
 }
 
+.top-actions {
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+}
+
 .back {
   color: var(--ink);
   text-decoration: none;
@@ -73,11 +79,12 @@ body {
 
 .layout {
   display: grid;
-  grid-template-columns: 320px 1fr;
+  grid-template-columns: 280px 280px 1fr;
   gap: 0.7rem;
 }
 
 .profiles,
+.agents-panel,
 .chat-panel {
   border: 1px solid var(--line);
   border-radius: 18px;
@@ -90,6 +97,71 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.55rem;
+}
+
+.agents-panel {
+  padding: 0.7rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.agents-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.45rem;
+}
+
+.agents-head h3 {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+  font-size: 0.94rem;
+}
+
+.agent-link {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.18rem 0.5rem;
+  font-size: 0.72rem;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+.agent-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.agent-card {
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 0.55rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.agent-card h4 {
+  margin: 0;
+  font-size: 0.86rem;
+}
+
+.agent-card p {
+  margin: 0.18rem 0 0;
+  color: var(--muted);
+  font-size: 0.75rem;
+  line-height: 1.35;
+}
+
+.agent-meta {
+  margin-top: 0.24rem;
+  display: inline-block;
+  border: 1px solid rgba(99, 181, 255, 0.35);
+  border-radius: 999px;
+  padding: 0.1rem 0.42rem;
+  font-size: 0.66rem;
+  color: #cfe4ff;
+  background: rgba(99, 181, 255, 0.14);
 }
 
 .profile-card {
@@ -120,6 +192,18 @@ body {
 .profile-card h3 {
   margin: 0;
   font-size: 0.95rem;
+}
+
+.lead-tag {
+  display: inline-block;
+  margin-left: 0.35rem;
+  padding: 0.08rem 0.36rem;
+  border-radius: 999px;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  vertical-align: middle;
+  color: #082032;
+  background: linear-gradient(140deg, #ffcf77, #ffc244 52%, #ffd77f);
 }
 
 .profile-card p {
@@ -181,6 +265,21 @@ body {
 .profile-summary ul {
   margin: 0.38rem 0 0;
   padding-left: 1rem;
+}
+
+.cv-link {
+  display: inline-block;
+  margin-top: 0.55rem;
+  color: var(--ink);
+  text-decoration: none;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.32rem 0.58rem;
+  font-size: 0.78rem;
+}
+
+.cv-link:hover {
+  background: rgba(99, 181, 255, 0.14);
 }
 
 .chat-log {

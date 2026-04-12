@@ -202,6 +202,10 @@ body {
   background: linear-gradient(140deg, #ffca7a, #ff8f79 45%, #6ba8ff);
 }
 
+.app-icon[data-app='campus'] .icon-tile {
+  background: linear-gradient(140deg, #86f1d8, #55c8ff 46%, #7e9dff);
+}
+
 .app-icon p {
   margin: 0.45rem 0 0;
   color: var(--ink);

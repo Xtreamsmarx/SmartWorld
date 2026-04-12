@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart World OS Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="login.css" />
+  </head>
+  <body>
+    <main class="auth-shell">
+      <section class="panel hero">
+        <p class="eyebrow">Secure Access</p>
+        <h1>Smart World OS</h1>
+        <p class="lead">Sign in to open the OS desktop, tools, and digital twins. Direct access to the OS is blocked until credentials are valid.</p>
+        <div class="badges">
+          <span class="badge">Digital Twins</span>
+          <span class="badge">Simulation Lab</span>
+          <span class="badge">Local AI Tools</span>
+        </div>
+      </section>
+
+      <section class="panel login" aria-label="OS Login Form">
+        <h2>Login</h2>
+        <p>Enter username and password to continue.</p>
+
+        <form id="loginForm">
+          <label for="username">Username</label>
+          <input id="username" type="text" autocomplete="username" required />
+
+          <label for="password">Password</label>
+          <input id="password" type="password" autocomplete="current-password" required />
+
+          <button type="submit">Open Smart World OS</button>
+          <p class="error" id="errorMsg" aria-live="polite"></p>
+        </form>
+
+        <p class="helper">Default credentials are set in os/auth.js.</p>
+      </section>
+
+      <section class="panel map-portal" aria-label="University and municipal portal map">
+        <header class="map-head">
+          <h2>USA University and Municipal Portal</h2>
+          <p>Select a location on the map. UND is live now. Other locations are ready for future OS instances.</p>
+        </header>
+
+        <div class="portal-layout">
+          <section class="usa-map" id="usaMap">
+            <iframe
+              id="googleMapFrame"
+              title="Google Map USA"
+              src="https://www.google.com/maps?q=47.9222,-97.0736&z=15&output=embed"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+            <div class="map-tint" aria-hidden="true"></div>
+          </section>
+
+          <section class="location-list" id="locationList"></section>
+        </div>
+
+        <div class="selection-row">
+          <p class="selection-note" id="selectionNote">Selected portal: University of North Dakota (UND) | Status: Live</p>
+          <a class="map-open" id="openMapBtn" href="https://www.google.com/maps?q=University+of+North+Dakota&z=14" target="_blank" rel="noopener noreferrer">Open In Google Maps</a>
+        </div>
+        <p class="selection-note">Select locations from the list for exact address-based map targeting.</p>
+      </section>
+    </main>
+
+    <script src="auth.js"></script>
+    <script src="login.js"></script>
+  </body>
+</html>
