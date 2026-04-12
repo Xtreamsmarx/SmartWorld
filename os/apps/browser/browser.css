@@ -2,6 +2,7 @@
 
 body {
 	margin: 0;
+	font-size: 14px;
 	font-family: "Space Grotesk", "Segoe UI", sans-serif;
 	color: #edf5ff;
 	background: radial-gradient(circle at 80% 14%, #1b4f85, transparent 35%),

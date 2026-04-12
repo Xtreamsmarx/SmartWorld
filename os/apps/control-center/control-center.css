@@ -18,6 +18,7 @@
 html, body {
   height: 100%;
   overflow: hidden;
+  font-size: 14px;
   font-family: "Space Grotesk", "Segoe UI", sans-serif;
   color: var(--ink);
   background: var(--bg);

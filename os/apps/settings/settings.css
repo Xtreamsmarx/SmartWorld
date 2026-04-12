@@ -2,6 +2,7 @@
 
 body {
 	margin: 0;
+	font-size: 14px;
 	font-family: "Space Grotesk", "Segoe UI", sans-serif;
 	color: #edf4ff;
 	background: linear-gradient(135deg, #121336, #1b1150 48%, #0e3654);

@@ -21,6 +21,7 @@ body {
 
 body {
   font-family: "Space Grotesk", sans-serif;
+  font-size: 14px;
   color: var(--ink);
   background: radial-gradient(circle at 16% 18%, #315dc4 0%, transparent 32%),
     radial-gradient(circle at 84% 14%, #17918f 0%, transparent 30%),
@@ -34,7 +35,7 @@ body {
   left: 0;
   right: 0;
   top: 0;
-  height: 52px;
+  height: 46px;
   display: flex;
   align-items: center;
   gap: 0.7rem;
@@ -70,7 +71,7 @@ body {
 
 .desktop {
   position: fixed;
-  inset: 52px 0 58px 0;
+  inset: 46px 0 50px 0;
 }
 
 .desktop-video {
@@ -103,7 +104,7 @@ body {
 
 .app-icon {
   position: absolute;
-  width: 96px;
+  width: 86px;
   text-align: center;
   cursor: grab;
   user-select: none;
@@ -117,8 +118,8 @@ body {
 }
 
 .icon-tile {
-  width: 64px;
-  height: 64px;
+  width: 56px;
+  height: 56px;
   margin: 0 auto;
   border-radius: 16px;
   display: grid;
@@ -132,7 +133,7 @@ body {
 }
 
 .icon-tile i {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .app-icon[data-app='explorer'] .icon-tile {
@@ -174,7 +175,7 @@ body {
 .app-icon p {
   margin: 0.45rem 0 0;
   color: var(--ink);
-  font-size: 0.85rem;
+  font-size: 0.78rem;
   text-shadow: 0 3px 10px rgba(0, 0, 0, 0.45);
 }
 
@@ -196,7 +197,7 @@ body {
   position: absolute;
   right: 14px;
   top: 18px;
-  width: 230px;
+  width: 205px;
   display: flex;
   flex-direction: column;
   gap: 0.7rem;
@@ -236,10 +237,10 @@ body {
 
 .app-window {
   position: absolute;
-  left: 240px;
-  top: 74px;
-  width: min(900px, calc(100vw - 280px));
-  height: min(560px, calc(100vh - 180px));
+  left: 220px;
+  top: 64px;
+  width: min(940px, calc(100vw - 245px));
+  height: min(610px, calc(100vh - 135px));
   min-width: 360px;
   min-height: 240px;
   border-radius: 16px;
@@ -265,7 +266,7 @@ body {
 }
 
 .window-bar {
-  height: 44px;
+  height: 38px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -299,7 +300,7 @@ body {
 
 .app-window iframe {
   width: 100%;
-  height: calc(100% - 44px);
+  height: calc(100% - 38px);
   border: none;
   background: #0b1733;
 }
@@ -310,7 +311,7 @@ body {
 }
 
 .resize-e {
-  top: 44px;
+  top: 38px;
   right: 0;
   width: 10px;
   height: calc(100% - 54px);
@@ -339,7 +340,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  height: 58px;
+  height: 50px;
   display: flex;
   justify-content: space-between;
   align-items: center;
