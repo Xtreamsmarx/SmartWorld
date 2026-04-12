@@ -1,0 +1,303 @@
+:root {
+  --bg: #091126;
+  --bg2: #101932;
+  --bg3: #162341;
+  --ink: #edf5ff;
+  --muted: #99afd1;
+  --teal: #59eed0;
+  --orange: #ff9c47;
+  --pink: #ff6cbc;
+  --border: rgba(255, 255, 255, 0.14);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 18% 12%, rgba(89, 238, 208, 0.18), transparent 28%),
+    radial-gradient(circle at 82% 18%, rgba(255, 108, 188, 0.18), transparent 26%),
+    linear-gradient(145deg, #081126, #0e1730 48%, #152748);
+}
+
+.window {
+  width: min(1260px, 96vw);
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: stretch;
+  margin-bottom: 0.9rem;
+}
+
+.eyebrow {
+  margin: 0 0 0.35rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+
+.hero h1 {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.lead {
+  margin: 0.45rem 0 0;
+  max-width: 56ch;
+  color: var(--muted);
+}
+
+.wallet-card,
+.stat-card,
+.sell-card,
+.owned-card,
+.market-item {
+  border: 1px solid var(--border);
+  background: rgba(15, 25, 48, 0.82);
+  border-radius: 18px;
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.28);
+}
+
+.wallet-card {
+  min-width: 220px;
+  padding: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.3rem;
+}
+
+.wallet-label,
+.panel-hint,
+.status,
+.field label,
+.stat-card span {
+  color: var(--muted);
+}
+
+.wallet-card strong,
+.stat-card strong {
+  font-family: "Sora", sans-serif;
+  font-size: 1.3rem;
+}
+
+.pill-btn,
+.action-btn,
+.buy-btn {
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: inherit;
+}
+
+.pill-btn,
+.action-btn {
+  padding: 0.66rem 0.95rem;
+  background: linear-gradient(135deg, var(--teal), #8ff6e8);
+  color: #072333;
+}
+
+.toolbar {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr;
+  gap: 0.65rem;
+  margin-bottom: 0.9rem;
+}
+
+.toolbar input,
+.toolbar select,
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(8, 16, 34, 0.86);
+  color: var(--ink);
+  padding: 0.75rem 0.85rem;
+  font-family: inherit;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7rem;
+  margin-bottom: 0.9rem;
+}
+
+.stat-card {
+  padding: 0.85rem 1rem;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.7fr 0.95fr;
+  gap: 0.9rem;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+}
+
+.panel-head.compact h2,
+.panel-head h2 {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+  font-size: 1rem;
+}
+
+.market-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 0.8rem;
+}
+
+.market-item {
+  padding: 0.95rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.agent-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+
+.agent-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.agent-price {
+  font-family: "Sora", sans-serif;
+  color: var(--orange);
+}
+
+.badge-row {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(89, 238, 208, 0.26);
+  background: rgba(89, 238, 208, 0.08);
+  border-radius: 999px;
+  padding: 0.18rem 0.5rem;
+  font-size: 0.72rem;
+  color: var(--teal);
+}
+
+.agent-meta,
+.agent-desc {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.86rem;
+}
+
+.buy-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: auto;
+}
+
+.buy-btn {
+  padding: 0.6rem 0.85rem;
+  background: linear-gradient(135deg, #ffd06d, var(--orange));
+  color: #241200;
+}
+
+.buy-btn[disabled] {
+  opacity: 0.55;
+  cursor: default;
+}
+
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.sell-card,
+.owned-card {
+  padding: 0.95rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.7rem;
+}
+
+.field.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+}
+
+.status {
+  margin: 0.7rem 0 0;
+  font-size: 0.82rem;
+}
+
+.owned-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.owned-item {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.7rem;
+  background: rgba(9, 17, 36, 0.74);
+}
+
+.owned-item h3 {
+  margin: 0 0 0.2rem;
+  font-size: 0.92rem;
+}
+
+.empty-state {
+  padding: 1rem;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  border-radius: 16px;
+  color: var(--muted);
+  text-align: center;
+}
+
+@media (max-width: 980px) {
+  .layout,
+  .hero,
+  .stats-row,
+  .toolbar {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .hero {
+    display: grid;
+  }
+}

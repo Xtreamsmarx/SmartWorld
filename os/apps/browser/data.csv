@@ -1,0 +1,5 @@
+id,label,path,group,active
+1,Home,../../home/home.html,bookmark,true
+2,Learning Paths,../../learning-paths/learning-paths.html,bookmark,true
+3,Twin Lab,../../digital-twin-lab/digital-twin-lab.html,bookmark,true
+4,UND Entry,../../und.html,bookmark,true

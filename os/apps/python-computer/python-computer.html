@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Python Computer</title>
+    <link rel="stylesheet" href="python-computer.css" />
+  </head>
+  <body>
+    <main class="window">
+      <header class="head">
+        <div>
+          <h1>Python Computer</h1>
+          <p>Write, run, and inspect Python scripts in the UND workspace.</p>
+        </div>
+        <a href="../../os.html">Back to Desktop</a>
+      </header>
+
+      <section class="layout">
+
+        <!-- Left: editor + controls -->
+        <article class="col editor-col">
+          <div class="panel">
+            <header class="panel-head">
+              <h2>Script Editor</h2>
+              <div class="toolbar">
+                <button id="runBtn" type="button" class="btn-run">&#9654; Run</button>
+                <button id="clearEditorBtn" type="button">Clear</button>
+                <button id="loadSampleBtn" type="button">Sample</button>
+              </div>
+            </header>
+            <textarea id="scriptEditor" rows="14" spellcheck="false">
+# Python Computer — UND OS
+# Write Python here and click Run.
+
+import math
+
+radius = 7
+area = math.pi * radius ** 2
+print(f"Circle area for radius {radius}: {area:.4f}")
+
+data = [10, 42, 7, 95, 33]
+print(f"Max: {max(data)}, Min: {min(data)}, Sum: {sum(data)}")
+</textarea>
+          </div>
+
+          <div class="panel output-panel">
+            <header class="panel-head">
+              <h2>Output</h2>
+              <button id="clearOutputBtn" type="button">Clear</button>
+            </header>
+            <pre id="outputArea"></pre>
+          </div>
+        </article>
+
+        <!-- Right: inspector + system info -->
+        <aside class="col inspector-col">
+          <div class="panel">
+            <h2>Variable Inspector</h2>
+            <table id="varTable">
+              <thead>
+                <tr><th>Name</th><th>Value</th></tr>
+              </thead>
+              <tbody id="varBody"></tbody>
+            </table>
+          </div>
+
+          <div class="panel">
+            <h2>System Info</h2>
+            <ul id="sysInfo" class="info-list"></ul>
+          </div>
+
+          <div class="panel">
+            <h2>Run Script in Terminal</h2>
+            <p class="hint">To execute against a real Python interpreter:</p>
+            <pre>python os\apps\python-computer\python_computer.py</pre>
+            <p class="hint">Or launch an interactive session:</p>
+            <pre>python -i os\apps\python-computer\python_computer.py</pre>
+          </div>
+        </aside>
+
+      </section>
+    </main>
+
+    <script src="python-computer.js"></script>
+  </body>
+</html>

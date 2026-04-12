@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart World | Agent Market</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="agent-market.css" />
+  </head>
+  <body>
+    <main class="window">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Smart World Marketplace</p>
+          <h1>Agent Market</h1>
+          <p class="lead">Buy, sell, and publish AI agents for tutoring, research, operations, and creative work.</p>
+        </div>
+        <div class="wallet-card">
+          <span class="wallet-label">Wallet</span>
+          <strong id="walletBalance">0 credits</strong>
+          <button type="button" id="fundWalletBtn" class="pill-btn">+ Add 500</button>
+        </div>
+      </header>
+
+      <section class="toolbar">
+        <input id="searchInput" type="text" placeholder="Search agents, tags, or creators..." />
+        <select id="categoryFilter">
+          <option value="all">All categories</option>
+          <option value="education">Education</option>
+          <option value="research">Research</option>
+          <option value="operations">Operations</option>
+          <option value="creative">Creative</option>
+          <option value="productivity">Productivity</option>
+        </select>
+        <select id="priceFilter">
+          <option value="all">All prices</option>
+          <option value="free">Free</option>
+          <option value="paid">Paid</option>
+          <option value="premium">Premium 300+</option>
+        </select>
+      </section>
+
+      <section class="stats-row">
+        <article class="stat-card">
+          <span>Market Volume</span>
+          <strong id="marketVolume">0 credits</strong>
+        </article>
+        <article class="stat-card">
+          <span>Published Agents</span>
+          <strong id="marketCount">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Owned Agents</span>
+          <strong id="ownedCount">0</strong>
+        </article>
+      </section>
+
+      <section class="layout">
+        <section class="market-panel">
+          <div class="panel-head">
+            <h2>Marketplace Listings</h2>
+            <span class="panel-hint">Local demo marketplace backed by your browser storage.</span>
+          </div>
+          <div id="marketGrid" class="market-grid"></div>
+        </section>
+
+        <aside class="side-panel">
+          <section class="sell-card">
+            <div class="panel-head compact">
+              <h2>Sell An Agent</h2>
+            </div>
+            <div class="field">
+              <label for="sellName">Agent Name</label>
+              <input id="sellName" type="text" placeholder="Physics Tutor Pro" />
+            </div>
+            <div class="field split">
+              <div>
+                <label for="sellCategory">Category</label>
+                <select id="sellCategory">
+                  <option value="education">Education</option>
+                  <option value="research">Research</option>
+                  <option value="operations">Operations</option>
+                  <option value="creative">Creative</option>
+                  <option value="productivity">Productivity</option>
+                </select>
+              </div>
+              <div>
+                <label for="sellPrice">Price</label>
+                <input id="sellPrice" type="number" min="0" value="150" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="sellCreator">Seller Name</label>
+              <input id="sellCreator" type="text" placeholder="Your studio or name" />
+            </div>
+            <div class="field">
+              <label for="sellTags">Tags</label>
+              <input id="sellTags" type="text" placeholder="python, tutoring, grading" />
+            </div>
+            <div class="field">
+              <label for="sellDescription">Description</label>
+              <textarea id="sellDescription" rows="4" placeholder="What makes this agent worth buying?"></textarea>
+            </div>
+            <button type="button" id="publishAgentBtn" class="action-btn">Publish Listing</button>
+            <p class="status" id="sellStatus">Publish your agent to make it available instantly in this market.</p>
+          </section>
+
+          <section class="owned-card">
+            <div class="panel-head compact">
+              <h2>My Agents</h2>
+            </div>
+            <div id="ownedAgents" class="owned-list"></div>
+          </section>
+        </aside>
+      </section>
+    </main>
+
+    <script src="agent-market.js"></script>
+  </body>
+</html>

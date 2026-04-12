@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart World | Control Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="control-center.css" />
+  </head>
+  <body>
+
+    <!-- ── Top bar ───────────────────────────────────────────────── -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <span class="logo">⚡ Smart World OS</span>
+        <span class="status-dot"></span>
+        <span class="status-text">System Active</span>
+      </div>
+      <div class="topbar-right">
+        <span id="liveClock">--:--</span>
+        <span class="version">• Control Center v2.0</span>
+        <a class="back-link" href="../../os.html">✕ Desktop</a>
+      </div>
+    </header>
+
+    <div class="shell">
+
+      <!-- ── Left sidebar ──────────────────────────────────────────── -->
+      <nav class="sidebar" id="sidebar">
+
+        <section class="nav-group">
+          <div class="nav-label">⚡ PATHWAYS</div>
+          <button class="nav-item active" data-panel="dashboard">
+            <span class="nav-dot teal"></span>Dashboard
+          </button>
+          <button class="nav-item" data-panel="courses">
+            <span class="nav-icon">🎓</span>Courses
+          </button>
+          <button class="nav-item" data-panel="roles">
+            <span class="nav-icon">👤</span>Roles &amp; Career
+          </button>
+          <button class="nav-item" data-panel="simulations">
+            <span class="nav-icon">▲</span>Simulations
+          </button>
+          <button class="nav-item" data-panel="agents">
+            <span class="nav-icon">🤖</span>AI Agents
+          </button>
+        </section>
+
+        <section class="nav-group">
+          <div class="nav-label">▲ LABS</div>
+          <button class="nav-item" data-panel="ailab">
+            <span class="nav-icon">▲</span>AI Lab
+          </button>
+          <button class="nav-item" data-panel="mentor">
+            <span class="nav-icon">🧑‍🏫</span>Mentor Studio
+          </button>
+          <button class="nav-item" data-panel="coteach">
+            <span class="nav-icon">🤝</span>Co-Teaching
+          </button>
+          <button class="nav-item" data-panel="studentlab">
+            <span class="nav-icon">▲</span>Student Lab
+          </button>
+          <button class="nav-item" data-panel="teacherlab">
+            <span class="nav-icon">✦</span>Teacher Lab
+          </button>
+        </section>
+
+        <section class="nav-group">
+          <div class="nav-label">⚙ COMMUNITY</div>
+          <button class="nav-item" data-panel="gallery">
+            <span class="nav-icon">🖼</span>Gallery
+          </button>
+          <button class="nav-item" data-panel="blog">
+            <span class="nav-icon">📰</span>Blog &amp; News
+          </button>
+          <button class="nav-item" data-panel="world3d">
+            <span class="nav-icon">🌐</span>3D World
+          </button>
+        </section>
+
+      </nav>
+
+      <!-- ── Center content ────────────────────────────────────────── -->
+      <main class="content" id="mainContent">
+
+        <!-- Dashboard (default visible) -->
+        <section class="panel-view active" id="view-dashboard">
+
+          <div class="command-bar-wrap">
+            <div class="command-bar">
+              <span class="cmd-icon">⌘</span>
+              <input id="commandInput" type="text" placeholder="Ask what you want to build... (teacher, code, ai, 3d, research...)" />
+            </div>
+            <p class="cmd-hint">💡 Type keywords to navigate, search topics, or ask UND anything</p>
+            <div class="cmd-grid" id="cmdGrid">
+              <button class="cmd-chip" data-panel="courses">🎓 Courses</button>
+              <button class="cmd-chip" data-panel="ailab">🤖 AI Lab</button>
+              <button class="cmd-chip" data-panel="simulations">▲ Simulations</button>
+              <button class="cmd-chip" data-panel="agents">🧠 AI Models</button>
+              <button class="cmd-chip" data-panel="world3d">🌐 3D World</button>
+              <button class="cmd-chip" data-panel="agents">✨ Prompting</button>
+              <button class="cmd-chip" data-panel="roles">🔍 Research</button>
+              <button class="cmd-chip" data-panel="gallery">🖼 Gallery</button>
+            </div>
+          </div>
+
+          <h2 class="section-title">🚀 Featured Pathways</h2>
+          <div class="card-grid">
+            <article class="card" data-panel="courses">
+              <h3>Build AI Fluency</h3>
+              <p>From fundamentals to advanced AI application and prompt engineering.</p>
+            </article>
+            <article class="card" data-panel="roles">
+              <h3>Career Acceleration</h3>
+              <p>Explore roles, build portfolios, and connect with opportunities.</p>
+            </article>
+            <article class="card" data-panel="simulations">
+              <h3>Hands-On Simulations</h3>
+              <p>Learn by doing with AI-powered interactive environments.</p>
+            </article>
+            <article class="card" data-panel="coteach">
+              <h3>Co-Teaching Lab</h3>
+              <p>Collaborate with AI mentors and human instructors in real-time.</p>
+            </article>
+          </div>
+
+          <h2 class="section-title">⚡ How This Works</h2>
+          <div class="card-grid">
+            <article class="card step">
+              <div class="step-num">1</div>
+              <h3>Ask the System</h3>
+              <p>Use the command palette above to search what you want to learn or build.</p>
+            </article>
+            <article class="card step">
+              <div class="step-num">2</div>
+              <h3>Smart Navigation</h3>
+              <p>UND routes you to the right course, lab, or resource instantly.</p>
+            </article>
+            <article class="card step">
+              <div class="step-num">3</div>
+              <h3>Learn Deeply</h3>
+              <p>Dive into interactive labs, simulations, and mentored projects.</p>
+            </article>
+            <article class="card step">
+              <div class="step-num">4</div>
+              <h3>Build Real Skills</h3>
+              <p>Create portfolio-worthy work and connect with career opportunities.</p>
+            </article>
+          </div>
+
+        </section>
+
+        <!-- ═══ COURSES ═══ -->
+        <section class="panel-view" id="view-courses">
+          <div class="pv-head">
+            <div>
+              <h2>🎓 Courses</h2>
+              <p class="pv-sub">Learn anything — for students, teachers, organizations, and AI systems.</p>
+            </div>
+            <button class="btn-primary">+ Enroll in a Course</button>
+          </div>
+
+          <div class="tab-row" id="coursesTabs">
+            <button class="tab active" data-tab="all">All</button>
+            <button class="tab" data-tab="student">Student</button>
+            <button class="tab" data-tab="teacher">Teacher</button>
+            <button class="tab" data-tab="ai">AI / Tech</button>
+            <button class="tab" data-tab="facility">Facility</button>
+          </div>
+
+          <div class="card-grid" id="coursesGrid"></div>
+        </section>
+
+        <!-- ═══ ROLES & CAREER ═══ -->
+        <section class="panel-view" id="view-roles">
+          <div class="pv-head">
+            <div>
+              <h2>👤 Roles &amp; Career</h2>
+              <p class="pv-sub">Explore role simulations, build a profile, and connect with opportunities.</p>
+            </div>
+            <button class="btn-primary">+ Build My Profile</button>
+          </div>
+          <div class="card-grid" id="rolesGrid"></div>
+        </section>
+
+        <!-- ═══ SIMULATIONS ═══ -->
+        <section class="panel-view" id="view-simulations">
+          <div class="pv-head">
+            <div>
+              <h2>▲ Simulations</h2>
+              <p class="pv-sub">Learn by doing — AI-powered interactive environments for every skill level.</p>
+            </div>
+            <button class="btn-primary">+ Launch Simulation</button>
+          </div>
+          <div class="card-grid" id="simGrid"></div>
+        </section>
+
+        <!-- ═══ AI AGENTS ═══ -->
+        <section class="panel-view" id="view-agents">
+          <div class="pv-head">
+            <div>
+              <h2>🤖 AI Agents</h2>
+              <p class="pv-sub">Deploy pre-built agents, build your own, or buy and sell agents in the UND marketplace.</p>
+            </div>
+            <button class="btn-primary btn-glow" id="openAgentMarketBtn" type="button">🛍 Open Agent Market</button>
+          </div>
+
+          <h3 class="sub-title">Market Spotlight</h3>
+          <div class="card-grid" id="marketSpotlightGrid"></div>
+
+          <h3 class="sub-title">Pre-Built Agents</h3>
+          <div class="card-grid" id="agentsGrid"></div>
+
+          <h3 class="sub-title" style="margin-top:1.2rem">🔧 Agent Builder</h3>
+          <div class="agent-builder" id="agentBuilder">
+            <div class="builder-field">
+              <label>Agent Name</label>
+              <input type="text" id="agentName" placeholder="e.g. Math Tutor Bot" />
+            </div>
+            <div class="builder-field">
+              <label>Role</label>
+              <select id="agentRole">
+                <option>Teacher</option>
+                <option>Tutor</option>
+                <option>Researcher</option>
+                <option>Coach</option>
+                <option>Assistant</option>
+                <option>Evaluator</option>
+                <option>Content Creator</option>
+              </select>
+            </div>
+            <div class="builder-field">
+              <label>Subject / Domain</label>
+              <input type="text" id="agentDomain" placeholder="e.g. Physics, Marketing, History" />
+            </div>
+            <div class="builder-field full">
+              <label>Instructions / Prompt</label>
+              <textarea id="agentPrompt" rows="3" placeholder="Describe what this agent should do..."></textarea>
+            </div>
+            <button class="btn-primary btn-glow" id="createAgentBtn" type="button">Create Agent</button>
+            <div class="agent-result" id="agentResult"></div>
+          </div>
+        </section>
+
+        <!-- ═══ AI LAB ═══ -->
+        <section class="panel-view" id="view-ailab">
+          <div class="pv-head">
+            <div>
+              <h2>▲ AI Lab</h2>
+              <p class="pv-sub">Experiment with models, embeddings, data pipelines, and prompt chains.</p>
+            </div>
+            <button class="btn-primary">+ New Experiment</button>
+          </div>
+          <div class="card-grid" id="ailabGrid"></div>
+        </section>
+
+        <!-- ═══ MENTOR STUDIO ═══ -->
+        <section class="panel-view" id="view-mentor">
+          <div class="pv-head">
+            <div>
+              <h2>🧑‍🏫 Mentor Studio</h2>
+              <p class="pv-sub">Connect with AI mentors and human experts for guided sessions.</p>
+            </div>
+            <button class="btn-primary">+ Book a Session</button>
+          </div>
+          <div class="card-grid" id="mentorGrid"></div>
+        </section>
+
+        <!-- ═══ CO-TEACHING ═══ -->
+        <section class="panel-view" id="view-coteach">
+          <div class="pv-head">
+            <div>
+              <h2>🤝 Co-Teaching</h2>
+              <p class="pv-sub">AI and human instructors working together in the same classroom, in real-time.</p>
+            </div>
+            <button class="btn-primary">+ Start Session</button>
+          </div>
+          <div class="card-grid" id="coteachGrid"></div>
+        </section>
+
+        <!-- ═══ STUDENT LAB ═══ -->
+        <section class="panel-view" id="view-studentlab">
+          <div class="pv-head">
+            <div>
+              <h2>▲ Student Lab</h2>
+              <p class="pv-sub">Your personal workspace — experiments, notes, projects, and achievements.</p>
+            </div>
+            <button class="btn-primary">+ New Project</button>
+          </div>
+          <div class="card-grid" id="studentGrid"></div>
+        </section>
+
+        <!-- ═══ TEACHER LAB ═══ -->
+        <section class="panel-view" id="view-teacherlab">
+          <div class="pv-head">
+            <div>
+              <h2>✦ Teacher Lab</h2>
+              <p class="pv-sub">Design lesson plans, AI companions, assessments, and full class workflows.</p>
+            </div>
+            <button class="btn-primary">+ Create Lesson</button>
+          </div>
+          <div class="card-grid" id="teacherGrid"></div>
+        </section>
+
+        <!-- ═══ GALLERY ═══ -->
+        <section class="panel-view" id="view-gallery">
+          <div class="pv-head">
+            <div>
+              <h2>🖼 Gallery</h2>
+              <p class="pv-sub">Browse community projects, AI art, simulations, and published work.</p>
+            </div>
+            <button class="btn-primary">+ Share Work</button>
+          </div>
+          <div class="card-grid" id="galleryGrid"></div>
+        </section>
+
+        <!-- ═══ BLOG & NEWS ═══ -->
+        <section class="panel-view" id="view-blog">
+          <div class="pv-head">
+            <div>
+              <h2>📰 Blog &amp; News</h2>
+              <p class="pv-sub">Latest updates, research highlights, and UND announcements.</p>
+            </div>
+            <button class="btn-primary">+ Write a Post</button>
+          </div>
+          <div class="card-grid" id="blogGrid"></div>
+        </section>
+
+        <!-- ═══ 3D WORLD ═══ -->
+        <section class="panel-view" id="view-world3d">
+          <div class="pv-head">
+            <div>
+              <h2>🌐 3D World</h2>
+              <p class="pv-sub">Enter the interactive 3D learning space — explore nodes, twin environments, and more.</p>
+            </div>
+            <button class="btn-primary" onclick="window.parent.location='../../../home/home.html'">↗ Open 3D World</button>
+          </div>
+          <div class="card-grid" id="world3dGrid"></div>
+        
+          </div>
+
+          <div class="card-grid" id="coursesGrid"></div>
+        </section>
+
+        <!-- ═══ ROLES & CAREER ═══ -->
+        <section class="panel-view" id="view-roles">
+          <div class="pv-head">
+            <div>
+              <h2>👤 Roles &amp; Career</h2>
+              <p class="pv-sub">Explore role simulations, build a profile, and connect with opportunities.</p>
+            </div>
+            <button class="btn-primary">+ Build My Profile</button>
+          </div>
+          <div class="card-grid" id="rolesGrid"></div>
+        </section>
+
+        <!-- ═══ SIMULATIONS ═══ -->
+        <section class="panel-view" id="view-simulations">
+          <div class="pv-head">
+            <div>
+              <h2>▲ Simulations</h2>
+              <p class="pv-sub">Learn by doing — AI-powered interactive environments for every skill level.</p>
+            </div>
+            <button class="btn-primary">+ Launch Simulation</button>
+          </div>
+          <div class="card-grid" id="simGrid"></div>
+        </section>
+
+        <!-- ═══ AI AGENTS ═══ -->
+        <section class="panel-view" id="view-agents">
+          <div class="pv-head">
+            <div>
+              <h2>🤖 AI Agents</h2>
+              <p class="pv-sub">Deploy pre-built agents or build your own for teaching, learning, and research.</p>
+            </div>
+            <button class="btn-primary btn-glow">⚡ Build an Agent</button>
+          </div>
+
+          <h3 class="sub-title">Pre-Built Agents</h3>
+          <div class="card-grid" id="agentsGrid"></div>
+
+          <h3 class="sub-title" style="margin-top:1.2rem">🔧 Agent Builder</h3>
+          <div class="agent-builder" id="agentBuilder">
+            <div class="builder-field">
+              <label>Agent Name</label>
+              <input type="text" id="agentName" placeholder="e.g. Math Tutor Bot" />
+            </div>
+            <div class="builder-field">
+              <label>Role</label>
+              <select id="agentRole">
+                <option>Teacher</option>
+                <option>Tutor</option>
+                <option>Researcher</option>
+                <option>Coach</option>
+                <option>Assistant</option>
+                <option>Evaluator</option>
+                <option>Content Creator</option>
+              </select>
+            </div>
+            <div class="builder-field">
+              <label>Subject / Domain</label>
+              <input type="text" id="agentDomain" placeholder="e.g. Physics, Marketing, History" />
+            </div>
+            <div class="builder-field full">
+              <label>Instructions / Prompt</label>
+              <textarea id="agentPrompt" rows="3" placeholder="Describe what this agent should do..."></textarea>
+            </div>
+            <button class="btn-primary btn-glow" id="createAgentBtn" type="button">Create Agent</button>
+            <div class="agent-result" id="agentResult"></div>
+          </div>
+        </section>
+
+        <!-- ═══ AI LAB ═══ -->
+        <section class="panel-view" id="view-ailab">
+          <div class="pv-head">
+            <div>
+              <h2>▲ AI Lab</h2>
+              <p class="pv-sub">Experiment with models, embeddings, data pipelines, and prompt chains.</p>
+            </div>
+            <button class="btn-primary">+ New Experiment</button>
+          </div>
+          <div class="card-grid" id="ailabGrid"></div>
+        </section>
+
+        <!-- ═══ MENTOR STUDIO ═══ -->
+        <section class="panel-view" id="view-mentor">
+          <div class="pv-head">
+            <div>
+              <h2>🧑‍🏫 Mentor Studio</h2>
+              <p class="pv-sub">Connect with AI mentors and human experts for guided sessions.</p>
+            </div>
+            <button class="btn-primary">+ Book a Session</button>
+          </div>
+          <div class="card-grid" id="mentorGrid"></div>
+        </section>
+
+        <!-- ═══ CO-TEACHING ═══ -->
+        <section class="panel-view" id="view-coteach">
+          <div class="pv-head">
+            <div>
+              <h2>🤝 Co-Teaching</h2>
+              <p class="pv-sub">AI and human instructors working together in the same classroom, in real-time.</p>
+            </div>
+            <button class="btn-primary">+ Start Session</button>
+          </div>
+          <div class="card-grid" id="coteachGrid"></div>
+        </section>
+
+        <!-- ═══ STUDENT LAB ═══ -->
+        <section class="panel-view" id="view-studentlab">
+          <div class="pv-head">
+            <div>
+              <h2>▲ Student Lab</h2>
+              <p class="pv-sub">Your personal workspace — experiments, notes, projects, and achievements.</p>
+            </div>
+            <button class="btn-primary">+ New Project</button>
+          </div>
+          <div class="card-grid" id="studentGrid"></div>
+        </section>
+
+        <!-- ═══ TEACHER LAB ═══ -->
+        <section class="panel-view" id="view-teacherlab">
+          <div class="pv-head">
+            <div>
+              <h2>✦ Teacher Lab</h2>
+              <p class="pv-sub">Design lesson plans, AI companions, assessments, and full class workflows.</p>
+            </div>
+            <button class="btn-primary">+ Create Lesson</button>
+          </div>
+          <div class="card-grid" id="teacherGrid"></div>
+        </section>
+
+        <!-- ═══ GALLERY ═══ -->
+        <section class="panel-view" id="view-gallery">
+          <div class="pv-head">
+            <div>
+              <h2>🖼 Gallery</h2>
+              <p class="pv-sub">Browse community projects, AI art, simulations, and published work.</p>
+            </div>
+            <button class="btn-primary">+ Share Work</button>
+          </div>
+          <div class="card-grid" id="galleryGrid"></div>
+        </section>
+
+        <!-- ═══ BLOG & NEWS ═══ -->
+        <section class="panel-view" id="view-blog">
+          <div class="pv-head">
+            <div>
+              <h2>📰 Blog &amp; News</h2>
+              <p class="pv-sub">Latest updates, research highlights, and UND announcements.</p>
+            </div>
+            <button class="btn-primary">+ Write a Post</button>
+          </div>
+          <div class="card-grid" id="blogGrid"></div>
+        </section>
+
+        <!-- ═══ 3D WORLD ═══ -->
+        <section class="panel-view" id="view-world3d">
+          <div class="pv-head">
+            <div>
+              <h2>🌐 3D World</h2>
+              <p class="pv-sub">Enter the interactive 3D learning space — explore nodes, twin environments, and more.</p>
+            </div>
+            <button class="btn-primary" onclick="window.parent.location='../../../home/home.html'">↗ Open 3D World</button>
+          </div>
+          <div class="card-grid" id="world3dGrid"></div>
+        </section>
+
+      </main>
+
+      <!-- ── Right panel ────────────────────────────────────────────── -->
+      <aside class="right-panel">
+
+        <section class="rp-block">
+          <h3 class="rp-title teal">🔗 Smart Research</h3>
+          <ul class="rp-list">
+            <li><button class="rp-item" data-panel="roles">📄 Research Methods</button></li>
+            <li><button class="rp-item" data-panel="ailab">🎯 AI-Assisted Analysis</button></li>
+            <li><button class="rp-item" data-panel="agents">📊 Data Visualization</button></li>
+            <li><button class="rp-item" data-panel="ailab">🔗 Source Integration</button></li>
+            <li><button class="rp-item" data-panel="mentor">✍ Writing Support</button></li>
+          </ul>
+        </section>
+
+        <section class="rp-block">
+          <h3 class="rp-title orange">🎮 Quick Start</h3>
+          <ul class="rp-list">
+            <li><button class="rp-item" data-panel="courses">→ First time? Start with AI Foundations</button></li>
+            <li><button class="rp-item" data-panel="mentor">→ Need help? Visit the Support desk</button></li>
+            <li><button class="rp-item" data-panel="roles">→ Check your progress in Profile</button></li>
+          </ul>
+        </section>
+
+        <section class="rp-block welcome">
+          <h3 class="rp-title teal">Welcome to UND OS</h3>
+          <p>This is a next-generation learning environment powered by AI. Use the command bar to navigate, explore labs through the sidebar, and check research tools on the right.</p>
+          <p class="uptime" id="uptimeText">System uptime: 99.9% • Last update: Today</p>
+        </section>
+
+      </aside>
+
+    </div><!-- .shell -->
+
+    <script src="control-center.js"></script>
+  </body>
+</html>

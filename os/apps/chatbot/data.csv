@@ -1,0 +1,5 @@
+id,intent,keywords,response_topic,enabled
+1,learning,"path|learn|course",Learning,true
+2,twin,"twin|lab|digital",Twin,true
+3,home,"home|gateway|entry",Navigation,true
+4,widgets,"widget|clock|toolbar",OS Tips,true

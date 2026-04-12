@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UND Settings</title>
+    <link rel="stylesheet" href="settings.css" />
+  </head>
+  <body>
+    <main class="window">
+      <header class="head">
+        <div>
+          <h1>UND Settings</h1>
+          <p>Personalize the desktop and app behavior.</p>
+        </div>
+        <a href="../../os.html">Back to Desktop</a>
+      </header>
+
+      <section class="grid">
+        <article class="panel">
+          <h2>Appearance</h2>
+          <label>Accent Color
+            <input id="accentColor" type="color" value="#00d6c7" />
+          </label>
+          <label>Desktop Glow
+            <input id="glowStrength" type="range" min="10" max="100" value="65" />
+          </label>
+          <label>Motion Effects
+            <input id="motionToggle" type="checkbox" checked />
+          </label>
+        </article>
+
+        <article class="panel">
+          <h2>System</h2>
+          <label>Auto-open last app
+            <input id="autoOpen" type="checkbox" />
+          </label>
+          <label>Taskbar compact mode
+            <input id="taskCompact" type="checkbox" />
+          </label>
+          <label>Clock format
+            <select id="clockMode">
+              <option value="12h">12h</option>
+              <option value="24h">24h</option>
+            </select>
+          </label>
+        </article>
+
+        <aside class="panel summary">
+          <h2>Live Summary</h2>
+          <p id="summaryText">No changes yet.</p>
+          <button id="saveBtn" type="button">Save Preferences</button>
+          <p class="saved" id="saveState"></p>
+        </aside>
+      </section>
+    </main>
+    <script src="settings.js"></script>
+  </body>
+</html>

@@ -1,0 +1,5 @@
+id,command,category,enabled,description
+1,help,system,true,List available commands
+2,ls,filesystem,true,Show workspace folders
+3,status,system,true,Show OS runtime status
+4,open learning,navigation,true,Hint route for learning paths

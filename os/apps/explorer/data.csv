@@ -1,0 +1,5 @@
+id,name,type,status,notes
+1,home.html,html,active,Main gateway page
+2,learning-paths.html,html,active,Learning navigation
+3,digital-twin-lab.html,html,active,Twin workflows
+4,os.html,html,active,Desktop shell

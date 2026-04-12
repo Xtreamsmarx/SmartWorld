@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UND Explorer</title>
+    <link rel="stylesheet" href="explorer.css" />
+  </head>
+  <body>
+    <main class="window">
+      <header class="window-head">
+        <div>
+          <h1>UND Explorer</h1>
+          <p>Browse project spaces, pages, and activity.</p>
+        </div>
+        <a class="back" href="../../os.html">Back to Desktop</a>
+      </header>
+
+      <section class="toolbar">
+        <input id="fileSearch" type="search" placeholder="Search files, folders, or tags" />
+        <button id="sortBtn" type="button">Sort: Name</button>
+        <button id="refreshBtn" type="button">Refresh</button>
+      </section>
+
+      <section class="grid">
+        <aside class="panel side">
+          <h2>Folders</h2>
+          <ul id="folderList" class="list"></ul>
+        </aside>
+
+        <article class="panel files">
+          <h2>Files</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Updated</th>
+                <th>Size</th>
+              </tr>
+            </thead>
+            <tbody id="fileRows"></tbody>
+          </table>
+        </article>
+
+        <aside class="panel insights">
+          <h2>Insights</h2>
+          <p><strong id="itemCount">0</strong> items visible</p>
+          <p><strong id="largestFile">-</strong> largest file</p>
+          <p><strong id="activeFolder">All</strong> active folder</p>
+          <div class="log" id="actionLog"></div>
+        </aside>
+      </section>
+    </main>
+    <script src="explorer.js"></script>
+  </body>
+</html>

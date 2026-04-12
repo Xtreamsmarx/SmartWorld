@@ -1,0 +1,145 @@
+* { box-sizing: border-box; }
+
+body {
+	margin: 0;
+	font-family: "Space Grotesk", "Segoe UI", sans-serif;
+	color: #e9f2ff;
+	background: linear-gradient(145deg, #0b1230, #112a52);
+}
+
+.window {
+	width: min(1120px, 96vw);
+	margin: 1rem auto;
+	border-radius: 16px;
+	background: rgba(4, 12, 30, 0.72);
+	border: 1px solid rgba(255, 255, 255, 0.24);
+	padding: 1rem;
+}
+
+.window-head {
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+	gap: 1rem;
+}
+
+.window-head h1 {
+	margin: 0;
+	font-size: 1.4rem;
+}
+
+.window-head p {
+	margin: 0.25rem 0 0;
+	color: #bdd2f5;
+}
+
+.back {
+	color: #0a1c2c;
+	background: linear-gradient(130deg, #8dfde4, #6bd0ff);
+	text-decoration: none;
+	padding: 0.5rem 0.9rem;
+	border-radius: 10px;
+	font-weight: 700;
+}
+
+.toolbar {
+	margin-top: 0.9rem;
+	display: flex;
+	gap: 0.55rem;
+}
+
+.toolbar input,
+.toolbar button {
+	border: 1px solid rgba(255, 255, 255, 0.24);
+	border-radius: 10px;
+	background: rgba(9, 20, 48, 0.8);
+	color: #eaf2ff;
+	padding: 0.55rem 0.7rem;
+}
+
+.toolbar input {
+	flex: 1;
+}
+
+.toolbar button {
+	cursor: pointer;
+}
+
+.grid {
+	margin-top: 0.9rem;
+	display: grid;
+	grid-template-columns: 230px 1fr 260px;
+	gap: 0.8rem;
+}
+
+.panel {
+	border: 1px solid rgba(255, 255, 255, 0.24);
+	border-radius: 12px;
+	background: rgba(9, 20, 50, 0.7);
+	padding: 0.7rem;
+}
+
+.panel h2 {
+	margin: 0 0 0.6rem;
+	font-size: 1rem;
+}
+
+.list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+}
+
+.list button {
+	width: 100%;
+	text-align: left;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 8px;
+	padding: 0.45rem 0.55rem;
+	color: #e8f2ff;
+	background: rgba(255, 255, 255, 0.05);
+	cursor: pointer;
+}
+
+.list button.active {
+	background: rgba(91, 183, 255, 0.4);
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th,
+td {
+	text-align: left;
+	padding: 0.42rem;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+th {
+	color: #a7c2ef;
+	font-weight: 600;
+}
+
+.log {
+	margin-top: 0.7rem;
+	border-radius: 8px;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	background: rgba(6, 14, 36, 0.7);
+	padding: 0.5rem;
+	min-height: 120px;
+	max-height: 220px;
+	overflow: auto;
+	color: #b7d8ff;
+	font-size: 0.88rem;
+}
+
+@media (max-width: 980px) {
+	.grid {
+		grid-template-columns: 1fr;
+	}
+}

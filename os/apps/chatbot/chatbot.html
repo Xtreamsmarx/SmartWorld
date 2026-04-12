@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UND Chatbot</title>
+    <link rel="stylesheet" href="chatbot.css" />
+  </head>
+  <body>
+    <main class="window">
+      <header class="head">
+        <div>
+          <h1>UND Chatbot</h1>
+          <p>AI coding assistant with free model options for real Python help.</p>
+        </div>
+        <a href="../../os.html">Back to Desktop</a>
+      </header>
+
+      <section class="llm-config">
+        <div class="field-row">
+          <label for="providerSelect">Provider</label>
+          <select id="providerSelect">
+            <option value="ollama">Ollama (Local Free)</option>
+            <option value="openrouter">OpenRouter (Free Models)</option>
+          </select>
+        </div>
+        <div class="field-row">
+          <label for="modelInput">Model</label>
+          <input id="modelInput" type="text" placeholder="llama3.2:3b or mistralai/mistral-7b-instruct:free" />
+        </div>
+        <div class="field-row">
+          <label for="apiKeyInput">API Key (for OpenRouter)</label>
+          <input id="apiKeyInput" type="password" placeholder="Leave empty for local Ollama" />
+        </div>
+        <div class="field-row grow">
+          <label for="systemPrompt">Assistant Behavior</label>
+          <textarea id="systemPrompt" rows="2">You are an UND coding assistant. Prioritize working code, clear debugging steps, and Python-first help.</textarea>
+        </div>
+        <button type="button" id="saveConfigBtn" class="save-btn">Save AI Settings</button>
+        <button type="button" id="testConfigBtn" class="save-btn">Test LLM Connection</button>
+        <p class="config-note" id="configNote">Tip: Ollama needs a local model running. OpenRouter needs a free API key.</p>
+        <p class="config-note" id="llmStatus">LLM status: Not tested</p>
+      </section>
+
+      <section class="preset-row" id="presetRow">
+        <button type="button" class="preset-btn" data-preset="python">Python Tutor</button>
+        <button type="button" class="preset-btn" data-preset="debug">Debugger</button>
+        <button type="button" class="preset-btn" data-preset="architect">Architect</button>
+        <button type="button" class="preset-btn" data-preset="review">Code Reviewer</button>
+      </section>
+
+      <section class="workspace-tools">
+        <div class="workspace-head">
+          <h2>Workspace Mode</h2>
+          <div class="workspace-actions">
+            <button type="button" id="connectWorkspaceBtn" class="save-btn">Connect Folder</button>
+            <button type="button" id="uploadFilesBtn" class="save-btn">Upload Files</button>
+            <button type="button" id="downloadDraftBtn" class="save-btn">Download Draft</button>
+          </div>
+        </div>
+        <p class="workspace-note" id="workspaceStatus">Not connected. Connect a folder to let the assistant read files and draft updates.</p>
+        <input id="uploadFilesInput" type="file" multiple hidden />
+        <div class="workspace-grid">
+          <div class="field-row">
+            <label for="fileSelect">File</label>
+            <select id="fileSelect"></select>
+          </div>
+          <div class="field-row">
+            <label for="modeSelect">Mode</label>
+            <select id="modeSelect">
+              <option value="chat">Chat only</option>
+              <option value="read" selected>Read selected file context</option>
+              <option value="readwrite">Read and write selected file</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-row grow">
+          <label for="fileDraft">Draft Update (auto-filled in write mode)</label>
+          <textarea id="fileDraft" rows="6" placeholder="When mode is readwrite, the assistant can place updated file content here. Click Apply Draft to save."></textarea>
+        </div>
+        <button type="button" id="applyDraftBtn" class="save-btn">Apply Draft to File</button>
+      </section>
+
+      <section class="chips">
+        <button type="button" class="chip" data-msg="Write a Python script that reads CSV and prints average score.">CSV Python</button>
+        <button type="button" class="chip" data-msg="Fix this Python error: TypeError unsupported operand type(s).">Debug Error</button>
+        <button type="button" class="chip" data-msg="How do I build a mini Flask API?">Flask API</button>
+        <button type="button" class="chip" data-msg="Show os tips">OS Tips</button>
+      </section>
+
+      <section class="chat-shell" id="chatShell">
+        <p class="msg bot">Hello. I am your UND AI coding assistant. Ask me Python, debugging, architecture, or OS workflow questions.</p>
+      </section>
+
+      <form id="chatForm" class="chat-form">
+        <input id="chatInput" type="text" placeholder="Type a question..." autocomplete="off" />
+        <button type="submit">Send</button>
+      </form>
+
+      <section class="meta" id="chatMeta">Messages: 1 | Topic: General</section>
+
+    </main>
+    <script src="chatbot.js"></script>
+  </body>
+</html>

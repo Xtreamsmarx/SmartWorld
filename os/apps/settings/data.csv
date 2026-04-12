@@ -1,0 +1,5 @@
+id,key,value,scope,updated
+1,accentColor,#00d6c7,appearance,2026-04-12
+2,glowStrength,65,appearance,2026-04-12
+3,motionEffects,true,system,2026-04-12
+4,clockFormat,12h,system,2026-04-12

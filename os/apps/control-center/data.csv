@@ -1,0 +1,14 @@
+id,panel,label,type,active
+1,dashboard,Dashboard,nav,true
+2,courses,Courses,nav,true
+3,roles,Roles & Career,nav,true
+4,simulations,Simulations,nav,true
+5,agents,AI Agents,nav,true
+6,ailab,AI Lab,lab,true
+7,mentor,Mentor Studio,lab,true
+8,coteach,Co-Teaching,lab,true
+9,studentlab,Student Lab,lab,true
+10,teacherlab,Teacher Lab,lab,true
+11,gallery,Gallery,community,true
+12,blog,Blog & News,community,true
+13,world3d,3D World,community,true

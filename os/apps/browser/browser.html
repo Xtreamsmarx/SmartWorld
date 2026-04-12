@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UND Browser</title>
+    <link rel="stylesheet" href="browser.css" />
+  </head>
+  <body>
+    <main class="window">
+      <header class="head">
+        <h1>UND Browser</h1>
+        <a href="../../os.html">Back to Desktop</a>
+      </header>
+
+      <form id="browserForm" class="address-row">
+        <input id="addressInput" type="text" value="../../home/home.html" />
+        <button type="submit">Open</button>
+      </form>
+
+      <section class="bookmarks">
+        <button type="button" class="bookmark" data-path="../../home/home.html">Home</button>
+        <button type="button" class="bookmark" data-path="../../learning-paths/learning-paths.html">Learning Paths</button>
+        <button type="button" class="bookmark" data-path="../../digital-twin-lab/digital-twin-lab.html">Twin Lab</button>
+        <button type="button" class="bookmark" data-path="../../und.html">UND Entry</button>
+      </section>
+
+      <section class="layout">
+        <article class="panel preview">
+          <h2>Live Preview</h2>
+          <iframe id="browserFrame" title="Browser preview"></iframe>
+        </article>
+        <aside class="panel history">
+          <h2>History</h2>
+          <ul id="historyList"></ul>
+        </aside>
+      </section>
+    </main>
+    <script src="browser.js"></script>
+  </body>
+</html>

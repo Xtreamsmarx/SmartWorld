@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UND Terminal</title>
+    <link rel="stylesheet" href="terminal.css" />
+  </head>
+  <body>
+    <main class="window">
+      <header class="head">
+        <div>
+          <h1>UND Terminal</h1>
+          <p>Run workspace-like commands and inspect OS context.</p>
+        </div>
+        <a href="../../os.html">Back to Desktop</a>
+      </header>
+
+      <section class="terminal" id="terminalOutput"></section>
+
+      <form id="cmdForm" class="cmd-form">
+        <span class="prompt">und@os:~$</span>
+        <input id="cmdInput" type="text" autocomplete="off" placeholder="Type command: help, ls, status, clear" />
+        <button type="submit">Run</button>
+      </form>
+
+      <section class="chips">
+        <button type="button" class="chip" data-cmd="help">help</button>
+        <button type="button" class="chip" data-cmd="ls">ls</button>
+        <button type="button" class="chip" data-cmd="status">status</button>
+        <button type="button" class="chip" data-cmd="open learning">open learning</button>
+      </section>
+
+      <section class="stats" id="termStats"></section>
+    </main>
+    <script src="terminal.js"></script>
+  </body>
+</html>

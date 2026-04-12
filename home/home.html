@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart World</title>
+    <meta
+      name="description"
+      content="Smart World is an interactive website for learning, digital twins, campus tools, and AI-powered exploration."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <body>
+    <div class="cursor-glow" aria-hidden="true"></div>
+    <div class="color-ribbon" aria-hidden="true"></div>
+    <div class="bg-orb orb-one"></div>
+    <div class="bg-orb orb-two"></div>
+    <div class="bg-orb orb-three"></div>
+    <div class="grid-overlay"></div>
+
+    <header class="site-header reveal" data-delay="0.05">
+      <a class="brand" href="../und.html">Smart World</a>
+      <nav>
+        <a href="../learning-paths/learning-paths.html">Paths</a>
+        <a href="../digital-twin-lab/digital-twin-lab.html">Twin Lab</a>
+        <a href="../os/os.html">OS</a>
+        <a href="#start">Start</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="start">
+        <p class="eyebrow reveal" data-delay="0.1">Smart World Website</p>
+        <h1 class="reveal" data-delay="0.18">Learn smarter. Build together. Stay human.</h1>
+        <p class="lead reveal" data-delay="0.26">
+          A practical learning platform where people and AI co-pilot each step,
+          from first concepts to real-world projects.
+        </p>
+
+        <div class="three-stage reveal" data-delay="0.3" aria-label="Interactive 3D links">
+          <p class="three-loading">Loading 3D world...</p>
+        </div>
+        <p class="three-hint reveal" data-delay="0.32">Drag the globe to rotate it. Dot names move with the globe so you can identify each point before clicking.</p>
+
+        <section class="twin-console reveal" data-delay="0.33" aria-label="Digital twin smart search">
+          <div class="console-top">
+            <h2>Talk To The 3D Digital Twin</h2>
+            <span class="status-pill">Online</span>
+          </div>
+          <div class="chat-log" id="chatLog" aria-live="polite">
+            <p class="chat-msg bot">I am your world twin. Ask things like "open learning paths" or "open the twin lab point".</p>
+          </div>
+          <form class="chat-form" id="chatForm">
+            <input id="chatInput" type="text" placeholder="Ask the twin to search links..." autocomplete="off" />
+            <button type="submit" class="btn btn-primary">Ask Twin</button>
+          </form>
+          <div class="quick-prompts">
+            <button type="button" class="prompt-chip" data-prompt="open learning paths">Learning Paths</button>
+            <button type="button" class="prompt-chip" data-prompt="open twin lab">Open Twin Lab</button>
+            <button type="button" class="prompt-chip" data-prompt="show world overview">World Overview</button>
+          </div>
+        </section>
+
+        <div class="hero-cta reveal" data-delay="0.34">
+          <a class="btn btn-primary" href="../learning-paths/learning-paths.html">Explore Learning Paths</a>
+          <a class="btn btn-secondary" href="../digital-twin-lab/digital-twin-lab.html">Open Twin Lab</a>
+          <a class="btn btn-secondary" href="../os/os.html">Launch UND OS</a>
+        </div>
+
+        <div class="stats" id="paths">
+          <article class="stat-card reveal tilt-card" data-delay="0.38">
+            <h2>40+</h2>
+            <p>Guided tracks blending mentor prompts with AI coaching.</p>
+          </article>
+          <article class="stat-card reveal tilt-card" data-delay="0.46">
+            <h2>3x</h2>
+            <p>Faster skill transfer through iterative human + AI feedback loops.</p>
+          </article>
+          <article class="stat-card reveal tilt-card" data-delay="0.54">
+            <h2>92%</h2>
+            <p>Learners report stronger confidence shipping final projects.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="feature-band" id="why">
+        <article class="feature reveal tilt-card" data-delay="0.12">
+          <h3>Conversation-First Learning</h3>
+          <p>
+            Ask, test, and refine ideas in a live studio designed for deep understanding,
+            not passive content consumption.
+          </p>
+        </article>
+        <article class="feature reveal tilt-card" data-delay="0.2">
+          <h3>Adaptive Challenge Engine</h3>
+          <p>
+            AI adjusts difficulty and examples based on your context while preserving
+            instructor-defined outcomes.
+          </p>
+        </article>
+        <article class="feature reveal tilt-card" data-delay="0.28">
+          <h3>Human Checkpoints</h3>
+          <p>
+            Every milestone includes mentor review so quality, ethics, and critical
+            thinking remain central.
+          </p>
+        </article>
+      </section>
+    </main>
+
+    <footer class="site-footer reveal" data-delay="0.1">
+      <p>Designed for teams, schools, and self-learners.</p>
+      <a href="#start">Back to top</a>
+    </footer>
+
+    <script src="../vendor/three.min.js"></script>
+    <script>
+      if (!window.THREE) {
+        document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\\/script>');
+      }
+    </script>
+    <script src="home.js"></script>
+  </body>
+</html>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart World OS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="os.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="start-pill">Smart World</div>
+      <input class="os-search" type="text" placeholder="Search apps" />
+      <div class="topbar-right">
+        <span id="topClock">--:--:--</span>
+      </div>
+    </header>
+
+    <main class="desktop" id="desktop">
+      <video class="desktop-video" autoplay muted loop playsinline>
+        <source src="https://cdn.pixabay.com/video/2016/09/15/5219-183028097_large.mp4" type="video/mp4" />
+      </video>
+      <div class="desktop-video-overlay"></div>
+      <div class="desktop-glow"></div>
+
+      <article class="app-icon" data-app="explorer" data-target="./apps/explorer/explorer.html" style="left: 30px; top: 28px;">
+        <div class="icon-tile"><i class="bi bi-folder2-open"></i></div>
+        <p>Explorer</p>
+      </article>
+
+      <article class="app-icon" data-app="terminal" data-target="./apps/terminal/terminal.html" style="left: 30px; top: 150px;">
+        <div class="icon-tile"><i class="bi bi-terminal"></i></div>
+        <p>Terminal</p>
+      </article>
+
+      <article class="app-icon" data-app="settings" data-target="./apps/settings/settings.html" style="left: 30px; top: 272px;">
+        <div class="icon-tile"><i class="bi bi-sliders"></i></div>
+        <p>Settings</p>
+      </article>
+
+      <article class="app-icon" data-app="browser" data-target="./apps/browser/browser.html" style="left: 30px; top: 394px;">
+        <div class="icon-tile"><i class="bi bi-globe2"></i></div>
+        <p>Web Browser</p>
+      </article>
+
+      <article class="app-icon" data-app="home" data-target="../und.html" style="left: 160px; top: 28px;">
+        <div class="icon-tile"><i class="bi bi-house-door"></i></div>
+        <p>Smart World</p>
+      </article>
+
+      <article class="app-icon" data-app="chatbot" data-target="./apps/chatbot/chatbot.html" style="left: 160px; top: 150px;">
+        <div class="icon-tile"><i class="bi bi-robot"></i></div>
+        <p>Chatbot</p>
+      </article>
+
+      <article class="app-icon" data-app="python" data-target="./apps/python-computer/python-computer.html" style="left: 160px; top: 272px;">
+        <div class="icon-tile"><i class="bi bi-filetype-py"></i></div>
+        <p>Python Comp</p>
+      </article>
+
+      <article class="app-icon" data-app="control" data-target="./apps/control-center/control-center.html" style="left: 160px; top: 394px;">
+        <div class="icon-tile"><i class="bi bi-grid-1x2"></i></div>
+        <p>Control Center</p>
+      </article>
+
+      <article class="app-icon" data-app="market" data-target="./apps/agent-market/agent-market.html" style="left: 290px; top: 28px;">
+        <div class="icon-tile"><i class="bi bi-shop-window"></i></div>
+        <p>Agent Market</p>
+      </article>
+
+      <section class="app-window hidden" id="appWindow" aria-label="App window">
+        <header class="window-bar" id="windowBar">
+          <p id="windowTitle">App</p>
+          <div class="window-actions">
+            <button id="btnMin" type="button" aria-label="Minimize">_</button>
+            <button id="btnMax" type="button" aria-label="Maximize">[]</button>
+            <button id="btnClose" type="button" aria-label="Close">X</button>
+          </div>
+        </header>
+        <iframe id="appFrame" title="OS App Content"></iframe>
+        <div class="resize-handle resize-e" id="resizeE" aria-hidden="true"></div>
+        <div class="resize-handle resize-s" id="resizeS" aria-hidden="true"></div>
+        <div class="resize-handle resize-se" id="resizeSE" aria-hidden="true"></div>
+      </section>
+
+      <div class="hint">Drag icons and click to open apps inside the OS window.</div>
+
+      <aside class="widget-panel">
+        <article class="widget">
+          <h3>Clock Widget</h3>
+          <p id="widgetClock">--:--:--</p>
+        </article>
+        <article class="widget">
+          <h3>Quick Tools</h3>
+          <button type="button" class="quick-open" data-open="../learning-paths/learning-paths.html" data-title="Learning Paths">Open Paths</button>
+          <button type="button" class="quick-open" data-open="../digital-twin-lab/digital-twin-lab.html" data-title="Twin Lab">Open Twin Lab</button>
+          <button type="button" class="quick-open" data-open="./apps/chatbot/chatbot.html" data-title="Chatbot">Open Chatbot</button>
+          <button type="button" class="quick-open" data-open="./apps/python-computer/python-computer.html" data-title="Python Computer">Open Python Comp</button>
+          <button type="button" class="quick-open" data-open="./apps/control-center/control-center.html" data-title="Control Center">Open Control Center</button>
+          <button type="button" class="quick-open" data-open="./apps/agent-market/agent-market.html" data-title="Agent Market">Open Agent Market</button>
+        </article>
+      </aside>
+    </main>
+
+    <footer class="taskbar">
+      <div class="taskbar-brand">Smart World</div>
+      <div class="taskbar-apps" id="taskbarApps"></div>
+      <a href="../und.html">Back To Gateway</a>
+    </footer>
+
+    <script src="os.js"></script>
+  </body>
+</html>
