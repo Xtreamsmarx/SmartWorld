@@ -40,7 +40,7 @@ const runCommand = (raw) => {
 	if (command === 'help') {
 		appendLine('Commands: help, ls, pwd, status, open learning, open twin, clear', 'out');
 	} else if (command === 'ls') {
-		appendLine('apps(browser chatbot explorer python-calculator settings terminal)  desktop  home  learning-paths  digital-twin-lab  und.html', 'out');
+		appendLine('apps(browser chatbot explorer python-calculator settings terminal)  desktop  home  learning-paths  digital-twin-lab  index.html', 'out');
 	} else if (command === 'pwd') {
 		appendLine('/undv2/os/apps/terminal', 'out');
 	} else if (command === 'status') {
