@@ -37,7 +37,9 @@
           <p class="error" id="errorMsg" aria-live="polite"></p>
         </form>
 
-        <p class="helper">Default credentials are set in os/auth.js.</p>
+        <a class="signup-link" href="./signup.html">Create Full Account (Signup)</a>
+
+        <p class="helper">Users: SmartWorld / Xtream, Super User: XtreamWorld / SuperXtream.</p>
       </section>
 
       <section class="panel map-portal" aria-label="University and municipal portal map">
@@ -71,5 +73,22 @@
 
     <script src="auth.js"></script>
     <script src="login.js"></script>
-  </body>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
 </html>

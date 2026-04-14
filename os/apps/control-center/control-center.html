@@ -106,6 +106,105 @@
             </div>
           </div>
 
+          <section class="super-admin hidden" id="superAdminPanel" aria-label="Super user controls">
+            <div class="super-admin-head">
+              <h3>Super User Control Center</h3>
+              <p>Control app visibility for each location OS.</p>
+            </div>
+            <div class="super-admin-controls">
+              <label for="policyUser">Policy User</label>
+              <select id="policyUser">
+                <option value="__global">Global Default (All Users)</option>
+                <option value="SmartWorld">SmartWorld</option>
+                <option value="XtreamWorld">XtreamWorld</option>
+              </select>
+              <label for="tenantSelect">Location</label>
+              <select id="tenantSelect"></select>
+              <button id="showAllAppsBtn" type="button" class="btn-primary">Show All Apps</button>
+              <button id="openAllUsersBtn" type="button" class="btn-primary">Open For Everyone</button>
+              <button id="exportPolicyBtn" type="button" class="btn-primary">Export JSON</button>
+              <label class="import-label" for="importPolicyInput">Import JSON</label>
+              <input id="importPolicyInput" type="file" accept="application/json" />
+            </div>
+            <div class="super-admin-grid" id="appVisibilityGrid"></div>
+            <p class="super-admin-note" id="superAdminNote"></p>
+            <div class="vault-actions">
+              <button id="exportEntityLogsBtn" type="button" class="btn-primary">Export Selected Entity Logs</button>
+              <button id="exportAllLogsBtn" type="button" class="btn-primary">Export All Entity Logs</button>
+              <span id="vaultStatus"></span>
+            </div>
+
+            <div class="vault-config" aria-label="Vault logging settings">
+              <label>
+                Log Rate
+                <select id="logRateSelect">
+                  <option value="1000">Every 1 second</option>
+                  <option value="2000">Every 2 seconds</option>
+                  <option value="5000">Every 5 seconds</option>
+                  <option value="10000">Every 10 seconds</option>
+                  <option value="30000">Every 30 seconds</option>
+                  <option value="60000">Every 60 seconds</option>
+                </select>
+              </label>
+              <label>
+                Retention (days)
+                <input id="retentionDaysInput" type="number" min="1" max="3650" value="30" />
+              </label>
+              <label class="vault-toggle">
+                <input id="autoSnapshotToggle" type="checkbox" checked />
+                Auto snapshots every hour
+              </label>
+              <button id="saveVaultConfigBtn" type="button" class="btn-primary">Save Log Settings</button>
+              <button id="purgeVaultBtn" type="button" class="btn-primary">Purge Old Logs</button>
+            </div>
+
+            <section class="snapshot-admin" aria-label="Snapshot history">
+              <div class="snapshot-head">
+                <h4>Snapshot History</h4>
+                <div class="snapshot-actions">
+                  <button id="refreshSnapshotsBtn" type="button" class="btn-primary">Refresh</button>
+                  <button id="exportSnapshotSummaryBtn" type="button" class="btn-primary">Export Summary</button>
+                  <button id="clearSnapshotsBtn" type="button" class="btn-primary">Clear All</button>
+                </div>
+              </div>
+              <div class="snapshot-list" id="snapshotList"></div>
+            </section>
+
+            <section class="llm-admin" aria-label="AI gateway settings">
+              <h4>AI Gateway Settings</h4>
+              <p>Set provider and API credentials for Smart Chatbot on all pages.</p>
+              <div class="llm-grid">
+                <label>
+                  Provider
+                  <select id="llmProvider">
+                    <option value="local">Local (No API)</option>
+                    <option value="openai">OpenAI</option>
+                    <option value="openrouter">OpenRouter</option>
+                    <option value="groq">Groq</option>
+                    <option value="custom">Custom (OpenAI-compatible)</option>
+                  </select>
+                </label>
+                <label>
+                  Model
+                  <input id="llmModel" type="text" placeholder="e.g. gpt-4o-mini" />
+                </label>
+                <label class="llm-wide">
+                  Base URL
+                  <input id="llmBaseUrl" type="text" placeholder="https://api.openai.com/v1/chat/completions" />
+                </label>
+                <label class="llm-wide">
+                  API Key
+                  <input id="llmApiKey" type="password" placeholder="Paste API key" />
+                </label>
+              </div>
+              <div class="llm-actions">
+                <button id="saveLlmBtn" type="button" class="btn-primary">Save AI Settings</button>
+                <button id="testLlmBtn" type="button" class="btn-primary">Test Connection</button>
+                <span id="llmStatus"></span>
+              </div>
+            </section>
+          </section>
+
           <h2 class="section-title">🚀 Featured Pathways</h2>
           <div class="card-grid">
             <article class="card" data-panel="courses">
@@ -543,6 +642,24 @@
 
     </div><!-- .shell -->
 
+    <script src="../../auth.js"></script>
     <script src="control-center.js"></script>
-  </body>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
 </html>

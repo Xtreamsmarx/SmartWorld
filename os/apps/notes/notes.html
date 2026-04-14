@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notes</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="notes.css" />
+  </head>
+  <body>
+    <div class="notes-layout">
+      <!-- Sidebar -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <span class="brand">Notes</span>
+          <button class="btn-new" id="btnNew" type="button" title="New note">+</button>
+        </div>
+        <input class="search" id="search" type="text" placeholder="Search notes…" />
+        <ul class="note-list" id="noteList"></ul>
+      </aside>
+
+      <!-- Editor -->
+      <main class="editor-area" id="editorArea">
+        <div class="empty-state" id="emptyState">
+          <p>Select a note or create a new one</p>
+          <button class="btn-new-lg" id="btnNewLg" type="button">+ New Note</button>
+        </div>
+        <div class="editor-pane hidden" id="editorPane">
+          <div class="editor-toolbar">
+            <input class="title-input" id="titleInput" type="text" placeholder="Note title…" />
+            <div class="toolbar-actions">
+              <span class="save-status" id="saveStatus"></span>
+              <button class="btn-delete" id="btnDelete" type="button" title="Delete note">🗑</button>
+            </div>
+          </div>
+          <textarea class="body-input" id="bodyInput" placeholder="Start writing…"></textarea>
+        </div>
+      </main>
+    </div>
+    <script src="notes.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

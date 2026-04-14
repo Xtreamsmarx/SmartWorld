@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Code Studio</title>
+    <link rel="stylesheet" href="code-studio.css" />
+  </head>
+  <body>
+    <main class="ide-shell">
+      <header class="topbar">
+        <div class="brand">UND Code Studio</div>
+        <div class="controls">
+          <select id="languageSelect" aria-label="Language">
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="powershell">PowerShell</option>
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+            <option value="json">JSON</option>
+          </select>
+          <button id="newFileBtn" type="button">New File</button>
+          <button id="sampleBtn" type="button">Sample</button>
+          <button id="bridgeCheckBtn" type="button">Check Bridge</button>
+          <button id="bridgeCopyBtn" type="button">Copy Bridge Cmd</button>
+          <button id="runBtn" type="button" class="run">Run Exact</button>
+          <a href="../../os.html">Back to Desktop</a>
+        </div>
+      </header>
+
+      <section class="layout">
+        <aside class="explorer panel">
+          <div class="panel-head">
+            <h2>Explorer</h2>
+          </div>
+          <div id="fileList" class="file-list"></div>
+        </aside>
+
+        <section class="editor-area panel">
+          <div class="editor-head">
+            <strong id="activeFileName">main.js</strong>
+            <span id="statusText">Ready</span>
+          </div>
+          <div class="editor-wrap">
+            <pre id="lineNumbers" class="line-numbers">1</pre>
+            <textarea id="editor" spellcheck="false"></textarea>
+          </div>
+
+          <div class="bottom-tabs">
+            <button id="tabOutput" class="tab active" type="button">Output</button>
+            <button id="tabPreview" class="tab" type="button">Preview</button>
+          </div>
+          <section id="outputPane" class="pane active">
+            <pre id="output"></pre>
+          </section>
+          <section id="previewPane" class="pane">
+            <iframe id="previewFrame" title="Preview"></iframe>
+          </section>
+        </section>
+
+        <aside class="chat panel">
+          <div class="panel-head">
+            <h2>AI Chat</h2>
+            <span id="chatState">Bridge required</span>
+          </div>
+          <div id="chatFeed" class="chat-feed"></div>
+          <form id="chatForm" class="chat-form">
+            <textarea id="chatInput" rows="3" maxlength="1200" placeholder="Ask about your code..."></textarea>
+            <button type="submit">Send</button>
+          </form>
+        </aside>
+      </section>
+    </main>
+
+    <script src="code-studio.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

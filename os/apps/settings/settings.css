@@ -93,6 +93,59 @@ select {
 	min-height: 1.4em;
 }
 
+.panel-divider {
+	border: none;
+	border-top: 1px solid rgba(255, 255, 255, 0.15);
+	margin: 0.75rem 0 0.5rem;
+}
+
+.panel-sub {
+	margin: 0 0 0.45rem;
+	font-size: 0.87rem;
+	font-weight: 600;
+	color: #9fc4f2;
+}
+
+.label-file {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 0.4rem 0;
+	gap: 0.5rem;
+}
+
+.label-file input[type="file"] {
+	font-size: 0.78rem;
+	color: #c8daf7;
+	cursor: pointer;
+}
+
+.bg-preview {
+	width: 100%;
+	height: 80px;
+	border-radius: 8px;
+	background-size: cover;
+	background-position: center;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	margin: 0.4rem 0;
+	display: none;
+}
+
+.remove-btn {
+	width: 100%;
+	border: 1px solid rgba(255, 100, 100, 0.4);
+	border-radius: 8px;
+	background: rgba(255, 80, 80, 0.1);
+	color: #ffb3b3;
+	padding: 0.38rem 0.6rem;
+	font-size: 0.8rem;
+	cursor: pointer;
+}
+
+.remove-btn:hover {
+	background: rgba(255, 80, 80, 0.28);
+}
+
 @media (max-width: 980px) {
 	.grid {
 		grid-template-columns: 1fr;

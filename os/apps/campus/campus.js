@@ -6,6 +6,8 @@ const kpis = document.querySelector('#kpis');
 const agentStatus = document.querySelector('#agentStatus');
 const toggleSimBtn = document.querySelector('#toggleSimBtn');
 const nextTickBtn = document.querySelector('#nextTickBtn');
+const buildingFilter = document.querySelector('#buildingFilter');
+const simSpeed = document.querySelector('#simSpeed');
 
 const AGENTS = [
   { name: 'Campus Ops Agent', message: 'Balancing room utilization and session continuity.' },
@@ -54,6 +56,7 @@ let running = true;
 let clockMinute = 0;
 let intervalId = null;
 const logs = [];
+let tickIntervalMs = 2600;
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 
@@ -74,6 +77,14 @@ const pushLog = (message) => {
 };
 
 const randomTopic = () => TOPICS[Math.floor(Math.random() * TOPICS.length)];
+
+const getVisibleRooms = () => {
+  const building = buildingFilter ? buildingFilter.value : 'all';
+  if (!building || building === 'all') {
+    return ROOMS;
+  }
+  return ROOMS.filter((room) => room.building === building);
+};
 
 const tickRoom = (room) => {
   const attendeeShift = Math.floor((Math.random() * 17) - 8);
@@ -99,13 +110,14 @@ const tickRoom = (room) => {
 };
 
 const renderKpis = () => {
-  const totalRooms = ROOMS.length;
-  const totalAttendees = ROOMS.reduce((sum, room) => sum + room.attendees, 0);
-  const totalCapacity = ROOMS.reduce((sum, room) => sum + room.capacity, 0);
-  const totalCamera = ROOMS.reduce((sum, room) => sum + room.cameras, 0);
-  const onlineCamera = ROOMS.reduce((sum, room) => sum + room.cameraOnline, 0);
-  const activeSpeeches = ROOMS.filter((room) => room.speaking).length;
-  const utilization = Math.round((totalAttendees / totalCapacity) * 100);
+  const visibleRooms = getVisibleRooms();
+  const totalRooms = visibleRooms.length;
+  const totalAttendees = visibleRooms.reduce((sum, room) => sum + room.attendees, 0);
+  const totalCapacity = visibleRooms.reduce((sum, room) => sum + room.capacity, 0);
+  const totalCamera = visibleRooms.reduce((sum, room) => sum + room.cameras, 0);
+  const onlineCamera = visibleRooms.reduce((sum, room) => sum + room.cameraOnline, 0);
+  const activeSpeeches = visibleRooms.filter((room) => room.speaking).length;
+  const utilization = totalCapacity > 0 ? Math.round((totalAttendees / totalCapacity) * 100) : 0;
 
   kpis.innerHTML = `
     <article class="kpi"><span>Rooms Live</span><strong>${totalRooms}</strong></article>
@@ -116,8 +128,9 @@ const renderKpis = () => {
 };
 
 const renderRoomList = () => {
+  const visibleRooms = getVisibleRooms();
   roomList.innerHTML = '';
-  ROOMS.forEach((room) => {
+  visibleRooms.forEach((room) => {
     const item = document.createElement('article');
     item.className = `room-item ${room.id === selectedRoomId ? 'active' : ''}`;
     item.innerHTML = `
@@ -134,8 +147,9 @@ const renderRoomList = () => {
 };
 
 const renderRoomGrid = () => {
+  const visibleRooms = getVisibleRooms();
   roomGrid.innerHTML = '';
-  ROOMS.forEach((room) => {
+  visibleRooms.forEach((room) => {
     const stateClass = room.alert === 'risk' ? 'state-risk' : room.alert === 'warn' ? 'state-warn' : 'state-ok';
     const cell = document.createElement('article');
     cell.className = `grid-cell ${stateClass}`;
@@ -153,7 +167,12 @@ const renderRoomGrid = () => {
 };
 
 const renderDetail = () => {
-  const room = ROOMS.find((entry) => entry.id === selectedRoomId);
+  const visibleRooms = getVisibleRooms();
+  let room = visibleRooms.find((entry) => entry.id === selectedRoomId);
+  if (!room && visibleRooms[0]) {
+    selectedRoomId = visibleRooms[0].id;
+    room = visibleRooms[0];
+  }
   if (!room) return;
 
   roomDetail.innerHTML = `
@@ -183,13 +202,14 @@ const renderLog = () => {
 };
 
 const renderAgents = () => {
-  const riskRooms = ROOMS.filter((room) => room.alert === 'risk').length;
-  const warnRooms = ROOMS.filter((room) => room.alert === 'warn').length;
-  const speakingRooms = ROOMS.filter((room) => room.speaking).length;
+  const visibleRooms = getVisibleRooms();
+  const riskRooms = visibleRooms.filter((room) => room.alert === 'risk').length;
+  const warnRooms = visibleRooms.filter((room) => room.alert === 'warn').length;
+  const speakingRooms = visibleRooms.filter((room) => room.speaking).length;
 
   const dynamicMessages = [
     `Campus Ops Agent: ${warnRooms + riskRooms} rooms require capacity balancing actions.`,
-    `Vision Guard Agent: ${ROOMS.reduce((s, r) => s + r.cameraOnline, 0)} cameras online across campus spaces.`,
+    `Vision Guard Agent: ${visibleRooms.reduce((s, r) => s + r.cameraOnline, 0)} cameras online across campus spaces.`,
     `Speech Intel Agent: ${speakingRooms} rooms currently running active speeches/lectures.`,
     `Safety Pulse Agent: ${riskRooms} high-priority rooms and ${warnRooms} warning rooms.`
   ];
@@ -228,7 +248,7 @@ const start = () => {
   if (intervalId) clearInterval(intervalId);
   intervalId = setInterval(() => {
     if (running) tick();
-  }, 2600);
+  }, tickIntervalMs);
 };
 
 toggleSimBtn?.addEventListener('click', () => {
@@ -247,6 +267,33 @@ nextTickBtn?.addEventListener('click', () => {
   pushLog('Manual simulation tick executed.');
   renderLog();
 });
+
+if (buildingFilter) {
+  const buildings = Array.from(new Set(ROOMS.map((room) => room.building))).sort();
+  buildings.forEach((name) => {
+    const option = document.createElement('option');
+    option.value = name;
+    option.textContent = name;
+    buildingFilter.appendChild(option);
+  });
+
+  buildingFilter.addEventListener('change', () => {
+    const visibleRooms = getVisibleRooms();
+    if (visibleRooms.length > 0 && !visibleRooms.some((r) => r.id === selectedRoomId)) {
+      selectedRoomId = visibleRooms[0].id;
+    }
+    renderAll();
+  });
+}
+
+if (simSpeed) {
+  simSpeed.addEventListener('change', () => {
+    tickIntervalMs = Number(simSpeed.value || 2600);
+    start();
+    pushLog(`Simulation speed changed to ${tickIntervalMs}ms/tick.`);
+    renderLog();
+  });
+}
 
 pushLog('Campus telemetry initialized with room sensors, camera streams, and speech tracking.');
 renderAll();

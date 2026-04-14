@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GF Water Plant - Water Chat</title>
+    <link rel="stylesheet" href="water-layout.css" />
+  </head>
+  <body>
+    <main class="water-shell">
+      <aside class="side">
+        <div class="logo-dot">GF</div>
+        <nav class="side-nav">
+          <a href="./gf-water-treatment.html">Overview</a>
+          <a href="./digital-twin.html">3D Twin</a>
+          <a href="./process-map.html">Process</a>
+          <a href="./analytics.html">Analytics</a>
+          <a href="./reports.html">Reports</a>
+          <a href="./optimization.html">Optimize</a>
+          <a class="active" href="./water-chat.html">Chat</a>
+        </nav>
+      </aside>
+
+      <section class="main">
+        <header class="topbar" style="background-image: linear-gradient(135deg, rgba(25, 40, 65, 0.94), rgba(15, 25, 45, 0.92)), url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1600&h=200&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed;">
+          <div class="brand">
+            <h1>Water Plant Copilot</h1>
+            <p>Talk directly with the digital water plant</p>
+          </div>
+          <div class="top-info">
+            <span id="chatStatus">Bridge check...</span>
+            <span id="nowTime">--:--:--</span>
+            <a class="back-link" href="../../os.html">Back</a>
+          </div>
+        </header>
+
+        <nav class="tab-strip">
+          <a href="./gf-water-treatment.html">Dashboard</a>
+          <a href="./digital-twin.html">Digital Twin</a>
+          <a href="./process-map.html">2D Layout</a>
+          <a href="./analytics.html">Analytics</a>
+          <a href="./reports.html">Reports</a>
+          <a href="./optimization.html">AI Insights</a>
+          <a class="active" href="./water-chat.html">Water Chat</a>
+        </nav>
+
+        <section class="page chat-layout">
+          <aside class="chat-stack">
+            <article class="panel">
+              <h2>Talk To The Plant</h2>
+              <p class="tiny">Ask about water quality, alarms, root cause, treatment stages, optimization, compliance, or what action operators should take next.</p>
+              <div class="chat-toolbar">
+                <button id="clearChatBtn" type="button">Clear Chat</button>
+                <button id="voiceInputBtn" type="button">Voice Input</button>
+                <button id="voiceOutputBtn" type="button">Voice Output Off</button>
+              </div>
+              <div class="chat-presets">
+                <button class="water-prompt" type="button" data-prompt="What is the biggest operational risk in the plant right now?">Top Risk</button>
+                <button class="water-prompt" type="button" data-prompt="Explain the current turbidity issue in simple terms.">Explain Turbidity</button>
+                <button class="water-prompt" type="button" data-prompt="What should operators do in the next 30 minutes?">Next Actions</button>
+                <button class="water-prompt" type="button" data-prompt="Summarize plant health like an executive dashboard.">Executive Summary</button>
+                <button class="water-prompt" type="button" data-prompt="How does water move through this treatment plant from intake to distribution?">Process Walkthrough</button>
+                <button class="water-prompt" type="button" data-prompt="Explain the latest alerts and which one matters most.">Alerts Summary</button>
+              </div>
+            </article>
+
+            <article class="ai-rail">
+              <h3>Plant Context</h3>
+              <div class="pill-row">
+                <span class="pill critical">Filter 2 anomaly</span>
+                <span class="pill warn">Clarifier drift</span>
+                <span class="pill ok">UV stable</span>
+              </div>
+              <ul class="signal-list">
+                <li><strong>Current Flow</strong><span data-live data-base="18.7" data-amp="0.4" data-unit=" MGD" data-precision="1">18.7 MGD</span></li>
+                <li><strong>Turbidity</strong><span data-live data-base="2.1" data-amp="0.18" data-unit=" NTU" data-precision="2">2.10 NTU</span></li>
+                <li><strong>pH</strong><span data-live data-base="7.24" data-amp="0.05" data-precision="2">7.24</span></li>
+                <li><strong>Recommended Move</strong>Backwash Filter 2 and adjust alum +8%.</li>
+              </ul>
+              <div class="context-grid">
+                <div class="context-card">
+                  <strong>Open Alerts</strong>
+                  Filter 2 turbidity spike, Clarifier 1 sludge drift, Pump P-101 vibration trend.
+                </div>
+                <div class="context-card">
+                  <strong>Assistant Mode</strong>
+                  Operational advisory with compliance-first recommendations.
+                </div>
+              </div>
+            </article>
+          </aside>
+
+          <section class="panel" style="display:grid;grid-template-rows:auto 1fr auto;gap:0.45rem;min-height:0;">
+            <div class="status-line">
+              <span id="chatMeta">Plant mode: operational advisory</span>
+              <span id="modelMeta">Model: qwen2.5-coder:3b</span>
+            </div>
+
+            <div id="chatShell" class="chat-shell" aria-live="polite">
+              <div class="chat-msg assistant">I am the Grand Forks Water Treatment Plant digital assistant. Ask me about process health, alarms, optimization, or what the plant is doing right now.</div>
+            </div>
+
+            <form id="waterChatForm" class="chat-form">
+              <textarea id="waterChatInput" placeholder="Ask the water plant anything..."></textarea>
+              <button class="action-btn" type="submit">Send</button>
+            </form>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="water-layout.js"></script>
+    <script src="water-chat.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

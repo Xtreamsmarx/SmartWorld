@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AIT Transfer Center</title>
+    <link rel="stylesheet" href="ait-transfer.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <p class="kicker">University of North Dakota</p>
+        <h1>Advanced Intelligence Technology (AIT) Transfer Center</h1>
+        <p class="lead">
+          Centralized, model-agnostic AI technology transfer platform for inward, internal, and outward transfer
+          across teaching, research, operations, and institutional systems.
+        </p>
+        <div class="hero-actions">
+          <button id="runReadiness" type="button">Run AI Readiness Scan</button>
+          <button id="simulateTransfer" type="button">Simulate Transfer Cycle</button>
+          <a href="../../os.html">Back to Desktop</a>
+        </div>
+      </header>
+
+      <section class="layout">
+        <article class="panel">
+          <h2>Executive Focus</h2>
+          <ul class="clean-list">
+            <li>Move beyond isolated AI tools to university-wide strategy.</li>
+            <li>Ensure secure validation, lifecycle monitoring, and responsible deployment.</li>
+            <li>Translate AI research into practical, scalable institutional outcomes.</li>
+            <li>Support Moonshot Co.AI leadership through coordinated adoption.</li>
+          </ul>
+        </article>
+
+        <article class="panel">
+          <h2>Transfer Modes</h2>
+          <div class="modes" id="modes"></div>
+        </article>
+
+        <article class="panel wide">
+          <h2>Model-Agnostic AI Gateway</h2>
+          <p class="sub">Every AI model and app flows through one validation and control layer.</p>
+          <div class="gateway-grid" id="gatewayGrid"></div>
+        </article>
+
+        <article class="panel wide">
+          <h2>Three.js AI Transfer Simulator</h2>
+          <p class="sub">
+            Upload a model from left (internal UND) or right (external partner). The gateway validates, evaluates,
+            and shows deployment readiness from real uploaded file metadata.
+          </p>
+          <div class="transfer-layout">
+            <div class="upload-lane">
+              <h3>UND Internal Model Intake</h3>
+              <input id="leftModelInput" type="file" accept=".onnx,.pt,.pth,.bin,.safetensors,.gguf,.json" />
+              <button id="leftUploadBtn" type="button">Inject From Left</button>
+            </div>
+
+            <div class="transfer-visual">
+              <canvas id="transferCanvas" width="980" height="330"></canvas>
+            </div>
+
+            <div class="upload-lane">
+              <h3>External Model Intake</h3>
+              <input id="rightModelInput" type="file" accept=".onnx,.pt,.pth,.bin,.safetensors,.gguf,.json" />
+              <button id="rightUploadBtn" type="button">Inject From Right</button>
+            </div>
+          </div>
+
+          <div class="transfer-meta">
+            <article>
+              <h3>Processing Queue</h3>
+              <div id="jobQueue" class="meta-list"></div>
+            </article>
+            <article>
+              <h3>Stage Log</h3>
+              <div id="processLog" class="meta-list"></div>
+            </article>
+          </div>
+
+          <div class="model-dashboard">
+            <div class="metric"><strong>Model Name</strong><span id="metricModel">None</span></div>
+            <div class="metric"><strong>Source</strong><span id="metricSource">-</span></div>
+            <div class="metric"><strong>File Size</strong><span id="metricSize">-</span></div>
+            <div class="metric"><strong>SHA-256</strong><span id="metricHash">-</span></div>
+            <div class="metric"><strong>Validation Score</strong><span id="metricValidation">-</span></div>
+            <div class="metric"><strong>Risk Score</strong><span id="metricRisk">-</span></div>
+            <div class="metric"><strong>Eval Accuracy</strong><span id="metricAccuracy">-</span></div>
+            <div class="metric"><strong>Latency Estimate</strong><span id="metricLatency">-</span></div>
+            <div class="metric"><strong>Deployment Readiness</strong><span id="metricReadiness">-</span></div>
+            <div class="metric"><strong>Status</strong><span id="metricStatus">Idle</span></div>
+          </div>
+        </article>
+
+        <article class="panel wide">
+          <div class="split-head">
+            <h2>Lifecycle and Compliance Console</h2>
+            <span id="cycleState">Idle</span>
+          </div>
+          <div class="lifecycle" id="lifecycle"></div>
+        </article>
+
+        <article class="panel">
+          <h2>AI Support Team</h2>
+          <div class="support-grid" id="supportGrid"></div>
+        </article>
+
+        <article class="panel">
+          <h2>Institution Readiness Index</h2>
+          <canvas id="readinessCanvas" width="440" height="280"></canvas>
+          <div class="legend" id="readinessLegend"></div>
+        </article>
+
+        <article class="panel wide">
+          <h2>Deployment Pipeline</h2>
+          <div class="pipeline" id="pipeline"></div>
+        </article>
+
+        <article class="panel wide">
+          <h2>Moonshot Co.AI Alignment Board</h2>
+          <div class="alignment" id="alignment"></div>
+        </article>
+      </section>
+    </main>
+
+    <script src="../../../vendor/three.min.js"></script>
+    <script src="ait-transfer.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

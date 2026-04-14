@@ -23,7 +23,10 @@
       </header>
 
       <section class="layout">
-        <aside class="profiles" id="profiles"></aside>
+        <aside class="profiles-wrap">
+          <input id="profileSearch" class="profile-search" type="text" placeholder="Search team profile" />
+          <aside class="profiles" id="profiles"></aside>
+        </aside>
 
         <aside class="agents-panel">
           <header class="agents-head">
@@ -62,5 +65,22 @@
     </main>
 
     <script src="team.js"></script>
-  </body>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
 </html>

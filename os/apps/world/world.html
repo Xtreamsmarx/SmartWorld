@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="world.css" />
+  </head>
+  <body>
+    <main class="world-shell">
+      <aside class="world-panel left-panel">
+        <div class="brand-block">
+          <p class="eyebrow">Smart World 3D</p>
+          <h1>World</h1>
+          <p class="lede">A cinematic Three.js Earth with atmosphere, clouds, light routes, live focus points, and layered world navigation.</p>
+        </div>
+
+        <section class="control-block">
+          <label for="locationSearch">Search city or region</label>
+          <input id="locationSearch" type="text" placeholder="Type Tokyo, Africa, New York..." />
+        </section>
+
+        <section class="control-block">
+          <p class="label">Layers</p>
+          <label class="toggle"><input id="toggleClouds" type="checkbox" checked /> Cloud shell</label>
+          <label class="toggle"><input id="toggleRoutes" type="checkbox" checked /> Global routes</label>
+          <label class="toggle"><input id="toggleBorders" type="checkbox" checked /> Country borders</label>
+          <label class="toggle"><input id="toggleGrid" type="checkbox" checked /> Latitude / longitude grid</label>
+          <label class="toggle"><input id="toggleStars" type="checkbox" checked /> Deep space stars</label>
+          <label class="toggle"><input id="toggleAtmosphere" type="checkbox" checked /> Atmosphere glow</label>
+          <label class="toggle"><input id="toggleNightLights" type="checkbox" checked /> Night lights</label>
+        </section>
+
+        <section class="control-block">
+          <p class="label">Quick Focus</p>
+          <div class="chip-grid">
+            <button class="focus-chip" data-focus="new-york" type="button">New York</button>
+            <button class="focus-chip" data-focus="london" type="button">London</button>
+            <button class="focus-chip" data-focus="dubai" type="button">Dubai</button>
+            <button class="focus-chip" data-focus="tokyo" type="button">Tokyo</button>
+            <button class="focus-chip" data-focus="singapore" type="button">Singapore</button>
+            <button class="focus-chip" data-focus="sydney" type="button">Sydney</button>
+            <button class="focus-chip" data-focus="sao-paulo" type="button">Sao Paulo</button>
+            <button class="focus-chip" data-focus="cape-town" type="button">Cape Town</button>
+          </div>
+        </section>
+
+        <section class="control-block">
+          <p class="label">Selected Place</p>
+          <div id="selectionCard" class="selection-card">
+            <h3>Earth Overview</h3>
+            <p>Click a city marker or use Quick Focus to center the globe on a region.</p>
+          </div>
+        </section>
+      </aside>
+
+      <section class="stage-panel">
+        <header class="stage-toolbar">
+          <span>Drag to orbit, wheel to zoom, click hotspots to focus.</span>
+          <div class="toolbar-actions">
+            <button id="resetCameraBtn" type="button">Reset Camera</button>
+            <button id="cycleViewBtn" type="button">Cycle View</button>
+          </div>
+        </header>
+
+        <section class="stage-wrap">
+          <div id="threeStage" class="three-stage"></div>
+
+          <div class="hud">
+            <div class="hud-card">
+              <span class="hud-label">Mode</span>
+              <strong id="modeLabel">Cinematic Earth</strong>
+            </div>
+            <div class="hud-card">
+              <span class="hud-label">Locations</span>
+              <strong id="locationCount">0</strong>
+            </div>
+            <div class="hud-card">
+              <span class="hud-label">Routes</span>
+              <strong id="routeCount">0</strong>
+            </div>
+            <div class="hud-card">
+              <span class="hud-label">Cloud Speed</span>
+              <strong id="cloudSpeedLabel">1.00x</strong>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      <aside class="world-panel right-panel">
+        <section class="info-block">
+          <h2>World Metrics</h2>
+          <div class="decision-grid">
+            <article class="decision-card">
+              <span>Visual Quality</span>
+              <strong>HDR Style</strong>
+              <p>Multi-layer Earth rendering with clouds, starfield, atmosphere, and route lighting.</p>
+            </article>
+            <article class="decision-card">
+              <span>Interaction</span>
+              <strong>Realtime</strong>
+              <p>Direct manipulation, city focus, dynamic route emphasis, and layered toggles.</p>
+            </article>
+            <article class="decision-card">
+              <span>Scene Engine</span>
+              <strong>Three.js</strong>
+              <p>Custom composition using procedural stars, glow shaders, and animated orbital motion.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="info-block">
+          <h2>Locations</h2>
+          <div id="locationList" class="list tall"></div>
+        </section>
+
+        <section class="info-block">
+          <h2>Scene Notes</h2>
+          <div class="notes-list">
+            <p>Earth texture, bump, specular and night-light layers are pulled from the official Three.js texture set.</p>
+            <p>The atmosphere shell is rendered with a shader for a stronger edge glow than a flat transparent sphere.</p>
+            <p>Country borders are projected from live GeoJSON data so the globe reads closer to a true explorer surface.</p>
+            <p>Routes float above the globe and pulse brighter for the active location.</p>
+          </div>
+        </section>
+      </aside>
+    </main>
+
+    <script src="../../../vendor/three.min.js"></script>
+    <script src="world.js"></script>
+    <script>
+      (function(){
+        if (window.__smartChatLoaderInjected) return;
+        window.__smartChatLoaderInjected = true;
+        var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+        var i = 0;
+        function next(){
+          if (i >= tries.length) return;
+          var s = document.createElement('script');
+          s.src = tries[i++];
+          s.onload = function(){};
+          s.onerror = next;
+          document.head.appendChild(s);
+        }
+        next();
+      })();
+    </script>
+  </body>
+</html>

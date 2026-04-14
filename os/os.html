@@ -20,19 +20,25 @@
         window.location.replace('./login.html');
       }
     </script>
+    <script src="../vendor/three.min.js"></script>
     <link rel="stylesheet" href="os.css" />
   </head>
   <body>
     <header class="topbar">
       <div class="start-pill" id="startPill">Smart World</div>
       <input class="os-search" type="text" placeholder="Search apps" />
+      <button id="aiOrbBtn" class="ai-orb-btn" type="button" aria-haspopup="true" aria-expanded="false" title="AI Tools">
+        <span class="ai-orb-icon" aria-hidden="true">∞</span>
+      </button>
       <div class="topbar-right">
+        <span id="superBadge" class="super-badge hidden">Super User</span>
         <button id="logoutBtn" type="button" title="Logout">Logout</button>
         <span id="topClock">--:--:--</span>
       </div>
     </header>
 
     <main class="desktop" id="desktop">
+      <img id="desktopBgImg" class="desktop-bg-img" alt="" aria-hidden="true" />
       <video class="desktop-video" autoplay muted loop playsinline>
         <source src="https://cdn.pixabay.com/video/2016/09/15/5219-183028097_large.mp4" type="video/mp4" />
       </video>
@@ -86,7 +92,7 @@
 
       <article class="app-icon" data-app="simlab" data-target="./apps/simulation-lab/simulation-lab.html" style="left: 290px; top: 150px;">
         <div class="icon-tile"><i class="bi bi-diagram-3"></i></div>
-        <p>Simulation Lab</p>
+        <p>Smart World Lab</p>
       </article>
 
       <article class="app-icon" data-app="gf-twin" data-target="./apps/grand-forks-twin/grand-forks-twin.html" style="left: 290px; top: 272px;">
@@ -104,6 +110,46 @@
         <p>Campus</p>
       </article>
 
+      <article class="app-icon" data-app="ai-adoption" data-target="./apps/ai-adoption/ai-adoption.html" style="left: 420px; top: 150px;">
+        <div class="icon-tile"><i class="bi bi-diagram-2-fill"></i></div>
+        <p>AI Adoption</p>
+      </article>
+
+      <article class="app-icon" data-app="water-treatment" data-target="./apps/gf-water-treatment/gf-water-treatment.html" style="left: 420px; top: 272px;">
+        <div class="icon-tile"><i class="bi bi-droplet-half"></i></div>
+        <p>GF Water Plant</p>
+      </article>
+
+      <article class="app-icon" data-app="social" data-target="./apps/social-media/social-media.html" style="left: 420px; top: 394px;">
+        <div class="icon-tile"><i class="bi bi-chat-heart-fill"></i></div>
+        <p>Social</p>
+      </article>
+
+      <article class="app-icon" data-app="ait-transfer" data-target="./apps/ait-transfer/ait-transfer.html" style="left: 550px; top: 28px;">
+        <div class="icon-tile"><i class="bi bi-cpu-fill"></i></div>
+        <p>AIT Transfer</p>
+      </article>
+
+      <article class="app-icon" data-app="code-studio" data-target="./apps/code-studio/code-studio.html" style="left: 550px; top: 150px;">
+        <div class="icon-tile"><i class="bi bi-code-slash"></i></div>
+        <p>Code Studio</p>
+      </article>
+
+      <article class="app-icon" data-app="smarket" data-target="./apps/smarket/smarket.html" style="left: 550px; top: 272px;">
+        <div class="icon-tile"><i class="bi bi-bag-check-fill"></i></div>
+        <p>Smarket</p>
+      </article>
+
+      <article class="app-icon" data-app="project-room" data-target="./apps/project-room/project-room.html" style="left: 680px; top: 28px;">
+        <div class="icon-tile"><i class="bi bi-people"></i></div>
+        <p>Project Room</p>
+      </article>
+
+      <article class="app-icon" data-app="world" data-target="./apps/world/world.html" style="left: 680px; top: 150px;">
+        <div class="icon-tile"><i class="bi bi-globe-americas"></i></div>
+        <p>World</p>
+      </article>
+
       <section class="app-window hidden" id="appWindow" aria-label="App window">
         <header class="window-bar" id="windowBar">
           <p id="windowTitle">App</p>
@@ -119,27 +165,70 @@
         <div class="resize-handle resize-se" id="resizeSE" aria-hidden="true"></div>
       </section>
 
-      <div class="hint">Drag icons and click to open apps inside the OS window.</div>
+
 
       <aside class="widget-panel">
-        <article class="widget">
-          <h3>Clock Widget</h3>
-          <p id="widgetClock">--:--:--</p>
+
+        <!-- Clock + Date -->
+        <article class="widget widget-clock-date">
+          <div class="wcd-time" id="widgetClock">--:--:--</div>
+          <div class="wcd-date" id="widgetDate">---</div>
         </article>
-        <article class="widget">
-          <h3>Quick Tools</h3>
+
+        <!-- Globe -->
+        <article class="widget widget-globe">
+          <div class="wg-title">Earth</div>
+          <canvas id="widgetGlobe" width="198" height="198" aria-label="3D rotating Earth"></canvas>
+        </article>
+
+        <!-- Weather -->
+        <article class="widget widget-weather">
+          <div class="ww-header">
+            <span class="ww-icon" id="wWeatherIcon">🌤</span>
+            <div>
+              <div class="ww-temp" id="wWeatherTemp">--°</div>
+              <div class="ww-desc" id="wWeatherDesc">Loading…</div>
+            </div>
+          </div>
+          <div class="ww-location" id="wWeatherLoc">Grand Forks, ND</div>
+        </article>
+
+        <article class="widget widget-quick-tools" id="widgetQuickTools">
+          <button class="qt-toggle" id="qtToggle" type="button" aria-expanded="false" aria-controls="qtList">
+            <span>Quick Tools</span>
+            <span class="qt-chevron" aria-hidden="true">›</span>
+          </button>
+          <div class="qt-list" id="qtList" hidden>
           <button type="button" class="quick-open" data-open="../learning-paths/learning-paths.html" data-title="Learning Paths">Open Paths</button>
           <button type="button" class="quick-open" data-open="../digital-twin-lab/digital-twin-lab.html" data-title="Twin Lab">Open Twin Lab</button>
           <button type="button" class="quick-open" data-open="./apps/chatbot/chatbot.html" data-title="Chatbot">Open Chatbot</button>
           <button type="button" class="quick-open" data-open="./apps/python-computer/python-computer.html" data-title="Python Computer">Open Python Comp</button>
           <button type="button" class="quick-open" data-open="./apps/control-center/control-center.html" data-title="Control Center">Open Control Center</button>
           <button type="button" class="quick-open" data-open="./apps/agent-market/agent-market.html" data-title="Agent Market">Open Agent Market</button>
-          <button type="button" class="quick-open" data-open="./apps/simulation-lab/simulation-lab.html" data-title="Simulation Lab">Open Simulation Lab</button>
+          <button type="button" class="quick-open" data-open="./apps/smarket/smarket.html" data-title="Smarket">Open Smarket</button>
+          <button type="button" class="quick-open" data-open="./apps/simulation-lab/simulation-lab.html" data-title="Smart World Lab">Open Smart World Lab</button>
           <button type="button" class="quick-open" data-open="./apps/grand-forks-twin/grand-forks-twin.html" data-title="Grand Forks Digital Twin">Open GF Twin</button>
           <button type="button" class="quick-open" data-open="../team/team.html" data-title="Team Avatar Hub">Open Team Hub</button>
           <button type="button" class="quick-open" data-open="./apps/campus/campus.html" data-title="Campus Operations">Open Campus</button>
+          <button type="button" class="quick-open" data-open="./apps/ai-adoption/ai-adoption.html" data-title="AI Adoption Map">Open AI Adoption</button>
+          <button type="button" class="quick-open" data-open="./apps/gf-water-treatment/gf-water-treatment.html" data-title="Grand Forks Water Treatment">Open Water Plant</button>
+          <button type="button" class="quick-open" data-open="./apps/social-media/social-media.html" data-title="Smart World Social">Open Social</button>
+          <button type="button" class="quick-open" data-open="./apps/ait-transfer/ait-transfer.html" data-title="AIT Transfer Center">Open AIT Transfer</button>
+          <button type="button" class="quick-open" data-open="./apps/code-studio/code-studio.html" data-title="UND Code Studio">Open Code Studio</button>
+          <button type="button" class="quick-open" data-open="./apps/project-room/project-room.html" data-title="Project Room">Open Project Room</button>
+          <button type="button" class="quick-open" data-open="./apps/world/world.html" data-title="World App">Open World</button>
+          </div>
         </article>
       </aside>
+
+      <div class="icon-menu hidden" id="iconMenu" role="menu" aria-label="App icon menu">
+        <button type="button" data-action="open">Open</button>
+        <button type="button" data-action="reset">Reset Position</button>
+        <button type="button" data-action="hide" class="danger">Hide App</button>
+        <button type="button" data-action="unhide-last" id="unhideLastBtn">Unhide Last Hidden</button>
+      </div>
+
+
     </main>
 
     <footer class="taskbar">
@@ -158,5 +247,22 @@
       });
     </script>
     <script src="os.js"></script>
-  </body>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
 </html>

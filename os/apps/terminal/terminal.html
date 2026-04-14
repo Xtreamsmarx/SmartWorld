@@ -20,6 +20,7 @@
         <span id="bridgeStatus">Bridge: checking...</span>
         <span id="cwdLabel">cwd: loading...</span>
         <button id="startBridgeBtn" type="button">Start Bridge</button>
+        <button id="copyBridgeCmdBtn" type="button">Copy Start Cmd</button>
       </section>
 
       <section class="terminal" id="terminalOutput"></section>
@@ -38,8 +39,30 @@
         <button type="button" class="chip" data-cmd="clear">clear</button>
       </section>
 
+      <section class="history-box">
+        <h2>Recent Commands</h2>
+        <div id="cmdHistory" class="cmd-history"></div>
+      </section>
+
       <section class="stats" id="termStats"></section>
     </main>
     <script src="terminal.js"></script>
-  </body>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
 </html>

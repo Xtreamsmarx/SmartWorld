@@ -157,6 +157,33 @@ button:hover {
   font-size: 0.8rem;
 }
 
+.signup-link {
+  display: inline-block;
+  margin-top: 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.28rem 0.64rem;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 0.82rem;
+}
+
+.signup-link:hover {
+  background: rgba(99, 181, 255, 0.18);
+}
+
+.login-divider {
+  border: 0;
+  border-top: 1px solid var(--line);
+  margin: 0.95rem 0;
+}
+
+.login h3 {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+  font-size: 0.98rem;
+}
+
 .map-portal {
   grid-column: 1 / -1;
   padding: 0.9rem;

@@ -28,6 +28,14 @@
           <label>Motion Effects
             <input id="motionToggle" type="checkbox" checked />
           </label>
+          <hr class="panel-divider" />
+          <h3 class="panel-sub">Desktop Background</h3>
+          <label class="label-file">
+            <span>Upload Photo</span>
+            <input id="bgUpload" type="file" accept="image/*" />
+          </label>
+          <div id="bgPreview" class="bg-preview"></div>
+          <button id="bgRemoveBtn" type="button" class="remove-btn">&#8617; Reset to Video</button>
         </article>
 
         <article class="panel">
@@ -55,5 +63,22 @@
       </section>
     </main>
     <script src="settings.js"></script>
-  </body>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
 </html>

@@ -63,6 +63,22 @@ body {
 .top-actions {
   display: flex;
   gap: 0.45rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.control-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.top-actions select {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.07);
+  color: var(--ink);
+  font: inherit;
+  padding: 0.38rem 0.52rem;
 }
 
 button {

@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Stopwatch & Timer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="stopwatch.css" />
+  </head>
+  <body>
+    <div class="sw-wrap">
+      <header class="sw-header">
+        <span class="brand">Stopwatch & Timer</span>
+      </header>
+
+      <nav class="tabs">
+        <button class="tab active" data-tab="stopwatch">Stopwatch</button>
+        <button class="tab" data-tab="timer">Timer</button>
+        <button class="tab" data-tab="worldclock">World Clock</button>
+      </nav>
+
+      <!-- STOPWATCH -->
+      <section class="panel" id="stopwatch">
+        <div class="big-display" id="swDisplay">00:00:00.000</div>
+        <div class="ring-wrap">
+          <svg class="ring" viewBox="0 0 120 120">
+            <circle class="ring-bg" cx="60" cy="60" r="54"/>
+            <circle class="ring-fill" id="swRing" cx="60" cy="60" r="54" stroke-dasharray="339.29 339.29" stroke-dashoffset="339.29"/>
+          </svg>
+        </div>
+        <div class="btn-row">
+          <button class="ctrl-btn btn-start" id="swStart" type="button">Start</button>
+          <button class="ctrl-btn btn-lap"   id="swLap"   type="button" disabled>Lap</button>
+          <button class="ctrl-btn btn-reset" id="swReset" type="button">Reset</button>
+        </div>
+        <ul class="lap-list" id="lapList"></ul>
+      </section>
+
+      <!-- TIMER -->
+      <section class="panel hidden" id="timer">
+        <div class="timer-set" id="timerSet">
+          <div class="time-picker">
+            <div class="picker-col">
+              <button class="arrow-btn" data-field="h" data-dir="up">▲</button>
+              <span class="picker-val" id="pickH">00</span>
+              <button class="arrow-btn" data-field="h" data-dir="dn">▼</button>
+              <label>hr</label>
+            </div>
+            <div class="picker-sep">:</div>
+            <div class="picker-col">
+              <button class="arrow-btn" data-field="m" data-dir="up">▲</button>
+              <span class="picker-val" id="pickM">05</span>
+              <button class="arrow-btn" data-field="m" data-dir="dn">▼</button>
+              <label>min</label>
+            </div>
+            <div class="picker-sep">:</div>
+            <div class="picker-col">
+              <button class="arrow-btn" data-field="s" data-dir="up">▲</button>
+              <span class="picker-val" id="pickS">00</span>
+              <button class="arrow-btn" data-field="s" data-dir="dn">▼</button>
+              <label>sec</label>
+            </div>
+          </div>
+        </div>
+        <div class="big-display hidden" id="timerDisplay">00:05:00</div>
+        <div class="btn-row" style="margin-top:1rem">
+          <button class="ctrl-btn btn-start" id="tStart" type="button">Start</button>
+          <button class="ctrl-btn btn-reset" id="tReset" type="button">Reset</button>
+        </div>
+        <div class="timer-msg hidden" id="timerMsg">⏰ Time's up!</div>
+      </section>
+
+      <!-- WORLD CLOCK -->
+      <section class="panel hidden" id="worldclock">
+        <div class="wc-grid" id="wcGrid"></div>
+      </section>
+    </div>
+    <script src="stopwatch.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

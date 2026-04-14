@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GF Water Plant - Overview</title>
+    <link rel="stylesheet" href="water-layout.css" />
+  </head>
+  <body>
+    <main class="water-shell">
+      <aside class="side">
+        <div class="logo-dot">GF</div>
+        <nav class="side-nav">
+          <a class="active" href="./gf-water-treatment.html">Overview</a>
+          <a href="./digital-twin.html">3D Twin</a>
+          <a href="./process-map.html">Process</a>
+          <a href="./analytics.html">Analytics</a>
+          <a href="./reports.html">Reports</a>
+          <a href="./optimization.html">Optimize</a>
+          <a href="./water-chat.html">Chat</a>
+        </nav>
+      </aside>
+
+      <section class="main">
+        <header class="topbar" style="background-image: linear-gradient(135deg, rgba(25, 40, 65, 0.94), rgba(15, 25, 45, 0.92)), url('https://images.unsplash.com/photo-1579525821186-c41bbbb9ecca?w=1600&h=200&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed;">
+          <div class="brand">
+            <h1>Grand Forks Water Treatment Plant</h1>
+            <p>Overview command center</p>
+          </div>
+          <div class="top-info">
+            <span>72F Partly Cloudy</span>
+            <span id="nowTime">--:--:--</span>
+            <a class="back-link" href="../../os.html">Back</a>
+          </div>
+        </header>
+
+        <nav class="tab-strip">
+          <a class="active" href="./gf-water-treatment.html">Dashboard</a>
+          <a href="./digital-twin.html">Digital Twin</a>
+          <a href="./process-map.html">2D Layout</a>
+          <a href="./analytics.html">Analytics</a>
+          <a href="./reports.html">Reports</a>
+          <a href="./optimization.html">AI Insights</a>
+          <a href="./water-chat.html">Water Chat</a>
+        </nav>
+
+        <section class="page ops-layout">
+          <section class="ops-main">
+            <section class="grid-2">
+              <article class="panel" style="background-image: linear-gradient(165deg, rgba(16, 32, 55, 0.85), rgba(10, 18, 31, 0.92)), url('https://images.unsplash.com/photo-1527432429160-7a27441cdb1f?w=600&h=400&fit=crop'); background-size: cover; background-position: center; min-height: 320px;">
+                <h2>3D View Snapshot</h2>
+                <div class="hero-twin">
+                  <div class="badge red" style="left: 3%; top: 12%;">
+                    <strong>Filter 2</strong>
+                    <span>Risk 92% | Turbidity high</span>
+                  </div>
+                  <div class="badge yellow" style="left: 32%; top: 42%;">
+                    <strong>Clarifier 1</strong>
+                    <span>Risk 68% | Sludge rise</span>
+                  </div>
+                  <div class="badge green" style="right: 6%; top: 52%;">
+                    <strong>Pump Station</strong>
+                    <span>Risk 48% | Vibration alert</span>
+                  </div>
+                </div>
+              </article>
+
+              <aside class="panel">
+                <h2>Plant Health</h2>
+                <div class="kpi-stack">
+                  <div class="kpi-item"><div><b>Overall Health</b><span data-live data-base="92" data-amp="2" data-precision="0">92</span></div><i class="kpi-dot dot-ok"></i></div>
+                  <div class="kpi-item"><div><b>Flow</b><span data-live data-base="18.7" data-amp="0.4" data-unit=" MGD" data-precision="1">18.7 MGD</span></div><i class="kpi-dot dot-ok"></i></div>
+                  <div class="kpi-item"><div><b>Turbidity</b><span data-live data-base="2.1" data-amp="0.2" data-unit=" NTU" data-precision="2">2.1 NTU</span></div><i class="kpi-dot dot-warn"></i></div>
+                  <div class="kpi-item"><div><b>pH</b><span data-live data-base="7.24" data-amp="0.08" data-precision="2">7.24</span></div><i class="kpi-dot dot-ok"></i></div>
+                  <div class="kpi-item"><div><b>Alerts</b><span>Critical 1 | Warning 3</span></div><i class="kpi-dot dot-danger"></i></div>
+                </div>
+              </aside>
+            </section>
+
+            <section class="grid-3">
+              <article class="panel">
+                <h3>Data Layer</h3>
+                <div class="metric-row">
+                  <div class="metric"><strong>Sensors</strong><span>412</span></div>
+                  <div class="metric"><strong>SCADA</strong><span>Live</span></div>
+                  <div class="metric"><strong>Lab</strong><span>09:45</span></div>
+                  <div class="metric"><strong>Weather</strong><span>Partly</span></div>
+                </div>
+              </article>
+
+              <article class="panel">
+                <h3>AI Layer</h3>
+                <div class="metric-row">
+                  <div class="metric"><strong>Forecast</strong><span>MAPE 8.3%</span></div>
+                  <div class="metric"><strong>Root Cause</strong><span>91%</span></div>
+                  <div class="metric"><strong>Optimization</strong><span>$2.4K/day</span></div>
+                  <div class="metric"><strong>Confidence</strong><span>92%</span></div>
+                </div>
+              </article>
+
+              <article class="panel">
+                <h3>Decision Layer</h3>
+                <div class="metric-row">
+                  <div class="metric"><strong>Pending</strong><span>3</span></div>
+                  <div class="metric"><strong>Savings</strong><span>$2.4K</span></div>
+                  <div class="metric"><strong>On Track</strong><span>96%</span></div>
+                  <div class="metric"><strong>Status</strong><span>Good</span></div>
+                </div>
+              </article>
+            </section>
+          </section>
+
+          <aside class="ai-rail">
+            <h3>AI Operations</h3>
+            <div class="pill-row">
+              <span class="pill critical">Filter 2 Hotspot</span>
+              <span class="pill warn">Clarifier Drift</span>
+              <span class="pill ok">Disinfection Stable</span>
+            </div>
+            <ul class="signal-list">
+              <li><strong>Predicted Peak</strong>Inflow expected to rise 7% by 18:00.</li>
+              <li><strong>Best Action</strong>Backwash Filter 2 in next 30 minutes.</li>
+              <li><strong>Cost Impact</strong>Estimated savings: $2.4K/day after tuning.</li>
+            </ul>
+            <p class="tiny">Model confidence 92%. Last retrain: 3 days ago.</p>
+          </aside>
+        </section>
+      </section>
+    </main>
+
+    <script src="water-layout.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

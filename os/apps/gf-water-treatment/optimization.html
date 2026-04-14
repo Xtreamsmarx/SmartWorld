@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GF Water Plant - Optimization</title>
+    <link rel="stylesheet" href="water-layout.css" />
+  </head>
+  <body>
+    <main class="water-shell">
+      <aside class="side">
+        <div class="logo-dot">GF</div>
+        <nav class="side-nav">
+          <a href="./gf-water-treatment.html">Overview</a>
+          <a href="./digital-twin.html">3D Twin</a>
+          <a href="./process-map.html">Process</a>
+          <a href="./analytics.html">Analytics</a>
+          <a href="./reports.html">Reports</a>
+          <a class="active" href="./optimization.html">Optimize</a>
+          <a href="./water-chat.html">Chat</a>
+        </nav>
+      </aside>
+
+      <section class="main">
+        <header class="topbar" style="background-image: linear-gradient(135deg, rgba(25, 40, 65, 0.94), rgba(15, 25, 45, 0.92)), url('https://images.unsplash.com/photo-1526374965328-7f5ae4e8a06f?w=1600&h=200&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed;">
+          <div class="brand">
+            <h1>Optimization and AI Insights</h1>
+            <p>What-if controls and recommended actions</p>
+          </div>
+          <div class="top-info">
+            <span>Assistant Mode: Operational</span>
+            <span id="nowTime">--:--:--</span>
+            <a class="back-link" href="../../os.html">Back</a>
+          </div>
+        </header>
+
+        <nav class="tab-strip">
+          <a href="./gf-water-treatment.html">Dashboard</a>
+          <a href="./digital-twin.html">Digital Twin</a>
+          <a href="./process-map.html">2D Layout</a>
+          <a href="./analytics.html">Analytics</a>
+          <a href="./reports.html">Reports</a>
+          <a class="active" href="./optimization.html">AI Insights</a>
+          <a href="./water-chat.html">Water Chat</a>
+        </nav>
+
+        <section class="page ops-layout">
+          <section class="ops-main">
+            <article class="panel">
+              <h2>Recommended Actions</h2>
+              <table class="table">
+                <thead>
+                  <tr><th>Action</th><th>Estimated Impact</th><th>Priority</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Increase alum dose by 8%</td><td>Turbidity down 15%</td><td>High</td></tr>
+                  <tr><td>Schedule Filter 2 backwash</td><td>Stability recovery 45 min</td><td>High</td></tr>
+                  <tr><td>Inspect pump P-101 bearings</td><td>Reduce vibration risk</td><td>Medium</td></tr>
+                  <tr><td>Shift UV setpoint to 94%</td><td>Energy save 3.1%</td><td>Low</td></tr>
+                </tbody>
+              </table>
+            </article>
+
+            <section class="grid-2">
+              <article class="panel">
+                <h2>What-If Scenario</h2>
+                <div class="controls-row">
+                  <label>Flow Setpoint
+                    <input id="flowSetpoint" type="range" min="15" max="25" step="0.1" value="18.7" />
+                  </label>
+                  <label>Alum Dose (%)
+                    <input id="doseSetpoint" type="range" min="80" max="120" step="1" value="100" />
+                  </label>
+                  <label>Backwash Timing
+                    <select id="backwashSetpoint">
+                      <option value="now">Now</option>
+                      <option value="30m" selected>30 Minutes</option>
+                      <option value="1h">1 Hour</option>
+                    </select>
+                  </label>
+                </div>
+                <p id="scenarioOut" style="font-size:0.78rem;color:#cfe5ff;">Predicted change: Turbidity -11%, Energy +1.2%, Risk score 43.</p>
+                <button id="runScenario" class="action-btn" type="button">Run Scenario</button>
+              </article>
+
+              <article class="panel">
+                <h2>Assistant</h2>
+                <p style="font-size:0.76rem;color:#cfe5ff;line-height:1.5;">Primary cause of turbidity is likely high inflow and delayed sludge blanket control in Clarifier 1. Recommend immediate backwash and coagulant adjustment.</p>
+              </article>
+            </section>
+          </section>
+
+          <aside class="ai-rail">
+            <h3>Scenario Assistant</h3>
+            <div class="pill-row">
+              <span class="pill critical">Filter 2 first</span>
+              <span class="pill warn">Flow sensitivity</span>
+              <span class="pill ok">Energy savings possible</span>
+            </div>
+            <ul class="signal-list">
+              <li><strong>Best Near-Term Move</strong>Backwash plus +8% alum gives fastest recovery.</li>
+              <li><strong>Predicted Benefit</strong>Lower turbidity and reduced compliance risk within 45 minutes.</li>
+              <li><strong>Tradeoff</strong>Small energy increase if flow stays elevated.</li>
+            </ul>
+            <p class="tiny">Use Water Chat for natural-language explanations of each recommendation.</p>
+          </aside>
+        </section>
+      </section>
+    </main>
+
+    <script src="water-layout.js"></script>
+    <script>
+      const runBtn = document.querySelector('#runScenario');
+      const out = document.querySelector('#scenarioOut');
+      const flow = document.querySelector('#flowSetpoint');
+      const dose = document.querySelector('#doseSetpoint');
+      const backwash = document.querySelector('#backwashSetpoint');
+      runBtn?.addEventListener('click', () => {
+        const flowVal = Number(flow?.value || 18.7);
+        const doseVal = Number(dose?.value || 100);
+        const bw = backwash?.value || '30m';
+        const turb = (2.8 - (doseVal - 100) * 0.02 - (bw === 'now' ? 0.4 : bw === '30m' ? 0.2 : 0.1)).toFixed(2);
+        const energy = (4.2 + (flowVal - 18.7) * 0.14 + (doseVal - 100) * 0.01).toFixed(2);
+        const risk = Math.max(18, Math.round(56 - (doseVal - 100) * 0.4 - (bw === 'now' ? 16 : bw === '30m' ? 8 : 3)));
+        if (out) {
+          out.textContent = `Predicted change: Turbidity ${turb} NTU, Energy ${energy} MW, Risk score ${risk}.`;
+        }
+      });
+    </script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

@@ -113,13 +113,18 @@ if (threeStage && window.THREE) {
     };
 
     const worldGeometry = new THREE.SphereGeometry(1.45, 64, 64);
-    const worldMaterial = new THREE.MeshStandardMaterial({
-      color: 0x55b9ff,
-      emissive: 0x1f5dba,
-      emissiveIntensity: 0.55,
-      metalness: 0.28,
-      roughness: 0.38
+    const earthLoader = new THREE.TextureLoader();
+    earthLoader.crossOrigin = 'anonymous';
+    const worldMaterial = new THREE.MeshPhongMaterial({
+      specular: new THREE.Color(0x222222),
+      shininess: 15
     });
+    earthLoader.load(
+      'https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg',
+      (tex) => { worldMaterial.map = tex; worldMaterial.needsUpdate = true; },
+      undefined,
+      () => { worldMaterial.color.set(0x1a4a7a); }
+    );
     const worldSphere = new THREE.Mesh(worldGeometry, worldMaterial);
     registerNode(worldSphere, {
       id: 'world-core',

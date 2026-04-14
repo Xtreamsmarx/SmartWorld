@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GF Water Plant - Analytics</title>
+    <link rel="stylesheet" href="water-layout.css" />
+  </head>
+  <body>
+    <main class="water-shell">
+      <aside class="side">
+        <div class="logo-dot">GF</div>
+        <nav class="side-nav">
+          <a href="./gf-water-treatment.html">Overview</a>
+          <a href="./digital-twin.html">3D Twin</a>
+          <a href="./process-map.html">Process</a>
+          <a class="active" href="./analytics.html">Analytics</a>
+          <a href="./reports.html">Reports</a>
+          <a href="./optimization.html">Optimize</a>
+          <a href="./water-chat.html">Chat</a>
+        </nav>
+      </aside>
+
+      <section class="main">
+        <header class="topbar" style="background-image: linear-gradient(135deg, rgba(25, 40, 65, 0.94), rgba(15, 25, 45, 0.92)), url('https://images.unsplash.com/photo-1516554400641-ff4ae8172f90?w=1600&h=200&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed;">
+          <div class="brand">
+            <h1>Analytics Console</h1>
+            <p>Performance, trend, and anomaly analytics</p>
+          </div>
+          <div class="top-info">
+            <span>24h trend window</span>
+            <span id="nowTime">--:--:--</span>
+            <a class="back-link" href="../../os.html">Back</a>
+          </div>
+        </header>
+
+        <nav class="tab-strip">
+          <a href="./gf-water-treatment.html">Dashboard</a>
+          <a href="./digital-twin.html">Digital Twin</a>
+          <a href="./process-map.html">2D Layout</a>
+          <a class="active" href="./analytics.html">Analytics</a>
+          <a href="./reports.html">Reports</a>
+          <a href="./optimization.html">AI Insights</a>
+          <a href="./water-chat.html">Water Chat</a>
+        </nav>
+
+        <section class="page ops-layout">
+          <section class="ops-main">
+            <section class="grid-3">
+              <article class="panel"><h2>Flow</h2><div class="map-box"><canvas id="flowChart" width="440" height="180"></canvas></div></article>
+              <article class="panel"><h2>Turbidity</h2><div class="map-box"><canvas id="turbChart" width="440" height="180"></canvas></div></article>
+              <article class="panel"><h2>pH</h2><div class="map-box"><canvas id="phChart" width="440" height="180"></canvas></div></article>
+            </section>
+
+            <article class="panel">
+              <h2>Key Metrics</h2>
+              <section class="metric-row">
+                <article class="metric"><strong>Flow (MGD)</strong><span data-live data-base="18.7" data-amp="0.4" data-precision="1">18.7</span></article>
+                <article class="metric"><strong>Turbidity (NTU)</strong><span data-live data-base="2.1" data-amp="0.25" data-precision="2">2.1</span></article>
+                <article class="metric"><strong>pH</strong><span data-live data-base="7.24" data-amp="0.06" data-precision="2">7.24</span></article>
+                <article class="metric"><strong>DO (mg/L)</strong><span data-live data-base="6.8" data-amp="0.25" data-precision="2">6.8</span></article>
+              </section>
+            </article>
+          </section>
+
+          <aside class="ai-rail">
+            <h3>Forecast Assistant</h3>
+            <div class="pill-row">
+              <span class="pill warn">Peak at 18:00</span>
+              <span class="pill ok">Demand model healthy</span>
+            </div>
+            <ul class="signal-list">
+              <li><strong>Turbidity Trend</strong>+0.31 NTU in last 90 minutes.</li>
+              <li><strong>Driver</strong>Likely due to increased inflow velocity.</li>
+              <li><strong>Recommendation</strong>Raise coagulant dose by 6-8%.</li>
+            </ul>
+            <p class="tiny">Short-term forecast horizon: 6 hours.</p>
+          </aside>
+        </section>
+      </section>
+    </main>
+
+    <script src="water-layout.js"></script>
+    <script>
+      function drawSeries(id, color, phase) {
+        const canvas = document.getElementById(id);
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+        const w = canvas.width;
+        const h = canvas.height;
+        ctx.clearRect(0, 0, w, h);
+        ctx.strokeStyle = 'rgba(170,210,255,0.2)';
+        ctx.lineWidth = 1;
+        for (let i = 1; i < 5; i += 1) {
+          const y = (h / 5) * i;
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(w, y);
+          ctx.stroke();
+        }
+        ctx.strokeStyle = color;
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        const t0 = performance.now() / 1000;
+        for (let x = 0; x <= w; x += 10) {
+          const t = x / w;
+          const y = h * 0.55 + Math.sin(t * 8 + t0 + phase) * 22 + Math.sin(t * 24 + phase) * 7;
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+      function renderCharts() {
+        drawSeries('flowChart', '#47c7ff', 0.3);
+        drawSeries('turbChart', '#8b5cf6', 1.2);
+        drawSeries('phChart', '#22c55e', 2.4);
+      }
+      renderCharts();
+      setInterval(renderCharts, 2500);
+    </script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Adoption Map</title>
+    <link rel="stylesheet" href="ai-adoption.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <div>
+          <h1>University AI Adoption Map</h1>
+          <p>Interactive roadmap of AI usage by university section. Click any zone to inspect status and milestones.</p>
+        </div>
+        <a href="../../os.html">Back to Desktop</a>
+      </header>
+
+      <section class="layout">
+        <article class="panel scene-panel">
+          <div id="sceneRoot" class="scene-root" aria-label="3D AI adoption map"></div>
+          <div class="legend">
+            <span><i class="dot deployed"></i>Deployed</span>
+            <span><i class="dot pilot"></i>Pilot</span>
+            <span><i class="dot planned"></i>Planned</span>
+            <span><i class="dot none"></i>Not Started</span>
+          </div>
+        </article>
+
+        <aside class="panel info-panel">
+          <div class="map-source-box">
+            <label for="mapImageInput">Use your UND map image</label>
+            <input id="mapImageInput" type="file" accept="image/png,image/jpeg,image/webp" />
+            <p id="mapSourceLabel" class="map-source-label">Map source: live OSM tiles</p>
+          </div>
+
+          <h2 id="sectionName">Campus Overview</h2>
+          <p id="sectionDesc">Select a section in the map to view where AI is active and where adoption has not started.</p>
+
+          <div class="kpi-grid">
+            <article>
+              <span>Current Stage</span>
+              <strong id="sectionStage">Mixed</strong>
+            </article>
+            <article>
+              <span>AI Coverage</span>
+              <strong id="sectionCoverage">51%</strong>
+            </article>
+            <article>
+              <span>Priority</span>
+              <strong id="sectionPriority">Balanced Rollout</strong>
+            </article>
+            <article>
+              <span>Target</span>
+              <strong id="sectionTarget">Q2 2027</strong>
+            </article>
+          </div>
+
+          <h3>Roadmap Milestones</h3>
+          <ul id="roadmapList" class="roadmap-list"></ul>
+        </aside>
+      </section>
+    </main>
+
+    <script src="../../../vendor/three.min.js"></script>
+    <script src="ai-adoption.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

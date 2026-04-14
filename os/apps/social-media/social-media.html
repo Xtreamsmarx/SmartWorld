@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart World Social</title>
+    <link rel="stylesheet" href="social-media.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="top">
+        <div>
+          <p class="eyebrow">Smart World Network</p>
+          <h1>Social Hub</h1>
+        </div>
+        <a href="../../os.html">Back to Desktop</a>
+      </header>
+
+      <section class="layout">
+        <aside class="panel left">
+          <h2>Compose</h2>
+          <p id="activeRoomLabel" class="room-badge">Room: Campus AI Briefing</p>
+          <p id="zoneFilterLabel" class="room-badge">Geo Lens: All Zones</p>
+          <button id="clearZoneFilter" class="action-btn" type="button">Clear Geo Lens</button>
+          <form id="postForm" class="post-form">
+            <input id="authorInput" type="text" value="Meisam Moradi" maxlength="50" />
+            <textarea id="postInput" rows="4" maxlength="420" placeholder="Share your update with Smart World team..."></textarea>
+            <input id="tagsInput" type="text" placeholder="#digitaltwin #campus #water" />
+            <input id="fileInput" type="file" multiple />
+            <button type="submit">Post Update</button>
+          </form>
+
+          <h2>Conference Rooms</h2>
+          <form id="roomForm" class="room-form">
+            <input id="roomNameInput" type="text" maxlength="50" placeholder="Create room name" />
+            <button type="submit">Create Room</button>
+          </form>
+          <div id="rooms" class="rooms"></div>
+
+          <h2>Stories</h2>
+          <div id="stories" class="stories"></div>
+        </aside>
+
+        <section class="panel feed-panel">
+          <div class="feed-head">
+            <h2>Feed</h2>
+            <input id="searchInput" type="text" placeholder="Search posts, names, tags" />
+          </div>
+          <div class="feed-tabs">
+            <button id="tabForYou" class="tab-btn active" type="button">For You</button>
+            <button id="tabFollowing" class="tab-btn" type="button">Following</button>
+            <select id="mapMode" class="tab-select">
+              <option value="pulse">Pulse Map</option>
+              <option value="flow">Flow Map</option>
+              <option value="risk">Risk Map</option>
+            </select>
+          </div>
+          <section class="holo-grid">
+            <article class="holo-panel map-panel">
+              <div class="holo-head">
+                <h3>City Signal Map</h3>
+                <span>click node to filter feed</span>
+              </div>
+              <canvas id="cityMap" width="760" height="260"></canvas>
+            </article>
+            <article class="holo-panel">
+              <div class="holo-head">
+                <h3>Zone Database</h3>
+                <span>real-time social density</span>
+              </div>
+              <div id="zoneStats" class="zone-stats"></div>
+            </article>
+            <article class="holo-panel">
+              <div class="holo-head">
+                <h3>Signal Stream</h3>
+                <span>anomalies and trend velocity</span>
+              </div>
+              <div id="signalFeed" class="signal-feed"></div>
+            </article>
+          </div>
+          <div id="feed" class="feed"></div>
+        </section>
+
+        <aside class="panel right">
+          <h2>Suggested People</h2>
+          <div id="suggestedPeople" class="suggested-people"></div>
+
+          <h2>Trending</h2>
+          <div id="trends" class="trends"></div>
+
+          <h2>Live Pulse</h2>
+          <div id="pulse" class="pulse"></div>
+        </aside>
+      </section>
+    </main>
+
+    <script src="social-media.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

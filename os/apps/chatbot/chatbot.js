@@ -168,6 +168,19 @@ const updateLlmStatus = (text) => {
   if (llmStatus) llmStatus.textContent = `LLM status: ${text}`;
 };
 
+const refreshBridgeStatus = async () => {
+  try {
+    const response = await fetch(`${LOCAL_BRIDGE}/health`);
+    if (response.ok) {
+      updateLlmStatus(`Ready (local / ${LOCAL_CHECKPOINT})`);
+      return;
+    }
+    updateLlmStatus('Bridge issue. Check terminal bridge.');
+  } catch {
+    updateLlmStatus('Bridge offline. Start the Smart World bridge from Terminal.');
+  }
+};
+
 const listFilesFromHandle = async (dirHandle, prefix = '') => {
   const files = [];
   for await (const [name, handle] of dirHandle.entries()) {
@@ -636,4 +649,5 @@ for (const chip of chips) {
 }
 
 updateMeta();
-updateLlmStatus('Not tested');
+void refreshBridgeStatus();
+setInterval(refreshBridgeStatus, 15000);

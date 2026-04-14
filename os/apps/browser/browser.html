@@ -10,12 +10,24 @@
     <main class="window">
       <header class="head">
         <h1>UND Browser</h1>
-        <a href="../../os.html">Back to Desktop</a>
+        <div class="head-right">
+          <span id="bridgeStatus" class="bridge-status">Bridge: checking...</span>
+          <a href="../../os.html">Back to Desktop</a>
+        </div>
       </header>
 
       <form id="browserForm" class="address-row">
+        <button id="btnBack" type="button">Back</button>
+        <button id="btnForward" type="button">Forward</button>
+        <button id="btnReload" type="button">Reload</button>
         <input id="addressInput" type="text" value="../../home/home.html" />
-        <button type="submit">Open</button>
+        <button type="submit">Go</button>
+        <button id="openExternalBtn" type="button">Real Browse</button>
+      </form>
+
+      <form id="searchForm" class="search-row">
+        <input id="searchInput" type="text" placeholder="Search the web" />
+        <button type="submit">Search</button>
       </form>
 
       <section class="bookmarks">
@@ -29,13 +41,50 @@
         <article class="panel preview">
           <h2>Live Preview</h2>
           <iframe id="browserFrame" title="Browser preview"></iframe>
+          <p id="frameHint" class="frame-hint"></p>
         </article>
         <aside class="panel history">
-          <h2>History</h2>
+          <h2>Smart Search</h2>
+          <p class="small-note">Type in Search above. Click any result to open in preview.</p>
+          <ul id="searchResults" class="search-results">
+            <li class="search-empty">No search yet.</li>
+          </ul>
+
+          <div class="section-head">
+            <h2>History</h2>
+            <button id="clearHistoryBtn" type="button">Clear</button>
+          </div>
           <ul id="historyList"></ul>
+
+          <h2>Talk To Website</h2>
+          <p class="small-note">Ask questions about the current URL using local AI + bridge fetch.</p>
+          <div id="siteChatLog" class="site-chat-log">
+            <p class="chat-msg bot">Open a website, then ask a question about its content.</p>
+          </div>
+          <form id="siteChatForm" class="site-chat-form">
+            <input id="siteChatInput" type="text" placeholder="Summarize this page, key points, etc." />
+            <button type="submit">Ask</button>
+          </form>
         </aside>
       </section>
     </main>
     <script src="browser.js"></script>
-  </body>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
 </html>

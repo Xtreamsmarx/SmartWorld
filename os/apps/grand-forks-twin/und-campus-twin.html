@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UND Campus Digital Twin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="facility-twin.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <aside class="panel left-panel">
+        <p class="eyebrow">Smart World Facility Twin</p>
+        <h1 id="facilityTitle">UND Campus Twin</h1>
+        <p id="facilitySubtitle" class="subtitle"></p>
+
+        <section class="control-block">
+          <p class="label">Navigation</p>
+          <a class="back-link" href="grand-forks-twin.html">Back To General Twin</a>
+        </section>
+
+        <section class="control-block">
+          <p class="label">Smart Decision KPIs</p>
+          <div id="kpiGrid" class="kpi-grid"></div>
+        </section>
+
+        <section class="control-block">
+          <p class="label">Selected Asset</p>
+          <div id="selectionCard" class="selection-card"></div>
+        </section>
+      </aside>
+
+      <section class="stage-panel">
+        <header class="stage-toolbar">
+          <span>Auto-rotating UND twin. Inspect buildings, utilities, and mobility corridors.</span>
+          <div>
+            <button id="resetCameraBtn" type="button">Reset Camera</button>
+            <button id="toggleDayBtn" type="button">Night Mode</button>
+          </div>
+        </header>
+        <section class="stage-wrap">
+          <div id="threeStage" class="three-stage"></div>
+          <div class="hud">
+            <div class="hud-card"><span>Mode</span><strong id="modeLabel">Night Simulation</strong></div>
+            <div class="hud-card"><span>Assets</span><strong id="assetCount">0</strong></div>
+            <div class="hud-card"><span>Scope</span><strong>UND</strong></div>
+          </div>
+        </section>
+      </section>
+
+      <aside class="panel right-panel">
+        <section class="info-block">
+          <h2>Campus Assets</h2>
+          <div id="assetList" class="list"></div>
+        </section>
+        <section class="info-block">
+          <h2>Insights For Smart Decisions</h2>
+          <ul id="insightList" class="insight-list"></ul>
+        </section>
+      </aside>
+    </main>
+
+    <script>
+      window.TWIN_CONFIG = {
+        name: 'UND Campus Twin',
+        subtitle: 'Academic buildings, mobility, and utility systems for campus operations planning.',
+        themeColor: 0x8d9bff,
+        cameraTarget: { x: -3, z: 2 },
+        metrics: [
+          { label: 'Occupancy Forecast', value: '87%', trend: 'Final-week peak' },
+          { label: 'Energy Intensity', value: '21.2 kWh/m2', trend: '-4% vs baseline' },
+          { label: 'Transit Reliability', value: '94.6%', trend: '+2.3% route sync' },
+          { label: 'Safety Coverage', value: '98.1%', trend: 'All zones monitored' }
+        ],
+        assets: [
+          { id: 'memorial-union', name: 'Memorial Union', x: -12, z: 3, height: 9, color: 0x97a6ff, markerColor: 0xd5dcff, status: 'Active', kpi: 'Occupancy 82%', desc: 'Student services and event demand hub. Staffing model can follow occupancy forecasts.' },
+          { id: 'chester-library', name: 'Chester Fritz Library', x: -4, z: -2, height: 12, color: 0xa1adff, markerColor: 0xdde3ff, status: 'Active', kpi: 'Seat use 76%', desc: 'Study concentration zone. HVAC can be tuned by floor based on live occupancy windows.' },
+          { id: 'engineering-complex', name: 'Engineering Complex', x: 5, z: 1, height: 11, color: 0x7f8ef3, markerColor: 0xc8d0ff, status: 'Optimization active', kpi: 'Labs 91% uptime', desc: 'Lab-heavy facilities with high utility demand and sensitive scheduling constraints.' },
+          { id: 'engelstad-arena', name: 'Ralph Engelstad Arena', x: -8, z: 12, height: 14, color: 0x94a0e9, markerColor: 0xd0d8ff, status: 'Event prep', kpi: 'Load profile rising', desc: 'Event venue with parking, mobility, and utility surges during game windows.' },
+          { id: 'transit-loop', name: 'Campus Transit Loop', x: 7, z: 11, height: 7, color: 0x6f80e0, markerColor: 0xbfc9ff, status: 'Stable', kpi: 'On-time 95%', desc: 'Pedestrian and transit mobility ring connecting academic, housing, and event zones.' }
+        ],
+        paths: [
+          { width: 1.8, color: 0x4858b2, points: [{ x: -18, z: 2 }, { x: -6, z: 1 }, { x: 8, z: 1 }] },
+          { width: 1.6, color: 0x5263be, points: [{ x: -10, z: 14 }, { x: -8, z: 8 }, { x: -4, z: 2 }, { x: 0, z: -4 }] },
+          { width: 1.6, color: 0x4657a8, points: [{ x: 6, z: -6 }, { x: 8, z: 2 }, { x: 7, z: 12 }] },
+          { width: 1.5, color: 0x5b6ad2, points: [{ x: -12, z: 8 }, { x: -4, z: 10 }, { x: 7, z: 11 }] }
+        ],
+        insights: [
+          'Library and Union occupancy signals suggest shifting evening cleaning windows by 90 minutes.',
+          'Engineering labs can reduce peak energy costs by pre-cooling before high-demand intervals.',
+          'Arena event days require transit loop reinforcement 2 hours before and after event windows.',
+          'Dynamic wayfinding around the transit loop is projected to reduce pedestrian bottlenecks by 13%.'
+        ]
+      };
+    </script>
+    <script src="../../../vendor/three.min.js"></script>
+    <script src="facility-twin.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,260 @@
+:root {
+  --bg-1: #061021;
+  --bg-2: #0c1d3a;
+  --panel: rgba(7, 18, 38, 0.86);
+  --line: rgba(255, 255, 255, 0.14);
+  --ink: #ebf3ff;
+  --muted: #9bb5d8;
+  --accent: #63b5ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family: "Space Grotesk", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 16% 10%, rgba(99, 181, 255, 0.22), transparent 32%),
+    radial-gradient(circle at 84% 14%, rgba(0, 214, 199, 0.16), transparent 26%),
+    linear-gradient(145deg, var(--bg-1), var(--bg-2));
+}
+
+.shell {
+  display: grid;
+  grid-template-columns: 280px 1fr 300px;
+  gap: 0.7rem;
+  height: 100vh;
+  padding: 0.7rem;
+}
+
+.panel,
+.stage-panel {
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--panel);
+  box-shadow: 0 20px 38px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+.left-panel,
+.right-panel {
+  padding: 0.9rem;
+  overflow-y: auto;
+}
+
+.eyebrow {
+  margin: 0 0 0.25rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.74rem;
+}
+
+h1,
+h2 {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+}
+
+.subtitle {
+  margin-top: 0.4rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.control-block,
+.info-block {
+  margin-top: 0.85rem;
+  padding: 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.label {
+  margin: 0 0 0.5rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.76rem;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+button,
+.back-link {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.06);
+  padding: 0.5rem 0.7rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+button:hover,
+.back-link:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.45rem;
+}
+
+.kpi {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 0.55rem;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.kpi-label {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
+.kpi strong {
+  display: block;
+  margin-top: 0.14rem;
+  font-size: 1rem;
+}
+
+.kpi small {
+  color: var(--accent);
+}
+
+.stage-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.stage-toolbar {
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.7rem;
+  padding: 0 0.8rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.stage-wrap {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+}
+
+.three-stage {
+  position: absolute;
+  inset: 0;
+}
+
+.hud {
+  position: absolute;
+  bottom: 0.8rem;
+  left: 0.8rem;
+  display: flex;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  pointer-events: none;
+}
+
+.hud-card {
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: rgba(5, 12, 28, 0.78);
+  min-width: 115px;
+  padding: 0.5rem 0.64rem;
+}
+
+.hud-card span {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.list-item {
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  padding: 0.6rem;
+  background: rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+}
+
+.list-item:hover,
+.list-item.active {
+  border-color: rgba(99, 181, 255, 0.6);
+  background: rgba(99, 181, 255, 0.14);
+}
+
+.list-item h3,
+.list-item h4,
+.list-item p {
+  margin: 0;
+}
+
+.list-item h4 {
+  font-size: 0.9rem;
+}
+
+.list-item p {
+  margin-top: 0.2rem;
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.42;
+}
+
+.insight-list {
+  margin: 0;
+  padding-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  color: var(--muted);
+}
+
+.selection-card {
+  border-radius: 12px;
+  padding: 0.72rem;
+  min-height: 90px;
+  background: rgba(7, 18, 38, 0.76);
+}
+
+.selection-card h3 {
+  margin: 0 0 0.24rem;
+}
+
+.selection-card p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.42;
+}
+
+@media (max-width: 1200px) {
+  .shell {
+    grid-template-columns: 240px 1fr 255px;
+  }
+}

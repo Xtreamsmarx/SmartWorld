@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart World OS Signup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="signup.css" />
+  </head>
+  <body>
+    <main class="signup-shell">
+      <section class="panel hero">
+        <p class="eyebrow">Account Creation</p>
+        <h1>Create Your Smart World OS Account</h1>
+        <p class="lead">Fill complete signup information, choose your location, and select which apps should be enabled in your OS.</p>
+        <a class="back-link" href="./login.html">Back to Login</a>
+      </section>
+
+      <section class="panel form-panel" aria-label="Signup form">
+        <h2>Full Signup</h2>
+        <form id="signupForm">
+          <div class="two-col">
+            <div>
+              <label for="fullName">Full Name</label>
+              <input id="fullName" type="text" required />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" type="email" required />
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div>
+              <label for="username">Username</label>
+              <input id="username" type="text" minlength="3" maxlength="32" required />
+            </div>
+            <div>
+              <label for="password">Password</label>
+              <input id="password" type="password" minlength="6" required />
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div>
+              <label for="organization">Organization</label>
+              <input id="organization" type="text" placeholder="University / Municipality / Company" />
+            </div>
+            <div>
+              <label for="title">Title / Role</label>
+              <input id="title" type="text" placeholder="Student, Engineer, Researcher, Manager..." />
+            </div>
+          </div>
+
+          <div class="two-col">
+            <div>
+              <label for="phone">Phone</label>
+              <input id="phone" type="tel" placeholder="Optional" />
+            </div>
+            <div>
+              <label for="tenantSelect">Portal Location</label>
+              <select id="tenantSelect" required></select>
+            </div>
+          </div>
+
+          <div class="apps-head">
+            <h3>Select Apps</h3>
+            <div class="apps-actions">
+              <button id="selectAllApps" type="button" class="subtle-btn">Select All</button>
+              <button id="clearApps" type="button" class="subtle-btn">Clear</button>
+            </div>
+          </div>
+          <div id="appsGrid" class="apps-grid"></div>
+
+          <button type="submit" class="primary-btn">Create Account</button>
+          <p id="signupMsg" class="msg" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <script src="auth.js"></script>
+    <script src="signup.js"></script>
+  </body>
+</html>

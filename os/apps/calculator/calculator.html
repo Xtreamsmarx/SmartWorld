@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="calculator.css" />
+  </head>
+  <body>
+    <div class="calc-wrap">
+      <header class="calc-header">
+        <span class="calc-brand">Calculator</span>
+        <span class="calc-mode" id="modeLabel">Basic</span>
+        <button class="mode-toggle" id="modeToggle" type="button">Scientific</button>
+      </header>
+
+      <div class="display">
+        <div class="display-expr" id="expression">&nbsp;</div>
+        <div class="display-val" id="displayVal">0</div>
+        <div class="display-mem" id="memLabel"></div>
+      </div>
+
+      <div class="keypad" id="keypad">
+        <!-- Row 1 -->
+        <button data-key="MC"  class="btn btn-fn">MC</button>
+        <button data-key="MR"  class="btn btn-fn">MR</button>
+        <button data-key="M+"  class="btn btn-fn">M+</button>
+        <button data-key="M-"  class="btn btn-fn">M−</button>
+
+        <!-- Row 2 -->
+        <button data-key="C"   class="btn btn-clear span2">C</button>
+        <button data-key="CE"  class="btn btn-clear">CE</button>
+        <button data-key="%"   class="btn btn-op">%</button>
+
+        <!-- Row 3 -->
+        <button data-key="7"   class="btn btn-num">7</button>
+        <button data-key="8"   class="btn btn-num">8</button>
+        <button data-key="9"   class="btn btn-num">9</button>
+        <button data-key="/"   class="btn btn-op">÷</button>
+
+        <!-- Row 4 -->
+        <button data-key="4"   class="btn btn-num">4</button>
+        <button data-key="5"   class="btn btn-num">5</button>
+        <button data-key="6"   class="btn btn-num">6</button>
+        <button data-key="*"   class="btn btn-op">×</button>
+
+        <!-- Row 5 -->
+        <button data-key="1"   class="btn btn-num">1</button>
+        <button data-key="2"   class="btn btn-num">2</button>
+        <button data-key="3"   class="btn btn-num">3</button>
+        <button data-key="-"   class="btn btn-op">−</button>
+
+        <!-- Row 6 -->
+        <button data-key="+/-" class="btn btn-fn">±</button>
+        <button data-key="0"   class="btn btn-num">0</button>
+        <button data-key="."   class="btn btn-num">.</button>
+        <button data-key="+"   class="btn btn-op">+</button>
+
+        <!-- Row 7 -->
+        <button data-key="="   class="btn btn-eq span4">=</button>
+
+        <!-- Scientific row (hidden by default) -->
+        <button data-key="sin"  class="btn btn-sci sci-only hidden">sin</button>
+        <button data-key="cos"  class="btn btn-sci sci-only hidden">cos</button>
+        <button data-key="tan"  class="btn btn-sci sci-only hidden">tan</button>
+        <button data-key="sqrt" class="btn btn-sci sci-only hidden">√</button>
+        <button data-key="pow2" class="btn btn-sci sci-only hidden">x²</button>
+        <button data-key="log"  class="btn btn-sci sci-only hidden">log</button>
+        <button data-key="ln"   class="btn btn-sci sci-only hidden">ln</button>
+        <button data-key="pi"   class="btn btn-sci sci-only hidden">π</button>
+      </div>
+    </div>
+    <script src="calculator.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

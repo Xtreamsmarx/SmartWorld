@@ -24,6 +24,21 @@ body {
 	align-items: center;
 }
 
+.head-right {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.bridge-status {
+	border: 1px solid rgba(255, 255, 255, 0.24);
+	border-radius: 999px;
+	padding: 0.3rem 0.52rem;
+	font-size: 0.74rem;
+	color: #c8daf7;
+	background: rgba(9, 18, 44, 0.72);
+}
+
 .head h1 {
 	margin: 0;
 }
@@ -40,12 +55,21 @@ body {
 .address-row {
 	margin-top: 0.8rem;
 	display: grid;
+	grid-template-columns: auto auto auto 1fr auto auto;
+	gap: 0.55rem;
+}
+
+.search-row {
+	margin-top: 0.55rem;
+	display: grid;
 	grid-template-columns: 1fr auto;
 	gap: 0.55rem;
 }
 
 .address-row input,
 .address-row button,
+.search-row input,
+.search-row button,
 .bookmark {
 	border: 1px solid rgba(255, 255, 255, 0.24);
 	border-radius: 9px;
@@ -85,12 +109,46 @@ body {
 	font-size: 1rem;
 }
 
+.section-head {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 0.4rem;
+}
+
+.section-head h2 {
+	margin: 0;
+}
+
+.section-head button {
+	border: 1px solid rgba(255, 255, 255, 0.24);
+	border-radius: 8px;
+	padding: 0.26rem 0.5rem;
+	background: rgba(11, 20, 48, 0.76);
+	color: #ebf4ff;
+	cursor: pointer;
+	font-size: 0.72rem;
+}
+
+.small-note {
+	margin: 0.1rem 0 0.45rem;
+	font-size: 0.78rem;
+	color: #b7ceef;
+}
+
 #browserFrame {
 	width: 100%;
 	height: min(560px, 66vh);
 	border-radius: 10px;
 	border: 1px solid rgba(255, 255, 255, 0.24);
 	background: #0a1430;
+}
+
+.frame-hint {
+	margin: 0.35rem 0 0;
+	font-size: 0.78rem;
+	color: #b6cae8;
+	min-height: 1rem;
 }
 
 #historyList {
@@ -102,6 +160,42 @@ body {
 	gap: 0.45rem;
 }
 
+.search-results {
+	list-style: none;
+	margin: 0 0 0.7rem;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.45rem;
+	max-height: 200px;
+	overflow-y: auto;
+}
+
+.search-results li {
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 8px;
+	padding: 0.42rem 0.5rem;
+	background: rgba(8, 16, 36, 0.5);
+}
+
+.search-results a {
+	color: #bfe3ff;
+	text-decoration: none;
+	font-weight: 600;
+}
+
+.search-url {
+	margin-top: 0.2rem;
+	font-size: 0.75rem;
+	color: #9cb7da;
+	word-break: break-all;
+}
+
+.search-empty {
+	font-size: 0.82rem;
+	color: #b7ceef;
+}
+
 #historyList li {
 	border: 1px solid rgba(255, 255, 255, 0.18);
 	border-radius: 8px;
@@ -110,8 +204,68 @@ body {
 	color: #cde0ff;
 }
 
+.site-chat-log {
+	margin-top: 0.3rem;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 10px;
+	background: rgba(9, 16, 40, 0.66);
+	padding: 0.5rem;
+	height: 180px;
+	overflow-y: auto;
+	display: flex;
+	flex-direction: column;
+	gap: 0.45rem;
+}
+
+.chat-msg {
+	margin: 0;
+	padding: 0.4rem 0.45rem;
+	border-radius: 8px;
+	font-size: 0.82rem;
+	line-height: 1.4;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.chat-msg.user {
+	background: rgba(127, 192, 255, 0.2);
+	align-self: flex-end;
+}
+
+.chat-msg.bot {
+	background: rgba(140, 253, 233, 0.12);
+	align-self: flex-start;
+}
+
+.site-chat-form {
+	margin-top: 0.45rem;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	gap: 0.45rem;
+}
+
+.site-chat-form input,
+.site-chat-form button {
+	border: 1px solid rgba(255, 255, 255, 0.24);
+	border-radius: 9px;
+	padding: 0.48rem 0.62rem;
+	background: rgba(11, 20, 48, 0.76);
+	color: #ebf4ff;
+}
+
+.site-chat-form button {
+	cursor: pointer;
+}
+
 @media (max-width: 940px) {
 	.layout {
+		grid-template-columns: 1fr;
+	}
+
+	.address-row {
+		grid-template-columns: 1fr;
+	}
+
+	.search-row {
 		grid-template-columns: 1fr;
 	}
 }

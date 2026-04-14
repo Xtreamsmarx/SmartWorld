@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Roads Digital Twin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="facility-twin.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <aside class="panel left-panel">
+        <p class="eyebrow">Smart World Facility Twin</p>
+        <h1 id="facilityTitle">Roads Network Twin</h1>
+        <p id="facilitySubtitle" class="subtitle"></p>
+
+        <section class="control-block">
+          <p class="label">Navigation</p>
+          <a class="back-link" href="grand-forks-twin.html">Back To General Twin</a>
+        </section>
+
+        <section class="control-block">
+          <p class="label">Smart Decision KPIs</p>
+          <div id="kpiGrid" class="kpi-grid"></div>
+        </section>
+
+        <section class="control-block">
+          <p class="label">Selected Asset</p>
+          <div id="selectionCard" class="selection-card"></div>
+        </section>
+      </aside>
+
+      <section class="stage-panel">
+        <header class="stage-toolbar">
+          <span>Auto-rotating roads twin. Drag to inspect intersections and corridors.</span>
+          <div>
+            <button id="resetCameraBtn" type="button">Reset Camera</button>
+            <button id="toggleDayBtn" type="button">Night Mode</button>
+          </div>
+        </header>
+        <section class="stage-wrap">
+          <div id="threeStage" class="three-stage"></div>
+          <div class="hud">
+            <div class="hud-card"><span>Mode</span><strong id="modeLabel">Night Simulation</strong></div>
+            <div class="hud-card"><span>Assets</span><strong id="assetCount">0</strong></div>
+            <div class="hud-card"><span>Scope</span><strong>Roads</strong></div>
+          </div>
+        </section>
+      </section>
+
+      <aside class="panel right-panel">
+        <section class="info-block">
+          <h2>Road Assets</h2>
+          <div id="assetList" class="list"></div>
+        </section>
+        <section class="info-block">
+          <h2>Insights For Smart Decisions</h2>
+          <ul id="insightList" class="insight-list"></ul>
+        </section>
+      </aside>
+    </main>
+
+    <script>
+      window.TWIN_CONFIG = {
+        name: 'Roads Network Twin',
+        subtitle: 'Signals, bridges, and high-volume corridors with live-style reliability indicators.',
+        themeColor: 0x63b5ff,
+        cameraTarget: { x: 2, z: 0 },
+        metrics: [
+          { label: 'Throughput', value: '83.4%', trend: '+2.1% this week' },
+          { label: 'Avg Delay', value: '38 sec', trend: '-7 sec peak hour' },
+          { label: 'Pavement Health', value: '74/100', trend: '2 segments at risk' },
+          { label: 'Incident Response', value: '6.8 min', trend: 'Below 8 min target' }
+        ],
+        assets: [
+          { id: 'corridor-gateway', name: 'Gateway Corridor', x: -12, z: -2, height: 8, color: 0x6ea8ff, markerColor: 0x9fd3ff, status: 'High load', kpi: 'Volume 92%', desc: 'Main commuter corridor approaching downtown. Candidate for adaptive signal timing.' },
+          { id: 'downtown-grid', name: 'Downtown Grid', x: -2, z: 4, height: 6, color: 0x7bc0ff, markerColor: 0xb1ddff, status: 'Stable', kpi: 'Queue 14%', desc: 'Core downtown block network. Performance improves when left-turn windows are reduced.' },
+          { id: 'sorlie-crossing', name: 'Sorlie Bridge Crossing', x: 8, z: 1, height: 10, color: 0x98cdff, markerColor: 0xd7e9ff, status: 'Priority watch', kpi: 'Load 88%', desc: 'Bridge span carrying mixed commuter and freight traffic over the river corridor.' },
+          { id: 'university-ave', name: 'University Avenue', x: -8, z: 12, height: 7, color: 0x74b6f7, markerColor: 0xadd8ff, status: 'Stable', kpi: 'Bus priority active', desc: 'Campus-facing arterial requiring synchronized transit and pedestrian phases.' },
+          { id: 'ring-connector', name: 'Ring Road Connector', x: 14, z: 10, height: 7, color: 0x78b5ea, markerColor: 0xa9d3ff, status: 'Improving', kpi: 'Travel time -9%', desc: 'Outer connector route handling diverted freight during downtown peak windows.' }
+        ],
+        paths: [
+          { width: 2.2, color: 0x2f4668, points: [{ x: -24, z: -2 }, { x: 0, z: -2 }, { x: 20, z: -2 }] },
+          { width: 2.0, color: 0x375278, points: [{ x: -10, z: 16 }, { x: -4, z: 8 }, { x: 10, z: 0 }, { x: 18, z: -6 }] },
+          { width: 1.8, color: 0x2f4f73, points: [{ x: -2, z: -20 }, { x: -2, z: 0 }, { x: -2, z: 18 }] },
+          { width: 1.8, color: 0x38557a, points: [{ x: 10, z: -16 }, { x: 8, z: 0 }, { x: 6, z: 18 }] }
+        ],
+        insights: [
+          'Shift freight windows by 45 minutes to reduce bridge congestion during commuter peaks.',
+          'Adaptive signaling on Gateway Corridor is projected to reduce stop-and-go emissions by 11%.',
+          'Downtown left-turn phase reduction can increase corridor throughput by about 6%.',
+          'University Avenue benefits from extending transit-priority intervals during class transitions.'
+        ]
+      };
+    </script>
+    <script src="../../../vendor/three.min.js"></script>
+    <script src="facility-twin.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

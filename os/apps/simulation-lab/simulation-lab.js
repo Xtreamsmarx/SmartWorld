@@ -1,262 +1,470 @@
-const STORAGE_KEYS = {
-  purchases: 'und_agent_market_purchases',
-  flow: 'sw_simulation_lab_flow_v1'
-};
 const LOCAL_BRIDGE = 'http://127.0.0.1:8765';
+const LOCAL_MODEL = 'qwen2.5-coder:3b';
+const CHAT_KEY = 'smart_world_lab_equipment_chat_v1';
 
-const seedAgents = [
-  { id: 'seed-study', name: 'Study Buddy Pro', category: 'education', icon: '📚' },
-  { id: 'seed-paper', name: 'Paper Synth', category: 'research', icon: '🧠' },
-  { id: 'seed-ops', name: 'Ops Automator', category: 'operations', icon: '🏢' },
-  { id: 'seed-prompt', name: 'Prompt Artist', category: 'creative', icon: '🎨' },
-  { id: 'seed-debug', name: 'Python Debugger', category: 'productivity', icon: '🐍' }
+const equipmentSearch = document.querySelector('#equipmentSearch');
+const categoryChips = document.querySelector('#categoryChips');
+const equipmentList = document.querySelector('#equipmentList');
+const inventoryCount = document.querySelector('#inventoryCount');
+const zoneCount = document.querySelector('#zoneCount');
+const activeCount = document.querySelector('#activeCount');
+const listMeta = document.querySelector('#listMeta');
+const zoneStrip = document.querySelector('#zoneStrip');
+const selectedName = document.querySelector('#selectedName');
+const selectedCategory = document.querySelector('#selectedCategory');
+const selectedDesc = document.querySelector('#selectedDesc');
+const selectedSpecs = document.querySelector('#selectedSpecs');
+const selectedCapabilities = document.querySelector('#selectedCapabilities');
+const selectedStatus = document.querySelector('#selectedStatus');
+const bridgeStatus = document.querySelector('#bridgeStatus');
+const chatFeed = document.querySelector('#chatFeed');
+const chatForm = document.querySelector('#chatForm');
+const chatInput = document.querySelector('#chatInput');
+const clearChatBtn = document.querySelector('#clearChatBtn');
+const promptButtons = document.querySelectorAll('.prompt-btn');
+const hotspotButtons = document.querySelectorAll('.map-hotspot');
+
+const equipmentCatalog = [
+  {
+    id: 'monitoring-wall',
+    name: 'Real-Time Monitoring Wall',
+    category: 'display',
+    zone: 'Control Center',
+    status: 'Active',
+    imageUrl: 'https://images.unsplash.com/photo-1555749849-ab10049a8a5a?w=300&h=200&fit=crop',
+    description: 'Large-format dashboard wall showing city twin analytics, infrastructure KPIs, energy curves, and monitoring feeds.',
+    rolePrompt: 'You are the Real-Time Monitoring Wall in Smart World Lab. Speak like a mission-critical analytics system that monitors the digital twin and operational dashboards.',
+    capabilities: ['City twin dashboards', 'KPI visualization', 'Live incident feeds', 'Energy and traffic analytics'],
+    specs: { Connectivity: 'IoT + analytics backbone', Purpose: 'Situational awareness', Operator: 'Control team' }
+  },
+  {
+    id: 'control-stations',
+    name: 'Monitor Wall and Control Stations',
+    category: 'workstation',
+    zone: 'Control Center',
+    status: 'Active',
+    imageUrl: 'https://images.unsplash.com/photo-1454496522488-7a8e488e8606?w=300&h=200&fit=crop',
+    description: 'Operator desks with multi-screen stations for simulation orchestration, system monitoring, and command workflows.',
+    rolePrompt: 'You are a cluster of control stations in Smart World Lab. Respond like an operator-grade command interface for simulations, telemetry, and experiment management.',
+    capabilities: ['Multi-monitor operations', 'Scenario control', 'Telemetry review', 'Operator coordination'],
+    specs: { Seats: '6 stations', Mode: 'Command + analysis', Focus: 'Simulation control' }
+  },
+  {
+    id: 'smart-city-model',
+    name: 'Smart City Physical Model',
+    category: 'model',
+    zone: 'Central Floor',
+    status: 'Active',
+    imageUrl: 'https://images.unsplash.com/photo-1516637090635-c85ab3ec2b65?w=300&h=200&fit=crop',
+    description: 'Physical smart city model used as the centerpiece for urban digital twin demonstrations and CPS experimentation.',
+    rolePrompt: 'You are the Smart City Physical Model in Smart World Lab. Explain how the physical city model links to sensors, AI, drones, robotics, energy, and city simulation.',
+    capabilities: ['Digital twin anchor', 'Urban systems demonstration', 'Energy + mobility scenarios', 'Cross-domain integration'],
+    specs: { Scale: 'Tabletop city', Focus: 'Twin demonstration', Integration: 'AI, IoT, CPS, UAV' }
+  },
+  {
+    id: 'uav-sim-bay',
+    name: 'UAV and Robotics Simulation Wall',
+    category: 'uav',
+    zone: 'UAV Bay',
+    status: 'Active',
+    imageUrl: 'https://images.unsplash.com/photo-1489749798305-4fea3ba63d60?w=300&h=200&fit=crop',
+    description: 'Simulation display for drone missions, robotic paths, and aerial analytics over the smart city environment.',
+    rolePrompt: 'You are the UAV and Robotics Simulation Wall. Answer like a drone mission planning and robotics simulation system.',
+    capabilities: ['Drone mission simulation', 'Robotics route planning', 'Aerial data playback', 'Mission rehearsal'],
+    specs: { Display: 'Large simulation screen', Coverage: 'Air + ground robots', Output: 'Mission scenarios' }
+  },
+  {
+    id: 'drone-fleet',
+    name: 'Drone Fleet Rack',
+    category: 'uav',
+    zone: 'UAV Bay',
+    status: 'Ready',
+    imageUrl: 'https://images.unsplash.com/photo-1573566350731-2c1101ecc165?w=300&h=200&fit=crop',
+    description: 'Collection of quadcopters and UAV platforms used for flight tests, aerial sensing, and smart city observation.',
+    rolePrompt: 'You are the drone fleet in Smart World Lab. Respond like a mission-ready aerial sensing system that cares about battery, payload, navigation, and safety.',
+    capabilities: ['Aerial sensing', 'Inspection flights', 'Data capture', 'Autonomous missions'],
+    specs: { Platforms: 'Multi-UAV', Payload: 'Camera + sensors', Safety: 'Flight zone managed' }
+  },
+  {
+    id: 'maker-table',
+    name: '3D Print and Maker Table',
+    category: 'maker',
+    zone: 'Maker Zone',
+    status: 'Active',
+    imageUrl: 'https://images.unsplash.com/photo-1609041788887-482a45ffa588?w=300&h=200&fit=crop',
+    description: 'Fabrication table with 3D printers, prototyping tools, and electronics for rapid hardware iteration.',
+    rolePrompt: 'You are the 3D Print and Maker Table. Speak like a prototyping lab that turns ideas into physical devices and test rigs.',
+    capabilities: ['Rapid prototyping', '3D printing', 'Fixture fabrication', 'Hardware iteration'],
+    specs: { Tools: 'Printers + prototyping gear', Use: 'Hardware builds', Cycle: 'Fast iteration' }
+  },
+  {
+    id: 'robotics-cart',
+    name: 'Robotics and Hardware Test Cart',
+    category: 'robotics',
+    zone: 'Robotics Zone',
+    status: 'Ready',
+    imageUrl: 'https://images.unsplash.com/photo-1518152006812-edab29387d0a?w=300&h=200&fit=crop',
+    description: 'Mobile robotics platform for autonomy testing, edge compute experiments, and CPS demonstrations.',
+    rolePrompt: 'You are a robotics test cart in Smart World Lab. Answer like a mobile autonomy platform with sensors, control loops, and mission logic.',
+    capabilities: ['Autonomy testing', 'Edge robotics', 'Ground mobility', 'CPS demonstrations'],
+    specs: { Mobility: 'Ground robot', Compute: 'Edge AI onboard', Role: 'Robotics testbed' }
+  },
+  {
+    id: 'projector-array',
+    name: 'Projectors and Big Screen',
+    category: 'display',
+    zone: 'Presentation Zone',
+    status: 'Ready',
+    imageUrl: 'https://images.unsplash.com/photo-1540575467063-178f50c1fe5e?w=300&h=200&fit=crop',
+    description: 'Large projection surface used for smart city ecosystem presentations, teaching, and high-level demos.',
+    rolePrompt: 'You are the Projectors and Big Screen setup. Respond like a presentation system for immersive lab demos and teaching.',
+    capabilities: ['Large presentations', 'Immersive lab demos', 'Teaching support', 'City ecosystem visualizations'],
+    specs: { Audience: 'Classroom + visitors', Format: 'Projection wall', Role: 'Presentation system' }
+  },
+  {
+    id: 'iot-sensor-kit',
+    name: 'IoT and Sensor Bench',
+    category: 'iot',
+    zone: 'Maker Zone',
+    status: 'Active',
+    imageUrl: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=300&h=200&fit=crop',
+    description: 'Bench area for IoT modules, embedded boards, telemetry sensors, and connected CPS experiments.',
+    rolePrompt: 'You are the IoT and Sensor Bench. Explain sensing, telemetry, embedded integration, and how you feed the digital twin.',
+    capabilities: ['Embedded sensing', 'Telemetry streaming', 'Prototype integration', 'Sensor calibration'],
+    specs: { Boards: 'Mixed embedded kits', Data: 'Sensor telemetry', Link: 'Feeds twin models' }
+  },
+  {
+    id: 'ai-analytics-rack',
+    name: 'AI and Data Analytics Console',
+    category: 'ai',
+    zone: 'Control Center',
+    status: 'Active',
+    imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=300&h=200&fit=crop',
+    description: 'Analytics stack for AI inference, model evaluation, and data-driven decision support across the lab.',
+    rolePrompt: 'You are the AI and Data Analytics Console. Answer like an analytics brain that processes lab data and supports decision-making.',
+    capabilities: ['Model inference', 'Analytics pipelines', 'Forecasting', 'Decision support'],
+    specs: { Function: 'AI analytics', Workload: 'Inference + analysis', Users: 'Researchers + operators' }
+  },
+  {
+    id: 'cyber-physical-display',
+    name: 'Cyber-Physical Systems Display',
+    category: 'cps',
+    zone: 'Presentation Zone',
+    status: 'Ready',
+    imageUrl: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=300&h=200&fit=crop',
+    description: 'Demonstration board showing cyber-physical systems, integrated control, and connected lab capabilities.',
+    rolePrompt: 'You are the Cyber-Physical Systems Display. Explain CPS integration across infrastructure, robotics, sensors, and control loops.',
+    capabilities: ['CPS education', 'System integration overview', 'Cross-domain mapping', 'Research communication'],
+    specs: { Topic: 'Cyber-physical systems', Role: 'Explanatory display', Scope: 'Cross-lab integration' }
+  },
+  {
+    id: 'workstation-cluster',
+    name: 'Research Workstation Cluster',
+    category: 'workstation',
+    zone: 'Workstations',
+    status: 'Active',
+    imageUrl: 'https://images.unsplash.com/photo-1552664730-d307ca884978?w=300&h=200&fit=crop',
+    description: 'Rows of desktop stations for software development, simulation review, drone analysis, and digital twin workflows.',
+    rolePrompt: 'You are the Research Workstation Cluster. Respond like a compute workspace serving simulation, coding, and analytics tasks.',
+    capabilities: ['Software development', 'Simulation review', 'Data analysis', 'Mission planning'],
+    specs: { Seats: 'Multi-seat lab', Role: 'General compute', Users: 'Students + researchers' }
+  }
 ];
 
-const canvas = document.getElementById('canvas');
-const linksLayer = document.getElementById('linksLayer');
-const ownedAgentsList = document.getElementById('ownedAgentsList');
-const inspector = document.getElementById('inspector');
-const scenarioInput = document.getElementById('scenarioInput');
-const dataInput = document.getElementById('dataInput');
-const runStatus = document.getElementById('runStatus');
-const simOutput = document.getElementById('simOutput');
-const simLog = document.getElementById('simLog');
-const projectNameInput = document.getElementById('projectName');
-const useOllamaInput = document.getElementById('useOllama');
-const modelInput = document.getElementById('modelInput');
+const categoryOrder = ['all', 'display', 'workstation', 'model', 'uav', 'maker', 'robotics', 'iot', 'ai', 'cps'];
+let activeCategory = 'all';
+let selectedEquipmentId = 'monitoring-wall';
+let chatStore = readJson(CHAT_KEY, {});
 
-let nodes = [];
-let edges = [];
-let selectedNodeId = null;
-let pendingOutPort = null;
-
-const readJson = (key, fallback) => {
+function readJson(key, fallback) {
   try {
     const raw = localStorage.getItem(key);
     return raw ? JSON.parse(raw) : fallback;
   } catch {
     return fallback;
   }
-};
+}
 
-const getOwnedAgents = () => {
-  const purchased = readJson(STORAGE_KEYS.purchases, []);
-  if (!Array.isArray(purchased) || purchased.length === 0) {
-    return seedAgents;
-  }
-  return purchased.map((p) => ({
-    id: p.id || `agent-${Date.now()}`,
-    name: p.name || 'Custom Agent',
-    category: p.category || 'general',
-    icon: p.icon || '🤖'
-  }));
-};
+function saveJson(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
 
-const renderOwnedAgents = () => {
-  const agents = getOwnedAgents();
-  ownedAgentsList.innerHTML = '';
-  agents.forEach((agent) => {
-    const div = document.createElement('div');
-    div.className = 'owned-item';
-    div.textContent = `${agent.icon} ${agent.name} (${agent.category})`;
-    ownedAgentsList.appendChild(div);
+function getSelectedEquipment() {
+  return equipmentCatalog.find((item) => item.id === selectedEquipmentId) || equipmentCatalog[0];
+}
+
+function getFilteredEquipment() {
+  const term = (equipmentSearch?.value || '').trim().toLowerCase();
+  return equipmentCatalog.filter((item) => {
+    const matchCategory = activeCategory === 'all' || item.category === activeCategory;
+    const haystack = `${item.name} ${item.zone} ${item.description} ${item.capabilities.join(' ')}`.toLowerCase();
+    return matchCategory && (!term || haystack.includes(term));
   });
-};
+}
 
-const makeNode = (type, x = 80, y = 80) => {
-  const id = `node-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-  const owned = getOwnedAgents();
-  const firstAgent = owned[0] || { id: 'seed-debug', name: 'Python Debugger' };
-  const base = {
-    id,
-    type,
-    x,
-    y,
-    title: type[0].toUpperCase() + type.slice(1),
-    config: {}
-  };
+function titleCase(text) {
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
 
-  if (type === 'source') {
-    base.title = 'Scenario Source';
-    base.config.prompt = 'Initial problem statement';
-  }
-  if (type === 'agent') {
-    base.title = 'Agent Node';
-    base.config.agentId = firstAgent.id;
-    base.config.mode = 'analyze';
-  }
-  if (type === 'logic') {
-    base.title = 'Logic Node';
-    base.config.operation = 'summarize';
-  }
-  if (type === 'output') {
-    base.title = 'Output Node';
-  }
-
-  nodes.push(base);
-  selectedNodeId = id;
-  renderAll();
-};
-
-const removeNode = (id) => {
-  nodes = nodes.filter((n) => n.id !== id);
-  edges = edges.filter((e) => e.from !== id && e.to !== id);
-  if (selectedNodeId === id) selectedNodeId = null;
-  renderAll();
-};
-
-const getNodeById = (id) => nodes.find((n) => n.id === id);
-
-const connectNodes = (fromId, toId) => {
-  if (fromId === toId) return;
-  if (edges.some((e) => e.from === fromId && e.to === toId)) return;
-  edges.push({ id: `edge-${Date.now()}-${Math.random()}`, from: fromId, to: toId });
-  renderLinks();
-};
-
-const disconnectEdgeAt = (x, y) => {
-  const margin = 6;
-  edges = edges.filter((edge) => {
-    const a = getNodeById(edge.from);
-    const b = getNodeById(edge.to);
-    if (!a || !b) return false;
-    const x1 = a.x + 210;
-    const y1 = a.y + 44;
-    const x2 = b.x;
-    const y2 = b.y + 44;
-    const minX = Math.min(x1, x2) - margin;
-    const maxX = Math.max(x1, x2) + margin;
-    const minY = Math.min(y1, y2) - margin;
-    const maxY = Math.max(y1, y2) + margin;
-    const nearBox = x >= minX && x <= maxX && y >= minY && y <= maxY;
-    return !nearBox;
+function renderCategoryChips() {
+  categoryChips.innerHTML = '';
+  categoryOrder.forEach((category) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = category === 'all' ? 'All' : titleCase(category);
+    if (category === activeCategory) button.classList.add('active');
+    button.addEventListener('click', () => {
+      activeCategory = category;
+      renderCategoryChips();
+      renderEquipmentList();
+    });
+    categoryChips.appendChild(button);
   });
-  renderLinks();
-};
+}
 
-const renderNode = (node) => {
-  const el = document.createElement('article');
-  el.className = `node ${selectedNodeId === node.id ? 'selected' : ''}`;
-  el.style.left = `${node.x}px`;
-  el.style.top = `${node.y}px`;
-  el.dataset.id = node.id;
+function renderStats() {
+  inventoryCount.textContent = String(equipmentCatalog.length);
+  zoneCount.textContent = String(new Set(equipmentCatalog.map((item) => item.zone)).size);
+  activeCount.textContent = String(equipmentCatalog.filter((item) => item.status === 'Active').length);
+}
 
-  const preview = () => {
-    if (node.type === 'source') return node.config.prompt || 'No source text';
-    if (node.type === 'agent') {
-      const owned = getOwnedAgents();
-      const agent = owned.find((a) => a.id === node.config.agentId);
-      return `${agent ? agent.name : 'Unknown agent'} | mode: ${node.config.mode || 'analyze'}`;
+function renderEquipmentList() {
+  const filtered = getFilteredEquipment();
+  listMeta.textContent = `${filtered.length} items`;
+  equipmentList.innerHTML = '';
+  filtered.forEach((item) => {
+    const card = document.createElement('article');
+    card.className = `equipment-card${item.id === selectedEquipmentId ? ' active' : ''}`;
+    card.dataset.equipmentId = item.id;
+    if (item.imageUrl) {
+      card.style.backgroundImage = `linear-gradient(135deg, rgba(16, 29, 48, 0.85), rgba(10, 18, 31, 0.85)), url('${item.imageUrl}')`;
+      card.style.backgroundSize = 'cover';
+      card.style.backgroundPosition = 'center';
     }
-    if (node.type === 'logic') return `Operation: ${node.config.operation || 'summarize'}`;
-    return 'Collect final result';
-  };
+    card.innerHTML = `
+      <h4>${item.name}</h4>
+      <p>${item.description}</p>
+      <div class="equipment-tags">
+        <span>${item.zone}</span>
+        <span>${titleCase(item.category)}</span>
+        <span>${item.status}</span>
+      </div>
+    `;
+    card.addEventListener('click', () => {
+      selectedEquipmentId = item.id;
+      renderAll();
+    });
+    equipmentList.appendChild(card);
+  });
+}
 
-  el.innerHTML = `
-    <div class="node-head node-type-${node.type}">
-      <strong>${node.title}</strong>
-      <button class="node-remove" type="button" title="Remove">✕</button>
-    </div>
-    <div class="node-body">${preview()}</div>
-    <span class="port in" title="Input"></span>
-    <span class="port out" title="Output"></span>
-  `;
+function renderZones() {
+  const zones = [...new Set(equipmentCatalog.map((item) => item.zone))];
+  zoneStrip.innerHTML = '';
+  zones.forEach((zone) => {
+    const pill = document.createElement('span');
+    pill.className = 'zone-pill';
+    pill.textContent = zone;
+    zoneStrip.appendChild(pill);
+  });
+}
 
-  const head = el.querySelector('.node-head');
-  const btnRemove = el.querySelector('.node-remove');
-  const inPort = el.querySelector('.port.in');
-  const outPort = el.querySelector('.port.out');
+function renderSelectedEquipment() {
+  const item = getSelectedEquipment();
+  selectedName.textContent = item.name;
+  selectedCategory.textContent = `${item.zone} | ${titleCase(item.category)}`;
+  selectedDesc.textContent = item.description;
+  selectedStatus.textContent = item.status;
+  selectedSpecs.innerHTML = '';
+  Object.entries(item.specs).forEach(([key, value]) => {
+    const card = document.createElement('div');
+    card.className = 'spec-card';
+    card.innerHTML = `<strong>${key}</strong><span>${value}</span>`;
+    selectedSpecs.appendChild(card);
+  });
+  selectedCapabilities.innerHTML = '';
+  item.capabilities.forEach((capability) => {
+    const chip = document.createElement('span');
+    chip.textContent = capability;
+    selectedCapabilities.appendChild(chip);
+  });
+  hotspotButtons.forEach((button) => {
+    button.classList.toggle('active', button.dataset.equipment === item.id);
+  });
+}
 
-  el.addEventListener('click', (event) => {
-    if (event.target === inPort || event.target === outPort || event.target === btnRemove) return;
-    selectedNodeId = node.id;
-    renderInspector();
-    renderNodes();
+function getChatHistory(itemId) {
+  if (!chatStore[itemId]) {
+    chatStore[itemId] = [];
+  }
+  return chatStore[itemId];
+}
+
+function persistChats() {
+  saveJson(CHAT_KEY, chatStore);
+}
+
+function appendChat(role, text) {
+  const node = document.createElement('div');
+  node.className = `chat-msg ${role}`;
+  node.textContent = text;
+  chatFeed.appendChild(node);
+  chatFeed.scrollTop = chatFeed.scrollHeight;
+  return node;
+}
+
+function renderChat() {
+  const item = getSelectedEquipment();
+  const history = getChatHistory(item.id);
+  chatFeed.innerHTML = '';
+  if (!history.length) {
+    appendChat('assistant', `I am ${item.name}. Ask me what I do in the Smart World Lab, what data I work with, or how I connect to the smart city model.`);
+    return;
+  }
+  history.forEach((entry) => appendChat(entry.role, entry.content));
+}
+
+function fallbackReply(question, item) {
+  const q = question.toLowerCase();
+  if (q.includes('what do you do') || q.includes('introduce')) {
+    return `I am ${item.name} in the ${item.zone}. My main role is ${item.description.toLowerCase()}`;
+  }
+  if (q.includes('data')) {
+    return `${item.name} works with ${item.capabilities.join(', ').toLowerCase()}. I either generate operational data, visualize it, or help operators act on it.`;
+  }
+  if (q.includes('maintenance') || q.includes('safety')) {
+    return `${item.name} needs routine checks based on its role in the lab. For this system, focus on readiness, safe operation, clean power and network links, and proper calibration before demonstrations.`;
+  }
+  if (q.includes('smart city model') || q.includes('model')) {
+    return `${item.name} supports the Smart City Model by contributing ${item.capabilities[0].toLowerCase()} and helping demonstrate how sensing, analytics, control, and robotics connect in one lab environment.`;
+  }
+  return `I am ${item.name}. In this lab I support ${item.capabilities.join(', ').toLowerCase()}. Ask about my role, data, safety, or how I connect to the smart city model.`;
+}
+
+async function refreshBridgeStatus() {
+  try {
+    const response = await fetch(`${LOCAL_BRIDGE}/health`);
+    if (!response.ok) throw new Error('offline');
+    bridgeStatus.textContent = `Ready | ${LOCAL_MODEL}`;
+  } catch {
+    bridgeStatus.textContent = 'Offline fallback';
+  }
+}
+
+async function askEquipment(question, item, onChunk) {
+  const history = getChatHistory(item.id);
+  const prompt = [
+    `SYSTEM: ${item.rolePrompt}`,
+    'SYSTEM: You are part of Smart World Lab, inspired by a lab with a monitoring wall, smart city physical model, drone simulation, maker table, robotics hardware, workstations, and AI analytics zones.',
+    `SYSTEM: Equipment profile: Name=${item.name}; Zone=${item.zone}; Category=${item.category}; Status=${item.status}; Description=${item.description}; Capabilities=${item.capabilities.join(', ')}.`,
+    ...history.slice(-8).map((entry) => `${entry.role.toUpperCase()}: ${entry.content}`),
+    `USER: ${question}`
+  ].join('\n\n');
+
+  const response = await fetch(`${LOCAL_BRIDGE}/ollama/generate`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model: LOCAL_MODEL, prompt })
   });
 
-  btnRemove.addEventListener('click', () => removeNode(node.id));
+  if (!response.ok) {
+    throw new Error('Bridge request failed');
+  }
 
-  outPort.addEventListener('click', (event) => {
-    event.stopPropagation();
-    pendingOutPort = node.id;
-    document.querySelectorAll('.port.out').forEach((p) => p.classList.remove('active'));
-    outPort.classList.add('active');
-  });
+  const data = await response.json();
+  if (!data.ok) {
+    throw new Error(data.error || 'Model request failed');
+  }
 
-  inPort.addEventListener('click', (event) => {
-    event.stopPropagation();
-    if (!pendingOutPort) return;
-    connectNodes(pendingOutPort, node.id);
-    pendingOutPort = null;
-    document.querySelectorAll('.port.out').forEach((p) => p.classList.remove('active'));
-  });
-
-  // Dragging
-  let dragging = false;
-  let sx = 0;
-  let sy = 0;
-  let ox = 0;
-  let oy = 0;
-
-  head.addEventListener('pointerdown', (event) => {
-    dragging = true;
-    sx = event.clientX;
-    sy = event.clientY;
-    ox = node.x;
-    oy = node.y;
-    head.setPointerCapture(event.pointerId);
-  });
-
-  head.addEventListener('pointermove', (event) => {
-    if (!dragging) return;
-    const dx = event.clientX - sx;
-    const dy = event.clientY - sy;
-    node.x = Math.max(10, Math.min(canvas.clientWidth - 220, ox + dx));
-    node.y = Math.max(10, Math.min(canvas.clientHeight - 120, oy + dy));
-    el.style.left = `${node.x}px`;
-    el.style.top = `${node.y}px`;
-    renderLinks();
-  });
-
-  head.addEventListener('pointerup', (event) => {
-    dragging = false;
-    if (head.hasPointerCapture(event.pointerId)) {
-      head.releasePointerCapture(event.pointerId);
+  const full = (data.response || '').trim();
+  for (const piece of full.match(/.{1,80}/g) || []) {
+    if (onChunk) {
+      onChunk(piece);
+      await new Promise((resolve) => setTimeout(resolve, 10));
     }
+  }
+  return full;
+}
+
+async function handleQuestion(rawQuestion) {
+  const question = rawQuestion.trim();
+  if (!question) return;
+  const item = getSelectedEquipment();
+  const history = getChatHistory(item.id);
+  history.push({ role: 'user', content: question });
+  persistChats();
+  renderChat();
+
+  const thinking = appendChat('assistant thinking', 'Thinking...');
+  try {
+    const answer = await askEquipment(question, item, (chunk) => {
+      if (thinking.textContent === 'Thinking...') {
+        thinking.textContent = chunk;
+      } else {
+        thinking.textContent += chunk;
+      }
+      chatFeed.scrollTop = chatFeed.scrollHeight;
+    });
+    thinking.className = 'chat-msg assistant';
+    thinking.textContent = answer;
+    history.push({ role: 'assistant', content: answer });
+  } catch {
+    const answer = fallbackReply(question, item);
+    thinking.className = 'chat-msg assistant';
+    thinking.textContent = answer;
+    history.push({ role: 'assistant', content: answer });
+  }
+  persistChats();
+}
+
+function renderAll() {
+  renderStats();
+  renderCategoryChips();
+  renderEquipmentList();
+  renderZones();
+  renderSelectedEquipment();
+  renderChat();
+}
+
+equipmentSearch?.addEventListener('input', () => {
+  renderEquipmentList();
+});
+
+hotspotButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    selectedEquipmentId = button.dataset.equipment || selectedEquipmentId;
+    renderAll();
   });
+});
 
-  return el;
-};
-
-const renderNodes = () => {
-  canvas.querySelectorAll('.node').forEach((n) => n.remove());
-  nodes.forEach((n) => canvas.appendChild(renderNode(n)));
-};
-
-const renderLinks = () => {
-  linksLayer.innerHTML = '';
-  const w = canvas.clientWidth;
-  const h = canvas.clientHeight;
-  linksLayer.setAttribute('viewBox', `0 0 ${w} ${h}`);
-
-  edges.forEach((edge) => {
-    const fromNode = getNodeById(edge.from);
-    const toNode = getNodeById(edge.to);
-    if (!fromNode || !toNode) return;
-
-    const x1 = fromNode.x + 210;
-    const y1 = fromNode.y + 44;
-    const x2 = toNode.x;
-    const y2 = toNode.y + 44;
-    const c1x = x1 + 56;
-    const c2x = x2 - 56;
-
-    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    path.setAttribute('class', 'link-line');
-    path.setAttribute('d', `M ${x1} ${y1} C ${c1x} ${y1}, ${c2x} ${y2}, ${x2} ${y2}`);
-    linksLayer.appendChild(path);
+promptButtons.forEach((button) => {
+  button.addEventListener('click', async () => {
+    const prompt = button.dataset.prompt || '';
+    if (chatInput) {
+      chatInput.value = prompt;
+    }
+    await handleQuestion(prompt);
   });
-};
+});
+
+chatForm?.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const value = chatInput?.value || '';
+  if (chatInput) {
+    chatInput.value = '';
+  }
+  await handleQuestion(value);
+});
+
+clearChatBtn?.addEventListener('click', () => {
+  chatStore[selectedEquipmentId] = [];
+  persistChats();
+  renderChat();
+});
+
+refreshBridgeStatus();
+setInterval(refreshBridgeStatus, 15000);
+renderAll();
 
 const renderInspector = () => {
   const node = getNodeById(selectedNodeId);

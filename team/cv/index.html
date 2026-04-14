@@ -91,28 +91,6 @@
 
         <article class="cv-card">
           <header class="cv-head">
-            <img src="https://i.pravatar.cc/400?img=15" alt="Ali Rezaei avatar" />
-            <div>
-              <h2>Ali Rezaei</h2>
-              <p>GIS and Urban Systems Analyst</p>
-            </div>
-          </header>
-          <section class="cv-body">
-            <p>Builds geospatial intelligence for district planning, digital twin layering, and multi-scenario map analytics.</p>
-            <div class="metric-row">
-              <article class="metric"><span>Maps Published</span><strong>120+</strong></article>
-              <article class="metric"><span>Spatial Coverage</span><strong>Citywide</strong></article>
-              <article class="metric"><span>Data Layers</span><strong>40+</strong></article>
-            </div>
-            <div class="cv-actions">
-              <a class="btn primary" href="cv-ali-rezaei.html">Open Full CV</a>
-              <a class="btn" href="../team.html">Talk In Team Hub</a>
-            </div>
-          </section>
-        </article>
-
-        <article class="cv-card">
-          <header class="cv-head">
             <img src="https://i.pravatar.cc/400?img=5" alt="Neda Farhadi avatar" />
             <div>
               <h2>Neda Farhadi</h2>
@@ -200,5 +178,22 @@
         </article>
       </section>
     </main>
-  </body>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
 </html>

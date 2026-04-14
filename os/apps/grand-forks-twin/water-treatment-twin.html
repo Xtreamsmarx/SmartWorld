@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Water Treatment Digital Twin</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="facility-twin.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <aside class="panel left-panel">
+        <p class="eyebrow">Smart World Facility Twin</p>
+        <h1 id="facilityTitle">Water Treatment Twin</h1>
+        <p id="facilitySubtitle" class="subtitle"></p>
+
+        <section class="control-block">
+          <p class="label">Navigation</p>
+          <a class="back-link" href="grand-forks-twin.html">Back To General Twin</a>
+        </section>
+
+        <section class="control-block">
+          <p class="label">Smart Decision KPIs</p>
+          <div id="kpiGrid" class="kpi-grid"></div>
+        </section>
+
+        <section class="control-block">
+          <p class="label">Selected Asset</p>
+          <div id="selectionCard" class="selection-card"></div>
+        </section>
+      </aside>
+
+      <section class="stage-panel">
+        <header class="stage-toolbar">
+          <span>Auto-rotating treatment twin. Inspect pumps, clarifiers, and distribution nodes.</span>
+          <div>
+            <button id="resetCameraBtn" type="button">Reset Camera</button>
+            <button id="toggleDayBtn" type="button">Night Mode</button>
+          </div>
+        </header>
+        <section class="stage-wrap">
+          <div id="threeStage" class="three-stage"></div>
+          <div class="hud">
+            <div class="hud-card"><span>Mode</span><strong id="modeLabel">Night Simulation</strong></div>
+            <div class="hud-card"><span>Assets</span><strong id="assetCount">0</strong></div>
+            <div class="hud-card"><span>Scope</span><strong>Water</strong></div>
+          </div>
+        </section>
+      </section>
+
+      <aside class="panel right-panel">
+        <section class="info-block">
+          <h2>Water Assets</h2>
+          <div id="assetList" class="list"></div>
+        </section>
+        <section class="info-block">
+          <h2>Insights For Smart Decisions</h2>
+          <ul id="insightList" class="insight-list"></ul>
+        </section>
+      </aside>
+    </main>
+
+    <script>
+      window.TWIN_CONFIG = {
+        name: 'Water Treatment Twin',
+        subtitle: 'Treatment, storage, and distribution reliability model for resilient water operations.',
+        themeColor: 0x4fd3c1,
+        cameraTarget: { x: 4, z: 2 },
+        metrics: [
+          { label: 'Plant Utilization', value: '71%', trend: '+3% seasonal demand' },
+          { label: 'Water Quality', value: '99.3%', trend: 'All targets met' },
+          { label: 'Pressure Stability', value: '96.1%', trend: '+1.8% after balancing' },
+          { label: 'Energy Cost', value: '$12.4k/day', trend: '-6% with pump schedule' }
+        ],
+        assets: [
+          { id: 'intake-station', name: 'River Intake Station', x: -10, z: -6, height: 7, color: 0x57c8c3, markerColor: 0x9cf3ea, status: 'Nominal', kpi: 'Flow 68%', desc: 'Raw water intake with flow and debris monitoring before primary treatment.' },
+          { id: 'clarifier-a', name: 'Clarifier A', x: -1, z: -2, height: 9, color: 0x63d7cf, markerColor: 0xaef7ee, status: 'Nominal', kpi: 'Turbidity low', desc: 'Primary clarifier handling suspended solids removal at steady throughput.' },
+          { id: 'filtration-hall', name: 'Filtration Hall', x: 8, z: -1, height: 11, color: 0x79e2d6, markerColor: 0xc2fbf3, status: 'Watch list', kpi: 'Backwash cycle soon', desc: 'Final filtration and disinfection train. Predictive maintenance window recommended.' },
+          { id: 'storage-reservoir', name: 'Storage Reservoir', x: 12, z: 10, height: 8, color: 0x57bea8, markerColor: 0x98f0d9, status: 'Nominal', kpi: '82% fill', desc: 'Reservoir balancing pressure and demand across district sectors.' },
+          { id: 'pump-station-east', name: 'Pump Station East', x: 1, z: 14, height: 7, color: 0x56b799, markerColor: 0x9aeecf, status: 'Optimization active', kpi: 'Energy -8%', desc: 'Distribution pumping node using off-peak scheduling and pressure optimization.' }
+        ],
+        paths: [
+          { width: 1.9, color: 0x2a7a83, points: [{ x: -16, z: -8 }, { x: -6, z: -4 }, { x: 0, z: -2 }, { x: 7, z: -1 }] },
+          { width: 1.6, color: 0x2d838d, points: [{ x: 7, z: -1 }, { x: 12, z: 2 }, { x: 12, z: 10 }] },
+          { width: 1.6, color: 0x28717a, points: [{ x: 0, z: -2 }, { x: 1, z: 6 }, { x: 1, z: 14 }] },
+          { width: 1.3, color: 0x2a8892, points: [{ x: -3, z: 4 }, { x: 6, z: 8 }, { x: 14, z: 12 }] }
+        ],
+        insights: [
+          'Schedule Filtration Hall backwash in the next 6 hours to prevent quality drift at peak demand.',
+          'Pump Station East can shift 12% load to off-peak windows without pressure violations.',
+          'Reservoir balancing at 80-85% fill lowers risk during sudden demand events.',
+          'Intake debris alert thresholds should tighten before forecasted storm runoff windows.'
+        ]
+      };
+    </script>
+    <script src="../../../vendor/three.min.js"></script>
+    <script src="facility-twin.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

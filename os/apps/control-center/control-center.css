@@ -198,6 +198,243 @@ html, body {
 
 .cmd-chip:hover { border-color: var(--teal); background: var(--teal-dim); }
 
+.super-admin {
+  border: 1px solid rgba(255, 140, 66, 0.45);
+  border-radius: 12px;
+  background: rgba(255, 140, 66, 0.08);
+  padding: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.super-admin.hidden {
+  display: none;
+}
+
+.super-admin-head h3 {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+  font-size: 1rem;
+}
+
+.super-admin-head p {
+  margin: 0.3rem 0 0;
+  color: var(--muted);
+}
+
+.super-admin-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.75rem;
+}
+
+.super-admin-controls select {
+  min-width: 240px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.35rem 0.5rem;
+  background: rgba(13, 22, 44, 0.95);
+  color: var(--ink);
+}
+
+#policyUser {
+  min-width: 170px;
+}
+
+.import-label {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.45rem 0.65rem;
+  background: rgba(12, 22, 44, 0.92);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+#importPolicyInput {
+  display: none;
+}
+
+.super-admin-grid {
+  margin-top: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.45rem;
+}
+
+.super-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(8, 15, 33, 0.75);
+  padding: 0.4rem 0.5rem;
+}
+
+.super-admin-note {
+  margin-top: 0.65rem;
+  color: #ffd4b8;
+  min-height: 1.2em;
+}
+
+.vault-actions {
+  margin-top: 0.55rem;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  flex-wrap: wrap;
+}
+
+#vaultStatus {
+  color: #ffd4b8;
+  font-size: 0.84rem;
+}
+
+.vault-config {
+  margin-top: 0.6rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.vault-config label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.82rem;
+}
+
+.vault-config select,
+.vault-config input[type="number"] {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.38rem 0.5rem;
+  background: rgba(13, 22, 44, 0.95);
+  color: var(--ink);
+}
+
+.vault-toggle {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 0.45rem !important;
+  margin-top: 1.1rem;
+}
+
+.snapshot-admin {
+  margin-top: 0.8rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  padding-top: 0.7rem;
+}
+
+.snapshot-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.snapshot-head h4 {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+}
+
+.snapshot-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.snapshot-list {
+  margin-top: 0.55rem;
+  display: grid;
+  gap: 0.4rem;
+  max-height: 220px;
+  overflow-y: auto;
+}
+
+.snapshot-item {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.45rem 0.55rem;
+  background: rgba(8, 15, 33, 0.72);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.snapshot-meta {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.snapshot-item-actions {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.snapshot-item-actions button {
+  width: auto;
+  padding: 0.3rem 0.55rem;
+  font-size: 0.76rem;
+}
+
+.llm-admin {
+  margin-top: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  padding-top: 0.75rem;
+}
+
+.llm-admin h4 {
+  margin: 0;
+  font-family: "Sora", sans-serif;
+}
+
+.llm-admin p {
+  margin: 0.3rem 0 0.6rem;
+  color: var(--muted);
+}
+
+.llm-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(240px, 1fr));
+  gap: 0.55rem;
+}
+
+.llm-grid label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.83rem;
+}
+
+.llm-grid input,
+.llm-grid select {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.45rem 0.55rem;
+  background: rgba(13, 22, 44, 0.95);
+  color: var(--ink);
+}
+
+.llm-grid .llm-wide {
+  grid-column: 1 / -1;
+}
+
+.llm-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 0.6rem;
+}
+
+#llmStatus {
+  color: #ffd4b8;
+  font-size: 0.84rem;
+}
+
 /* section headers */
 .section-title {
   margin: 0.2rem 0 0.8rem;

@@ -6,16 +6,20 @@ const termStats = document.querySelector('#termStats');
 const bridgeStatus = document.querySelector('#bridgeStatus');
 const cwdLabel = document.querySelector('#cwdLabel');
 const startBridgeBtn = document.querySelector('#startBridgeBtn');
+const copyBridgeCmdBtn = document.querySelector('#copyBridgeCmdBtn');
 const promptLabel = document.querySelector('#promptLabel');
+const cmdHistory = document.querySelector('#cmdHistory');
 
 const BRIDGE_URL = 'http://127.0.0.1:8765';
 const DEFAULT_CWD = 'C:/Users/irajh/Downloads/VSXtream/UNDv2';
+const BRIDGE_START_CMD = "$env:PATH = [System.Environment]::GetEnvironmentVariable('PATH','Machine') + ';' + [System.Environment]::GetEnvironmentVariable('PATH','User'); cd 'C:/Users/irajh/Downloads/VSXtream/UNDv2'; if (Test-Path 'C:/Users/irajh/.local/bin/python3.14.exe') { & 'C:/Users/irajh/.local/bin/python3.14.exe' os/apps/terminal/terminal_bridge.py } elseif (Get-Command py -ErrorAction SilentlyContinue) { py -3 os/apps/terminal/terminal_bridge.py } elseif (Get-Command python -ErrorAction SilentlyContinue) { python os/apps/terminal/terminal_bridge.py } else { Write-Error 'Python not found. Install Python and disable Microsoft Store alias.' }";
 
 const state = {
   runs: 0,
   lastCommand: 'none',
   cwd: DEFAULT_CWD,
   bridgeOnline: false,
+  history: [],
 };
 
 const appendLine = (text, kind) => {
@@ -44,6 +48,35 @@ const updateStats = () => {
     return;
   }
   termStats.textContent = `Commands executed: ${state.runs} | Last command: ${state.lastCommand} | Bridge: ${state.bridgeOnline ? 'online' : 'offline'}`;
+};
+
+const renderHistory = () => {
+  if (!cmdHistory) return;
+  cmdHistory.innerHTML = '';
+  for (const command of state.history) {
+    const pill = document.createElement('button');
+    pill.type = 'button';
+    pill.className = 'cmd-pill';
+    pill.textContent = command;
+    pill.addEventListener('click', () => {
+      runRemoteCommand(command);
+    });
+    cmdHistory.appendChild(pill);
+  }
+};
+
+const rememberCommand = (command) => {
+  const trimmed = command.trim();
+  if (!trimmed || trimmed.toLowerCase() === 'clear') return;
+  const existingIdx = state.history.findIndex((entry) => entry.toLowerCase() === trimmed.toLowerCase());
+  if (existingIdx >= 0) {
+    state.history.splice(existingIdx, 1);
+  }
+  state.history.unshift(trimmed);
+  if (state.history.length > 10) {
+    state.history.pop();
+  }
+  renderHistory();
 };
 
 const setBridgeState = (online, message) => {
@@ -85,6 +118,7 @@ const runRemoteCommand = async (raw) => {
   }
 
   appendLine(`${promptLabel ? promptLabel.textContent : 'sw@os$'} ${raw}`, 'cmd');
+  rememberCommand(command);
   state.runs += 1;
   state.lastCommand = command;
   updateStats();
@@ -138,15 +172,33 @@ for (const chip of chips) {
 }
 
 if (startBridgeBtn) {
-  startBridgeBtn.addEventListener('click', () => {
-    appendLine('Start the bridge from the workspace terminal with:', 'out');
-    appendLine('C:/Users/irajh/.local/bin/python3.14.exe os/apps/terminal/terminal_bridge.py', 'cmd');
+  startBridgeBtn.addEventListener('click', async () => {
+    const online = await checkBridge();
+    if (online) {
+      appendLine('Bridge is already online.', 'out');
+      return;
+    }
+    appendLine('Run this robust bridge start command in PowerShell:', 'out');
+    appendLine(BRIDGE_START_CMD, 'cmd');
+    appendLine('Tip: keep that terminal open while using chatbots and exact run.', 'out');
+  });
+}
+
+if (copyBridgeCmdBtn) {
+  copyBridgeCmdBtn.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(BRIDGE_START_CMD);
+      appendLine('Bridge start command copied to clipboard.', 'out');
+    } catch {
+      appendLine(`Copy failed. Use this command manually: ${BRIDGE_START_CMD}`, 'warn');
+    }
   });
 }
 
 appendLine('Smart World Terminal ready.', 'out');
 appendLine('This terminal runs real PowerShell commands through a local bridge service.', 'out');
-appendLine('If bridge is offline, start it with: C:/Users/irajh/.local/bin/python3.14.exe os/apps/terminal/terminal_bridge.py', 'out');
+appendLine(`If bridge is offline, start it with: ${BRIDGE_START_CMD}`, 'out');
+renderHistory();
 updatePrompt();
 updateStats();
 checkBridge();

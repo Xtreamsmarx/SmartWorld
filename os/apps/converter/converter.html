@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Unit Converter</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="converter.css" />
+  </head>
+  <body>
+    <div class="conv-wrap">
+      <header class="conv-header">
+        <span class="brand">Unit Converter</span>
+      </header>
+
+      <nav class="cat-tabs" id="catTabs">
+        <button class="cat active" data-cat="length">📏 Length</button>
+        <button class="cat" data-cat="weight">⚖️ Weight</button>
+        <button class="cat" data-cat="temp">🌡️ Temp</button>
+        <button class="cat" data-cat="speed">💨 Speed</button>
+        <button class="cat" data-cat="area">▭ Area</button>
+        <button class="cat" data-cat="data">💾 Data</button>
+      </nav>
+
+      <div class="conv-body">
+        <div class="conv-row">
+          <div class="input-group">
+            <input class="conv-input" id="valFrom" type="number" value="1" />
+            <select class="unit-select" id="unitFrom"></select>
+          </div>
+          <button class="swap-btn" id="swapBtn" type="button" title="Swap">⇄</button>
+          <div class="input-group">
+            <input class="conv-input" id="valTo" type="number" readonly />
+            <select class="unit-select" id="unitTo"></select>
+          </div>
+        </div>
+        <div class="formula-line" id="formulaLine"></div>
+
+        <div class="all-grid" id="allGrid"></div>
+      </div>
+    </div>
+    <script src="converter.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

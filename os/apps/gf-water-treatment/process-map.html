@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GF Water Plant - Process Map</title>
+    <link rel="stylesheet" href="water-layout.css" />
+  </head>
+  <body>
+    <main class="water-shell">
+      <aside class="side">
+        <div class="logo-dot">GF</div>
+        <nav class="side-nav">
+          <a href="./gf-water-treatment.html">Overview</a>
+          <a href="./digital-twin.html">3D Twin</a>
+          <a class="active" href="./process-map.html">Process</a>
+          <a href="./analytics.html">Analytics</a>
+          <a href="./reports.html">Reports</a>
+          <a href="./optimization.html">Optimize</a>
+          <a href="./water-chat.html">Chat</a>
+        </nav>
+      </aside>
+
+      <section class="main">
+        <header class="topbar" style="background-image: linear-gradient(135deg, rgba(25, 40, 65, 0.94), rgba(15, 25, 45, 0.92)), url('https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?w=1600&h=200&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed;">
+          <div class="brand">
+            <h1>2D Process Map</h1>
+            <p>Live flow topology and risk overlay</p>
+          </div>
+          <div class="top-info">
+            <span>Sensor Overlay Active</span>
+            <span id="nowTime">--:--:--</span>
+            <a class="back-link" href="../../os.html">Back</a>
+          </div>
+        </header>
+
+        <nav class="tab-strip">
+          <a href="./gf-water-treatment.html">Dashboard</a>
+          <a href="./digital-twin.html">Digital Twin</a>
+          <a class="active" href="./process-map.html">2D Layout</a>
+          <a href="./analytics.html">Analytics</a>
+          <a href="./reports.html">Reports</a>
+          <a href="./optimization.html">AI Insights</a>
+          <a href="./water-chat.html">Water Chat</a>
+        </nav>
+
+        <section class="page ops-layout">
+          <section class="ops-main">
+            <article class="panel">
+              <h2>Treatment Chain</h2>
+              <div class="map-box">
+                <svg class="map-flow" viewBox="0 0 1200 320" xmlns="http://www.w3.org/2000/svg">
+                  <defs>
+                    <marker id="arrow" markerWidth="8" markerHeight="8" refX="5" refY="4" orient="auto">
+                      <path d="M0,0 L8,4 L0,8 z" fill="#7ec8ff" />
+                    </marker>
+                  </defs>
+                  <rect x="30" y="120" width="120" height="70" rx="10" fill="#10355f" stroke="#74bfff" />
+                  <text x="90" y="160" fill="#dff1ff" font-size="24" text-anchor="middle">INTAKE</text>
+                  <rect x="220" y="120" width="130" height="70" rx="10" fill="#0f3552" stroke="#6ee7b7" />
+                  <text x="285" y="160" fill="#dff1ff" font-size="24" text-anchor="middle">MIX</text>
+                  <rect x="420" y="120" width="160" height="70" rx="10" fill="#3a2b0b" stroke="#fbbf24" />
+                  <text x="500" y="160" fill="#fff3d4" font-size="24" text-anchor="middle">CLARIFIER</text>
+                  <rect x="660" y="120" width="130" height="70" rx="10" fill="#3a140f" stroke="#f97316" />
+                  <text x="725" y="160" fill="#ffe5de" font-size="24" text-anchor="middle">FILTER</text>
+                  <rect x="860" y="120" width="150" height="70" rx="10" fill="#0f3f2b" stroke="#34d399" />
+                  <text x="935" y="160" fill="#defbee" font-size="24" text-anchor="middle">UV / DISINF</text>
+                  <line x1="150" y1="155" x2="220" y2="155" stroke="#7ec8ff" stroke-width="6" marker-end="url(#arrow)" />
+                  <line x1="350" y1="155" x2="420" y2="155" stroke="#7ec8ff" stroke-width="6" marker-end="url(#arrow)" />
+                  <line x1="580" y1="155" x2="660" y2="155" stroke="#7ec8ff" stroke-width="6" marker-end="url(#arrow)" />
+                  <line x1="790" y1="155" x2="860" y2="155" stroke="#7ec8ff" stroke-width="6" marker-end="url(#arrow)" />
+                  <circle cx="690" cy="90" r="16" fill="#ef4444" />
+                  <text x="690" y="95" fill="#fff" font-size="16" text-anchor="middle">!</text>
+                </svg>
+              </div>
+            </article>
+
+            <section class="grid-3">
+              <article class="panel"><h3>Low Risk</h3><p style="color:#9ed4ff;font-size:0.76rem;">Intake, pumps, UV contact channels.</p></article>
+              <article class="panel"><h3>Medium Risk</h3><p style="color:#9ed4ff;font-size:0.76rem;">Clarifier sludge rise and pH variation.</p></article>
+              <article class="panel"><h3>High Risk</h3><p style="color:#9ed4ff;font-size:0.76rem;">Filter 2 turbidity anomaly 2.8 NTU.</p></article>
+            </section>
+          </section>
+
+          <aside class="ai-rail">
+            <h3>Risk Overlay</h3>
+            <div class="pill-row">
+              <span class="pill critical">Filter lane</span>
+              <span class="pill warn">Clarifier drift</span>
+              <span class="pill ok">Intake stable</span>
+            </div>
+            <ul class="signal-list">
+              <li><strong>Hydraulic Bottleneck</strong>Filter approach velocity above baseline by 9%.</li>
+              <li><strong>Suggested Move</strong>Shift 0.8 MGD to Filter 1 for 25 minutes.</li>
+              <li><strong>Outcome</strong>Expected turbidity drop: 0.22 NTU.</li>
+            </ul>
+            <p class="tiny">Map updates every 30 seconds from SCADA snapshot.</p>
+          </aside>
+        </section>
+      </section>
+    </main>
+
+    <script src="water-layout.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

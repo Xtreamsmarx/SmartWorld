@@ -9,6 +9,8 @@ const chatLog = document.querySelector('#chatLog');
 const chatForm = document.querySelector('#chatForm');
 const chatInput = document.querySelector('#chatInput');
 const promptChips = document.querySelectorAll('.prompt-chip');
+const LOCAL_BRIDGE = 'http://127.0.0.1:8765';
+const LOCAL_MODEL = 'qwen2.5-coder:3b';
 
 let pointerX = window.innerWidth * 0.5;
 let pointerY = window.innerHeight * 0.5;
@@ -448,7 +450,7 @@ if (threeStage && window.THREE) {
       const query = rawQuery.trim().toLowerCase();
       if (!query) {
         appendMessage('bot', 'Type what you want to find in this 3D world.');
-        return;
+        return Promise.resolve();
       }
 
       const ranked = knowledge
@@ -459,7 +461,7 @@ if (threeStage && window.THREE) {
 
       if (ranked.length === 0) {
         appendMessage('bot', 'No matching point found. Try words like <strong>learning</strong>, <strong>paths</strong>, <strong>twin</strong>, or <strong>world</strong>.');
-        return;
+        return Promise.resolve();
       }
 
       focusedMesh = ranked[0].item.mesh;
@@ -471,14 +473,43 @@ if (threeStage && window.THREE) {
       if (openIntent) {
         appendMessage('bot', `Opening <strong>${escapeHtml(top.title)}</strong> now.`);
         goToUrl(top.url);
-        return;
+        return Promise.resolve();
       }
 
       const list = ranked
         .map((entry) => `<a href="${entry.item.url}">${escapeHtml(entry.item.title)}</a>`)
         .join(' | ');
 
-      appendMessage('bot', `Best matches: ${list}`);
+      const prompt = [
+        'You are Smart World assistant for UND.',
+        `User question: ${rawQuery}`,
+        'Top matched knowledge nodes:',
+        ...ranked.map((entry, idx) => `${idx + 1}. ${entry.item.title} | keywords: ${entry.item.keywords.join(', ')} | url: ${entry.item.url}`),
+        'Answer briefly and helpfully.'
+      ].join('\n');
+
+      return fetch(`${LOCAL_BRIDGE}/ollama/generate`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ model: LOCAL_MODEL, prompt, stream: false })
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error('Bridge request failed');
+          }
+          return response.json();
+        })
+        .then((payload) => {
+          if (!payload.ok) {
+            throw new Error(payload.error || 'Model request failed');
+          }
+          const answer = String(payload.response || '').trim();
+          const answerHtml = answer ? escapeHtml(answer).replaceAll('\n', '<br/>') : 'Best matches found.';
+          appendMessage('bot', `${answerHtml}<br/><br/>Best matches: ${list}`);
+        })
+        .catch(() => {
+          appendMessage('bot', `Best matches: ${list}`);
+        });
     };
 
     const sizeRenderer = () => {
@@ -547,26 +578,26 @@ if (threeStage && window.THREE) {
     });
 
     if (chatForm && chatInput) {
-      chatForm.addEventListener('submit', (event) => {
+      chatForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         const query = chatInput.value.trim();
         if (!query) {
           return;
         }
         appendMessage('user', escapeHtml(query));
-        searchWorld(query);
+        await searchWorld(query);
         chatInput.value = '';
       });
     }
 
     for (const chip of promptChips) {
-      chip.addEventListener('click', () => {
+      chip.addEventListener('click', async () => {
         const prompt = chip.getAttribute('data-prompt') || '';
         if (!prompt) {
           return;
         }
         appendMessage('user', escapeHtml(prompt));
-        searchWorld(prompt);
+        await searchWorld(prompt);
       });
     }
 

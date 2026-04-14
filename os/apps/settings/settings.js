@@ -7,8 +7,12 @@ const clockMode = document.querySelector('#clockMode');
 const summaryText = document.querySelector('#summaryText');
 const saveBtn = document.querySelector('#saveBtn');
 const saveState = document.querySelector('#saveState');
+const bgUpload = document.querySelector('#bgUpload');
+const bgPreview = document.querySelector('#bgPreview');
+const bgRemoveBtn = document.querySelector('#bgRemoveBtn');
 
-const settingsKey = 'und-settings';
+const SETTINGS_KEY = 'und-settings';
+const DESKTOP_BG_KEY = 'und-desktop-bg';
 
 const getState = () => ({
 	accent: accentColor ? accentColor.value : '#00d6c7',
@@ -28,7 +32,7 @@ const writeSummary = () => {
 };
 
 const hydrate = () => {
-	const raw = localStorage.getItem(settingsKey);
+	const raw = localStorage.getItem(SETTINGS_KEY);
 	if (!raw) {
 		writeSummary();
 		return;
@@ -59,7 +63,7 @@ for (const el of [accentColor, glowStrength, motionToggle, autoOpen, taskCompact
 
 if (saveBtn) {
 	saveBtn.addEventListener('click', () => {
-		localStorage.setItem(settingsKey, JSON.stringify(getState()));
+		localStorage.setItem(SETTINGS_KEY, JSON.stringify(getState()));
 		if (saveState) {
 			saveState.textContent = `Saved at ${new Date().toLocaleTimeString()}`;
 		}
@@ -67,3 +71,40 @@ if (saveBtn) {
 }
 
 hydrate();
+
+const updateBgPreview = (dataUrl) => {
+	if (!bgPreview) return;
+	if (dataUrl) {
+		bgPreview.style.backgroundImage = `url(${dataUrl})`;
+		bgPreview.style.display = 'block';
+	} else {
+		bgPreview.style.backgroundImage = '';
+		bgPreview.style.display = 'none';
+	}
+};
+
+if (bgUpload) {
+	bgUpload.addEventListener('change', () => {
+		const file = bgUpload.files && bgUpload.files[0];
+		if (!file) return;
+		const reader = new FileReader();
+		reader.addEventListener('load', (ev) => {
+			const dataUrl = ev.target.result;
+			localStorage.setItem(DESKTOP_BG_KEY, dataUrl);
+			updateBgPreview(dataUrl);
+			if (saveState) saveState.textContent = 'Background saved!';
+		});
+		reader.readAsDataURL(file);
+	});
+}
+
+if (bgRemoveBtn) {
+	bgRemoveBtn.addEventListener('click', () => {
+		localStorage.removeItem(DESKTOP_BG_KEY);
+		updateBgPreview(null);
+		if (bgUpload) bgUpload.value = '';
+		if (saveState) saveState.textContent = 'Background reset to video.';
+	});
+}
+
+updateBgPreview(localStorage.getItem(DESKTOP_BG_KEY));

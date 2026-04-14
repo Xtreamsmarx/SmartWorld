@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart World Lab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="simulation-lab.css" />
+  </head>
+  <body>
+    <div class="lab-shell">
+      <aside class="inventory-panel">
+        <div class="panel-head">
+          <p class="eyebrow">Smart World Lab</p>
+          <h1>Equipment Inventory</h1>
+          <p class="sub">Inspired by your Smart World Lab images with all major lab zones mapped into one interactive app.</p>
+        </div>
+
+        <section class="panel-block">
+          <h3>Find Equipment</h3>
+          <input id="equipmentSearch" type="text" placeholder="Search drone, printer, control station..." />
+          <div id="categoryChips" class="chip-row"></div>
+        </section>
+
+        <section class="panel-block stats-block">
+          <div class="stat-card"><strong id="inventoryCount">0</strong><span>Total devices</span></div>
+          <div class="stat-card"><strong id="zoneCount">0</strong><span>Lab zones</span></div>
+          <div class="stat-card"><strong id="activeCount">0</strong><span>Active now</span></div>
+        </section>
+
+        <section class="panel-block list-block">
+          <div class="list-head">
+            <h3>Lab Equipment</h3>
+            <span id="listMeta" class="meta-tag">All</span>
+          </div>
+          <div id="equipmentList" class="equipment-list"></div>
+        </section>
+      </aside>
+
+      <main class="stage-panel">
+        <header class="hero-bar" style="background-image: linear-gradient(135deg, rgba(9, 15, 27, 0.94), rgba(9, 15, 27, 0.88)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600&h=300&fit=crop'); background-size: cover; background-position: center; border-radius: 20px; padding: 1.2rem 1.4rem !important;">
+          <div>
+            <p class="eyebrow">Design . Simulate . Innovate</p>
+            <h2>Smart World Lab Command Deck</h2>
+          </div>
+          <div class="hero-metrics">
+            <div><strong>12</strong><span>Talkable Systems</span></div>
+            <div><strong>6</strong><span>Operational Zones</span></div>
+            <div><strong id="bridgeStatus">Bridge check...</strong><span>AI Link</span></div>
+          </div>
+        </header>
+
+        <section class="scene-grid">
+          <article class="scene-card panorama" style="background-image: linear-gradient(150deg, rgba(16, 32, 55, 0.8), rgba(10, 17, 31, 0.88)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop'); background-size: cover; background-position: center right;">
+            <div class="scene-copy">
+              <p class="eyebrow">Reference Layout</p>
+              <h3>Real-Time Monitoring Wall + Smart City Model</h3>
+              <p>Built around the equipment and room composition from your lab images: monitoring wall, smart city model, drone simulation, robotics, workstations, and maker table.</p>
+            </div>
+            <div class="scene-visual">
+              <div class="screen wall-screen">Monitoring Wall</div>
+              <div class="screen side-screen">UAV / Robotics</div>
+              <div class="city-model">Smart City Model</div>
+              <div class="workbench left-bench">Workstations</div>
+              <div class="workbench right-bench">3D Print + Maker</div>
+            </div>
+          </article>
+
+          <article class="scene-card floor-map-card" style="background-image: linear-gradient(180deg, rgba(15, 25, 45, 0.78), rgba(12, 21, 38, 0.92)), url('https://images.unsplash.com/photo-1600765065260-6beb30fabb45?w=800&h=400&fit=crop'); background-size: cover; background-position: center;">
+            <div class="list-head">
+              <h3>Interactive Lab Map</h3>
+              <span class="meta-tag">Click any hotspot</span>
+            </div>
+            <div id="labMap" class="lab-map">
+              <button class="map-hotspot" data-equipment="monitoring-wall" style="left:44%;top:18%;">Monitoring Wall</button>
+              <button class="map-hotspot" data-equipment="smart-city-model" style="left:42%;top:58%;">City Model</button>
+              <button class="map-hotspot" data-equipment="uav-sim-bay" style="left:78%;top:26%;">UAV Simulation</button>
+              <button class="map-hotspot" data-equipment="drone-fleet" style="left:80%;top:48%;">Drone Fleet</button>
+              <button class="map-hotspot" data-equipment="maker-table" style="left:72%;top:68%;">3D Maker Table</button>
+              <button class="map-hotspot" data-equipment="control-stations" style="left:26%;top:36%;">Control Stations</button>
+              <button class="map-hotspot" data-equipment="robotics-cart" style="left:76%;top:84%;">Robotics Cart</button>
+            </div>
+          </article>
+        </section>
+
+        <section class="zone-strip" id="zoneStrip"></section>
+      </main>
+
+      <aside class="chat-panel">
+        <section class="panel-block selected-block">
+          <div class="list-head">
+            <h3 id="selectedName">Select Equipment</h3>
+            <span id="selectedCategory" class="meta-tag">Zone</span>
+          </div>
+          <p id="selectedDesc" class="sub">Choose an item from the inventory or click a hotspot in the lab map.</p>
+          <div id="selectedSpecs" class="spec-grid"></div>
+          <div id="selectedCapabilities" class="capability-list"></div>
+        </section>
+
+        <section class="panel-block">
+          <div class="list-head">
+            <h3>Talk To Equipment</h3>
+            <span id="selectedStatus" class="meta-tag">Standby</span>
+          </div>
+          <div class="quick-prompts">
+            <button class="prompt-btn" type="button" data-prompt="Introduce yourself and explain what you do in the lab.">Introduce</button>
+            <button class="prompt-btn" type="button" data-prompt="What data do you generate or consume?">Data Flow</button>
+            <button class="prompt-btn" type="button" data-prompt="What maintenance or safety checks do you need?">Maintenance</button>
+            <button class="prompt-btn" type="button" data-prompt="How do you work with the Smart City Model?">Model Connection</button>
+          </div>
+          <div id="chatFeed" class="chat-feed">
+            <div class="chat-msg assistant">Select a device to start a conversation. Each equipment type responds in its own role.</div>
+          </div>
+          <form id="chatForm" class="chat-form">
+            <textarea id="chatInput" rows="4" placeholder="Ask the selected equipment something..."></textarea>
+            <div class="form-row">
+              <button id="clearChatBtn" type="button">Clear</button>
+              <button id="sendBtn" type="submit" class="primary">Send</button>
+            </div>
+          </form>
+        </section>
+      </aside>
+    </div>
+
+    <script src="simulation-lab.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>

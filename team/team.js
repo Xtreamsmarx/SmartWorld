@@ -8,6 +8,7 @@ const chatForm = document.querySelector('#chatForm');
 const chatInput = document.querySelector('#chatInput');
 const bridgeStatus = document.querySelector('#bridgeStatus');
 const agentListNode = document.querySelector('#agentList');
+const profileSearch = document.querySelector('#profileSearch');
 
 const LOCAL_BRIDGE = 'http://127.0.0.1:8765';
 const LOCAL_MODEL = 'qwen2.5-coder:3b';
@@ -44,16 +45,6 @@ const TEAM_PROFILES = [
     skills: ['Predictive Analytics', 'Data Modeling', 'Decision Intelligence'],
     style: 'Analytical, evidence-driven, and clear.',
     cvUrl: './cv/cv-sara-rahimi.html'
-  },
-  {
-    id: 'ali-rezaei',
-    name: 'Ali Rezaei',
-    role: 'GIS and Urban Systems Analyst',
-    avatar: 'https://i.pravatar.cc/320?img=15',
-    bio: 'Builds spatial intelligence layers and geospatial workflows for city-scale digital twins.',
-    skills: ['GIS Modeling', 'Spatial Data Pipelines', 'Urban Scenario Mapping'],
-    style: 'Structured, practical, and map-first.',
-    cvUrl: './cv/cv-ali-rezaei.html'
   },
   {
     id: 'neda-farhadi',
@@ -126,6 +117,7 @@ const AI_AGENTS = [
 
 let activeProfile = null;
 const historyByProfile = new Map();
+let searchQuery = '';
 
 const appendMessage = (role, text) => {
   if (!chatLog) return;
@@ -153,7 +145,25 @@ const renderProfiles = () => {
   if (!profilesNode) return;
   profilesNode.innerHTML = '';
 
-  TEAM_PROFILES.forEach((profile) => {
+  const filtered = TEAM_PROFILES.filter((profile) => {
+    const q = searchQuery.trim().toLowerCase();
+    if (!q) return true;
+    return (
+      profile.name.toLowerCase().includes(q)
+      || profile.role.toLowerCase().includes(q)
+      || profile.skills.join(' ').toLowerCase().includes(q)
+    );
+  });
+
+  if (!filtered.length) {
+    const empty = document.createElement('article');
+    empty.className = 'profile-card';
+    empty.innerHTML = '<div><h3>No matching profile</h3><p>Try another name or skill.</p></div>';
+    profilesNode.appendChild(empty);
+    return;
+  }
+
+  filtered.forEach((profile) => {
     const card = document.createElement('article');
     card.className = 'profile-card';
     card.dataset.id = profile.id;
@@ -316,6 +326,11 @@ chatForm?.addEventListener('submit', async (event) => {
     }
     saveToHistory(activeProfile.id, 'bot', reply);
   }
+});
+
+profileSearch?.addEventListener('input', () => {
+  searchQuery = profileSearch.value;
+  renderProfiles();
 });
 
 renderProfiles();

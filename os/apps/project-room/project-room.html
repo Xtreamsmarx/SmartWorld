@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Project Room</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="project-room.css" />
+  </head>
+  <body>
+    <div class="pm-shell">
+      <aside class="pm-sidebar">
+        <div class="pm-brand-row">
+          <div>
+            <p class="pm-eyebrow">Collaboration OS</p>
+            <h1>Project Room</h1>
+          </div>
+          <button id="newProjectBtn" class="pm-btn pm-btn-primary" type="button">New</button>
+        </div>
+
+        <label class="pm-field-label" for="projectSearch">Find a project</label>
+        <input id="projectSearch" class="pm-input" type="text" placeholder="Search project, task, chat..." />
+
+        <div class="pm-panel pm-profile-panel">
+          <div class="pm-panel-head">
+            <h2>Your profile</h2>
+            <span id="syncBadge" class="pm-badge">Local</span>
+          </div>
+          <label class="pm-field-label" for="displayName">Display name</label>
+          <input id="displayName" class="pm-input" type="text" placeholder="Your name" maxlength="30" />
+          <p class="pm-help">Open the app in another tab or window to test live sync for your group.</p>
+        </div>
+
+        <div class="pm-projects-head">
+          <h2>Projects</h2>
+          <span id="projectCount" class="pm-count">0</span>
+        </div>
+        <div id="projectList" class="pm-project-list"></div>
+      </aside>
+
+      <main class="pm-main">
+        <header class="pm-topbar">
+          <div>
+            <p class="pm-eyebrow">Shared workspace</p>
+            <h2 id="projectHeading">Select a project</h2>
+          </div>
+          <div class="pm-topbar-actions">
+            <button id="refreshBriefBtn" class="pm-btn pm-btn-ghost" type="button">Generate Brief</button>
+            <button id="exportBtn" class="pm-btn pm-btn-ghost" type="button">Export JSON</button>
+          </div>
+        </header>
+
+        <section id="emptyState" class="pm-empty-state">
+          <div class="pm-empty-card">
+            <h3>No project selected</h3>
+            <p>Create a project room for your team, define the problem, chat, assign work, and track decisions.</p>
+            <button id="emptyNewProjectBtn" class="pm-btn pm-btn-primary" type="button">Create Project</button>
+          </div>
+        </section>
+
+        <section id="workspace" class="pm-workspace hidden">
+          <div class="pm-grid pm-grid-top">
+            <article class="pm-card pm-card-problem">
+              <div class="pm-card-head">
+                <h3>Problem Frame</h3>
+                <span id="saveState" class="pm-save-state">Saved</span>
+              </div>
+              <label class="pm-field-label" for="projectTitle">Project title</label>
+              <input id="projectTitle" class="pm-input pm-title-input" type="text" placeholder="What is the project called?" />
+              <label class="pm-field-label" for="problemInput">Problem statement</label>
+              <textarea id="problemInput" class="pm-textarea" rows="4" placeholder="Describe the problem your group is solving..."></textarea>
+              <label class="pm-field-label" for="objectiveInput">Objective</label>
+              <textarea id="objectiveInput" class="pm-textarea" rows="3" placeholder="What outcome does the team need to reach?"></textarea>
+            </article>
+
+            <article class="pm-card pm-card-team">
+              <div class="pm-card-head">
+                <h3>Team</h3>
+                <span id="memberCount" class="pm-count">0</span>
+              </div>
+              <form id="memberForm" class="pm-inline-form">
+                <input id="memberInput" class="pm-input" type="text" placeholder="Add teammate name" maxlength="30" />
+                <button class="pm-btn pm-btn-primary" type="submit">Add</button>
+              </form>
+              <div id="memberList" class="pm-member-list"></div>
+            </article>
+
+            <article class="pm-card pm-card-brief">
+              <div class="pm-card-head">
+                <h3>Next-Step Brief</h3>
+                <button id="copyBriefBtn" class="pm-mini-btn" type="button">Copy</button>
+              </div>
+              <pre id="briefOutput" class="pm-brief-output"></pre>
+            </article>
+          </div>
+
+          <div class="pm-grid pm-grid-bottom">
+            <article class="pm-card pm-card-chat">
+              <div class="pm-card-head">
+                <h3>Group Chat</h3>
+                <span id="messageCount" class="pm-count">0</span>
+              </div>
+              <div id="messageList" class="pm-message-list"></div>
+              <form id="messageForm" class="pm-message-form">
+                <textarea id="messageInput" class="pm-textarea pm-chat-input" rows="3" placeholder="Share an update, ask a question, or propose a solution..."></textarea>
+                <button class="pm-btn pm-btn-primary" type="submit">Send</button>
+              </form>
+            </article>
+
+            <article class="pm-card pm-card-board">
+              <div class="pm-card-head">
+                <h3>Action Board</h3>
+                <span class="pm-help-inline">Drag cards between lanes</span>
+              </div>
+              <form id="taskForm" class="pm-task-form">
+                <input id="taskTitleInput" class="pm-input" type="text" placeholder="Task title" maxlength="90" />
+                <select id="taskOwnerSelect" class="pm-input"></select>
+                <select id="taskPrioritySelect" class="pm-input">
+                  <option value="High">High priority</option>
+                  <option value="Medium" selected>Medium priority</option>
+                  <option value="Low">Low priority</option>
+                </select>
+                <button class="pm-btn pm-btn-primary" type="submit">Add Task</button>
+              </form>
+              <div class="pm-board" id="taskBoard">
+                <section class="pm-lane" data-status="todo">
+                  <header><h4>To Do</h4><span id="countTodo">0</span></header>
+                  <div class="pm-lane-drop" id="laneTodo"></div>
+                </section>
+                <section class="pm-lane" data-status="doing">
+                  <header><h4>Doing</h4><span id="countDoing">0</span></header>
+                  <div class="pm-lane-drop" id="laneDoing"></div>
+                </section>
+                <section class="pm-lane" data-status="review">
+                  <header><h4>Review</h4><span id="countReview">0</span></header>
+                  <div class="pm-lane-drop" id="laneReview"></div>
+                </section>
+                <section class="pm-lane" data-status="done">
+                  <header><h4>Done</h4><span id="countDone">0</span></header>
+                  <div class="pm-lane-drop" id="laneDone"></div>
+                </section>
+              </div>
+            </article>
+
+            <article class="pm-card pm-card-decisions">
+              <div class="pm-card-head">
+                <h3>Decisions</h3>
+                <span id="decisionCount" class="pm-count">0</span>
+              </div>
+              <form id="decisionForm" class="pm-inline-form pm-inline-form-stack">
+                <textarea id="decisionInput" class="pm-textarea" rows="3" placeholder="Capture a decision, assumption, or agreed next step..."></textarea>
+                <button class="pm-btn pm-btn-primary" type="submit">Add Decision</button>
+              </form>
+              <div id="decisionList" class="pm-decision-list"></div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="project-room.js"></script>
+    <script>
+      (function(){
+        if (window.__smartChatLoaderInjected) return;
+        window.__smartChatLoaderInjected = true;
+        var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+        var i = 0;
+        function next(){
+          if (i >= tries.length) return;
+          var s = document.createElement('script');
+          s.src = tries[i++];
+          s.onload = function(){};
+          s.onerror = next;
+          document.head.appendChild(s);
+        }
+        next();
+      })();
+    </script>
+  </body>
+</html>

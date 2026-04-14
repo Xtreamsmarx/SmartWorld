@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GF Water Plant - Digital Twin</title>
+    <link rel="stylesheet" href="water-layout.css" />
+  </head>
+  <body>
+    <main class="water-shell">
+      <aside class="side">
+        <div class="logo-dot">GF</div>
+        <nav class="side-nav">
+          <a href="./gf-water-treatment.html">Overview</a>
+          <a class="active" href="./digital-twin.html">3D Twin</a>
+          <a href="./process-map.html">Process</a>
+          <a href="./analytics.html">Analytics</a>
+          <a href="./reports.html">Reports</a>
+          <a href="./optimization.html">Optimize</a>
+          <a href="./water-chat.html">Chat</a>
+        </nav>
+      </aside>
+
+      <section class="main">
+        <header class="topbar" style="background-image: linear-gradient(135deg, rgba(25, 40, 65, 0.94), rgba(15, 25, 45, 0.92)), url('https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1600&h=200&fit=crop'); background-size: cover; background-position: center; background-attachment: fixed;">
+          <div class="brand">
+            <h1>Grand Forks Water Treatment Plant</h1>
+            <p>Real-time digital twin</p>
+          </div>
+          <div class="top-info">
+            <span>Live Data Streaming</span>
+            <span id="nowTime">--:--:--</span>
+            <a class="back-link" href="../../os.html">Back</a>
+          </div>
+        </header>
+
+        <nav class="tab-strip">
+          <a href="./gf-water-treatment.html">Dashboard</a>
+          <a class="active" href="./digital-twin.html">Digital Twin</a>
+          <a href="./process-map.html">2D Layout</a>
+          <a href="./analytics.html">Analytics</a>
+          <a href="./reports.html">Reports</a>
+          <a href="./optimization.html">AI Insights</a>
+          <a href="./water-chat.html">Water Chat</a>
+        </nav>
+
+        <section class="page ops-layout">
+          <section class="ops-main">
+            <section class="metric-row">
+              <article class="metric"><strong>Inflow</strong><span id="kpiInflow">18.4 MGD</span></article>
+              <article class="metric"><strong>Turbidity</strong><span id="kpiTurbidity">0.31 NTU</span></article>
+              <article class="metric"><strong>Chlorine</strong><span id="kpiChlorine">1.8 mg/L</span></article>
+              <article class="metric"><strong>Output</strong><span id="kpiOutput">17.9 MGD</span></article>
+            </section>
+
+            <section class="grid-2">
+              <article class="panel">
+                <h2>3D Plant</h2>
+                <div id="sceneRoot" class="scene-root" aria-label="3D water treatment digital twin"></div>
+                <div class="twin-controls">
+                  <button id="toggleSimBtn" type="button">Pause Simulation</button>
+                  <label for="flowSlider">Flow rate</label>
+                  <input id="flowSlider" type="range" min="50" max="140" value="100" />
+                </div>
+              </article>
+
+              <aside class="panel">
+                <h2 id="unitName">Plant Overview</h2>
+                <p id="unitDesc">Click any treatment unit in the 3D scene to inspect status and process role.</p>
+                <section class="metric-row" style="grid-template-columns:1fr 1fr;">
+                  <article class="metric"><strong>Status</strong><span id="unitStatus">Stable</span></article>
+                  <article class="metric"><strong>Efficiency</strong><span id="unitEfficiency">96%</span></article>
+                  <article class="metric"><strong>Load</strong><span id="unitLoad">Normal</span></article>
+                  <article class="metric"><strong>Last Alert</strong><span id="unitAlert">None</span></article>
+                </section>
+                <h3>Process Roadmap</h3>
+                <ul id="processList"></ul>
+              </aside>
+            </section>
+          </section>
+
+          <aside class="ai-rail">
+            <h3>Twin Assistant</h3>
+            <div class="pill-row">
+              <span class="pill warn">Flow Bias +4%</span>
+              <span class="pill critical">Filter 2 Risk</span>
+              <span class="pill ok">UV Confidence 98%</span>
+            </div>
+            <ul class="signal-list">
+              <li><strong>Scenario</strong>High inflow event likely in 1.3 hours.</li>
+              <li><strong>Control Tip</strong>Lower flow setpoint to 96% to stabilize turbidity.</li>
+              <li><strong>Energy</strong><span id="kpiEnergy">4.2 MW</span></li>
+            </ul>
+            <p class="tiny">Click units to inspect recommended micro-actions.</p>
+          </aside>
+        </section>
+      </section>
+    </main>
+
+    <script src="water-layout.js"></script>
+    <script src="../../../vendor/three.min.js"></script>
+    <script src="gf-water-treatment.js"></script>
+  <script>
+(function(){
+  if (window.__smartChatLoaderInjected) return;
+  window.__smartChatLoaderInjected = true;
+  var tries = ['./vendor/smart-chatbot.js','../vendor/smart-chatbot.js','../../vendor/smart-chatbot.js','../../../vendor/smart-chatbot.js','../../../../vendor/smart-chatbot.js','../../../../../vendor/smart-chatbot.js'];
+  var i = 0;
+  function next(){
+    if (i >= tries.length) return;
+    var s = document.createElement('script');
+    s.src = tries[i++];
+    s.onload = function(){};
+    s.onerror = next;
+    document.head.appendChild(s);
+  }
+  next();
+})();
+</script>
+</body>
+</html>
