@@ -49,6 +49,9 @@ const ICON_POSITIONS_KEY = 'smartworld.os.iconPositions.v1';
 const DESKTOP_BG_KEY = 'und-desktop-bg';
 const APP_VISIBILITY_KEY = 'smartworld.os.appVisibility.v1';
 const GLOBAL_POLICY_USER = '__global';
+const DEFAULT_BG_BY_TENANT = {
+  und: './background/Smart%20World.jpg'
+};
 const TENANT_DEFAULT_APPS = {
   municipal_grandforks: ['gf-twin', 'water-treatment']
 };
@@ -56,7 +59,16 @@ const TENANT_DEFAULT_APPS = {
 const applyDesktopBg = () => {
   const bgImg = document.querySelector('#desktopBgImg');
   const bgVideo = document.querySelector('.desktop-video');
-  const raw = localStorage.getItem(DESKTOP_BG_KEY);
+  let raw = localStorage.getItem(DESKTOP_BG_KEY);
+
+  // If no custom bg saved, use tenant default
+  if (!raw && window.SmartWorldAuth && typeof window.SmartWorldAuth.getTenantId === 'function') {
+    const tenantId = window.SmartWorldAuth.getTenantId();
+    if (DEFAULT_BG_BY_TENANT[tenantId]) {
+      raw = DEFAULT_BG_BY_TENANT[tenantId];
+    }
+  }
+
   if (raw) {
     if (bgImg) {
       bgImg.src = raw;
