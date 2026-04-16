@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Human–AI Learning Gateway</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="human-ai-gateway.css" />
+  </head>
+  <body>
+    <main class="shell">
+
+      <!-- Top bar -->
+      <header class="topbar">
+        <div>
+          <h1>Human–AI Learning Gateway</h1>
+          <p>Adaptive learning paths bridging human expertise and AI capabilities</p>
+        </div>
+        <a href="../../os.html">Back to Desktop</a>
+      </header>
+
+      <!-- Hero -->
+      <section class="hero">
+        <span class="gateway-icon">🧠</span>
+        <h2>Learn With AI, Not Just About AI</h2>
+        <p class="lead">Structured tracks that pair human mentors with AI tutors — from prompt basics to autonomous systems. Each path adapts to your pace and connects to real UND research projects.</p>
+      </section>
+
+      <!-- Stats -->
+      <section class="stats-row">
+        <article class="stat-card">
+          <span class="num" id="statTracks">6</span>
+          <span class="label">Learning Tracks</span>
+        </article>
+        <article class="stat-card">
+          <span class="num" id="statModules">24</span>
+          <span class="label">Modules</span>
+        </article>
+        <article class="stat-card">
+          <span class="num" id="statMentors">3</span>
+          <span class="label">Mentor–AI Pairs</span>
+        </article>
+        <article class="stat-card">
+          <span class="num" id="statCerts">4</span>
+          <span class="label">Certificates</span>
+        </article>
+      </section>
+
+      <!-- Tracks -->
+      <section class="tracks-grid" id="tracksGrid"></section>
+
+      <!-- Bottom row -->
+      <section class="bottom-row">
+        <article class="panel">
+          <h3>Your Progress</h3>
+          <div class="progress-ring">
+            <div class="ring-visual" id="progressRing">0%</div>
+            <div class="ring-label">
+              Complete learning modules to<br/>earn your Human–AI certificate.
+            </div>
+          </div>
+          <ul class="milestone-list" id="milestoneList"></ul>
+        </article>
+
+        <article class="panel">
+          <h3>Recent Activity</h3>
+          <ul class="milestone-list" id="activityList"></ul>
+        </article>
+      </section>
+
+    </main>
+    <script src="human-ai-gateway.js"></script>
+  </body>
+</html>

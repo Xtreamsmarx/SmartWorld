@@ -8,7 +8,8 @@
   const APP_VISIBILITY_KEY = 'smartworld.os.appVisibility.v1';
   const USERS = {
     SmartWorld: { password: 'Xtream', role: 'standard' },
-    XtreamWorld: { password: 'SuperXtream', role: 'super' }
+    XtreamWorld: { password: 'SuperXtream', role: 'super' },
+    und: { password: 'anna', role: 'standard', tenant: 'und' }
   };
 
   const APP_CATALOG = [
@@ -191,6 +192,11 @@
 
   const getAccount = (username) => {
     if (USERS[username]) {
+      // Restrict 'und' user to UND tenant only
+      if (username === 'und') {
+        const tenantId = sessionStorage.getItem('smart_world_os_tenant') || 'und';
+        if (tenantId !== 'und') return null;
+      }
       return USERS[username];
     }
     const dynamic = getDynamicUsers();

@@ -15,77 +15,76 @@ const LOCAL_MODEL = 'qwen2.5-coder:3b';
 
 // Replace these entries with CV-driven details when you send full team CVs.
 const TEAM_PROFILES = [
-  {
-    id: 'smartworld-lead',
-    name: 'Meisam Moradi',
-    role: 'Team Lead and Digital Twin Architect',
-    avatar: 'https://i.pravatar.cc/320?img=12',
-    bio: 'Leads Smart World strategy, digital twin design, and practical AI product direction.',
-    skills: ['Digital Twin Modeling', 'Product Strategy', 'AI Workflow Design'],
-    style: 'Direct, strategic, practical, and focused on execution.',
-    lead: true,
-    cvUrl: './cv/cv-smartworld-lead.html'
-  },
-  {
-    id: 'xtream-engineer',
-    name: 'Xtream Engineer',
-    role: 'Full-Stack and Simulation Engineer',
-    avatar: 'https://i.pravatar.cc/320?img=32',
-    bio: 'Builds simulation systems, web platform experiences, and local AI integrations for Smart World.',
-    skills: ['JavaScript Systems', '3D Interaction', 'Infrastructure Integration'],
-    style: 'Technical, implementation-first, and detail-oriented.',
-    cvUrl: './cv/cv-xtream-engineer.html'
-  },
-  {
-    id: 'sara-rahimi',
-    name: 'Sara Rahimi',
-    role: 'Data Scientist and Urban Analytics Specialist',
-    avatar: 'https://i.pravatar.cc/320?img=47',
-    bio: 'Designs forecasting models and decision analytics for smart city and campus operations.',
-    skills: ['Predictive Analytics', 'Data Modeling', 'Decision Intelligence'],
-    style: 'Analytical, evidence-driven, and clear.',
-    cvUrl: './cv/cv-sara-rahimi.html'
-  },
-  {
-    id: 'neda-farhadi',
-    name: 'Neda Farhadi',
-    role: 'Water Infrastructure Engineer',
-    avatar: 'https://i.pravatar.cc/320?img=5',
-    bio: 'Leads water treatment and distribution simulation logic for resilience and reliability planning.',
-    skills: ['Water Systems', 'Reliability Engineering', 'Operational Planning'],
-    style: 'Systems-minded, safety-focused, and concise.',
-    cvUrl: './cv/cv-neda-farhadi.html'
-  },
-  {
-    id: 'arman-hosseini',
-    name: 'Arman Hosseini',
-    role: 'Transportation Systems Engineer',
-    avatar: 'https://i.pravatar.cc/320?img=56',
-    bio: 'Develops corridor models, traffic optimization strategies, and mobility scenario dashboards.',
-    skills: ['Traffic Engineering', 'Mobility Modeling', 'Network Optimization'],
-    style: 'Operational, scenario-based, and impact-driven.',
-    cvUrl: './cv/cv-arman-hosseini.html'
-  },
-  {
-    id: 'fatemeh-kazemi',
-    name: 'Fatemeh Kazemi',
-    role: 'AI and NLP Engineer',
-    avatar: 'https://i.pravatar.cc/320?img=23',
-    bio: 'Builds conversational AI personas and language interfaces for profile and operations assistants.',
-    skills: ['NLP Systems', 'Prompt Engineering', 'Conversational UX'],
-    style: 'User-centered, precise, and adaptive.',
-    cvUrl: './cv/cv-fatemeh-kazemi.html'
-  },
-  {
-    id: 'reza-ghasemi',
-    name: 'Reza Ghasemi',
-    role: 'Cloud and DevOps Engineer',
-    avatar: 'https://i.pravatar.cc/320?img=68',
-    bio: 'Maintains deployment pipelines, reliability automation, and infrastructure observability for Smart World.',
-    skills: ['CI/CD', 'Infrastructure Reliability', 'Monitoring and Automation'],
-    style: 'Reliability-first, methodical, and delivery-focused.',
-    cvUrl: './cv/cv-reza-ghasemi.html'
-  }
+    {
+      id: 'iraj-mamaghani',
+      name: 'Iraj H.P. Mamaghani',
+      role: 'Advisor, Professor of Civil Engineering',
+      avatar: './cv/img/Iraj.jpeg',
+      summary: 'Dr. Iraj H.P. Mamaghani is a Professor of Civil Engineering at UND with Doctor of Engineering and Master of Engineering degrees from Nagoya University, Japan. He specializes in structural engineering, steel structures, and composite systems with decades of academic and industry experience across Japan and Canada. He is a licensed Professional Engineer (P.Eng.) and an active member of ASCE, dedicated to mentoring graduate students and advancing research in earthquake-resistant design and high-performance structural systems.',
+      traits: ['D.Eng., M.Eng., P.Eng., M.ASCE', 'Istanbul Tech + Nagoya University', 'Steel & Composite Structures', 'Earthquake-Resistant Design', 'Industry Experience: Japan & Canada', 'Graduate Student Mentor'],
+      bio: `D. Eng., M. Eng., P. Eng., M. ASCE\nProfessor, Civil Engineering\nStructural Mechanics/ Structural Engineering\n\nContact Info:\nEmail: iraj.mamaghani@UND.edu\nAlt Email: iraj.mamaghani@engr.und.edu\nOffice: 701.777.3563\nAlt Phone: 701.777.3563\nDept: 701.777.3876\nFax: 701.777.3728\nOffice Address: Upson II Room 260E, 243 Centennial Drive Stop 8115, Grand Forks, ND 58202-8115\n\nBiography: Dr. Iraj Mamaghani earned his Bachelor of Science in Civil Engineering from Istanbul Technical University and continued graduate studies at Nagoya University, Japan, where he obtained both his Master of Science and Doctor of Engineering degrees in Structural Engineering. His academic and research interests include steel structures, steel–concrete composite systems, and masonry structures, with a focus on advanced numerical and experimental methods in structural engineering. He has contributed to numerous research projects and published extensively in peer-reviewed journals and conferences. Dr. Mamaghani is dedicated to mentoring graduate students and promoting high-quality research and publication outcomes.\n\nHe has taught a wide variety of undergraduate and graduate courses, including Mechanics of Materials, Structural Analysis, Steel Design, Structural Stability, Theory of Elasticity, Theory of Plasticity, Earthquake-Resistant Design, Advanced Steel Design, and Advanced Numerical Analysis.\n\nDr. Mamaghani's research covers a wide range of structural engineering topics, including thin-walled cold-formed steel systems, performance-based earthquake engineering, constitutive modeling for cyclic plasticity, development of fiber-reinforced high-performance self-consolidating concrete, high-energy-absorbing rock fence systems, and seismic design of liquid-filled steel storage tanks. He has extensive industry experience in Japan and Canada, managing large-scale structural projects and consulting in structural engineering.\n\nHe remains committed to advancing structural engineering through innovative research, impactful teaching, and mentoring future engineers.`,
+      skills: [
+        'Structural Engineering',
+        'Steel Structures',
+        'Composite Systems',
+        'Masonry Structures',
+        'Numerical Methods',
+        'Experimental Methods',
+        'Mentoring',
+        'Research Guidance',
+        'Teaching',
+        'Industry Collaboration'
+      ],
+      style: 'Supportive, insightful, and experienced.',
+      cvUrl: './cv/cv-iraj-mamaghani.html'
+    },
+    {
+      id: 'moh-rasouli',
+      name: 'Moh Rasouli',
+      role: 'Director / Professor, SEECS',
+      avatar: './cv/img/rasouli.jpg',
+      summary: 'Dr. Moh Rasouli is the Director and Professor of the School of Electrical Engineering and Computer Science at UND. He holds a Ph.D. in Electrical Engineering from the University of Calgary and is a Licensed Professional Engineer (P.E.). With over 7 years of industry experience in power systems and control—including roles at Jacobs Engineering—he brings both academic leadership and real-world engineering expertise to smart grid research, power system modeling, and nonlinear system identification.',
+      traits: ['Ph.D. Electrical Engineering – U of Calgary', 'Licensed P.E.', 'Director of SEECS at UND', '7+ Years Industry Experience', 'Smart Grids & Power Systems', 'Former Dept. Chair at Penn State Erie'],
+      bio: `Contact Info:\nEmail: mohammad.rasouli@UND.edu\nOffice: 701.777.5063\nOffice Address: Upson II Room 366B, 243 Centennial Drive Stop 7165, Grand Forks, ND 58202-7165\n\nBiography: Dr. Rasouli is the Director and Professor of the School of Electrical Engineering and Computer Science at UND. He previously served at The Pennsylvania State University Erie from 2013 to 2024, holding positions as Assistant, Associate, and Full Professor, as well as Department Chair of Electrical and Computer Engineering. With over 7 years of industry experience in power systems and control, Dr. Rasouli has worked as an Electrical Engineer at Jacobs Engineering, as well as a Project Manager and Research Scientist.\n\nCourses: Electric Circuits I & II, Control Systems I & II, Electric Machines (Energy Conversion), Power Systems I & II, Power System Operation and Control, Power Electronics.\n\nResearch/Areas of Interest: Power system modeling, operation and control; Smart grids; Nonlinear system identification.\n\nCredentials: P.E., Licensed Professional Engineer.\n\nEducation: Ph.D. in Electrical Engineering – University of Calgary, Canada.`,
+      skills: [
+        'Power Systems',
+        'Control Systems',
+        'Smart Grids',
+        'Nonlinear System Identification',
+        'Academic Leadership',
+        'Teaching',
+        'Industry Collaboration',
+        'Project Management'
+      ],
+      style: 'Visionary, organized, and dedicated.',
+      cvUrl: './cv/cv-moh-rasouli.html'
+    },
+    {
+      id: 'meisam-moradi',
+      name: 'Meisam Shayegh Moradi',
+      role: 'Graduate AI Research Assistant, Vice President of UND AI Club',
+      avatar: './cv/img/Meisam.jpg',
+      summary: 'Meisam Shayegh Moradi is a Ph.D. candidate in Electrical Engineering at UND and a Graduate Research Assistant at the Artificial Intelligence Research Center. His work spans intelligent complex systems, digital twins, high-performance computing, and autonomous knowledge discovery. He is currently building a distributed AI ecosystem for the Arctic science gateway platform, integrating geospatial intelligence and multimodal big data. His research is supported by NSF, ERDC, and CRREL, covering AI-based weather modeling, robotics, and autonomous systems.',
+      traits: ['IEEE Graduate Student Member', 'Ph.D. Candidate – UND', 'AI Research Center', 'Digital Twins & HPC', 'NSF / ERDC / CRREL Funded', 'VP of UND AI Club'],
+      bio: `Meisam Shayegh Moradi (Graduate Student Member, IEEE) received the B.Sc. degree in electrical engineering with specialization in telecommunication systems in 2020. He is currently working toward the Ph.D. degree in electrical engineering at the University of North Dakota, Grand Forks, ND, USA.\n\nHe is a Graduate Research Assistant with the Artificial Intelligence Research Center. His research interests include intelligent complex systems, emergent general computational intelligence, intelligent embedded sociocyber–physical systems (hardware, software, and biological systems), large world models including language models, digital twins, autonomous knowledge discovery, high performance computing, advanced signal processing, neuroengineering, autonomous and smart networked systems, with an emphasis on high-performance, scalable, adaptive, and self-evolving AI systems for scientific discovery.\n\nHe is currently developing a generalized high performance distributed AI modeling ecosystem for the Arctic knowledge base science gateway platform, where geospatial intelligence, multimodal big data, and predictive data analytics enable knowledge-based reasoning, decision support tools, and autonomous scientific discovery across heterogeneous information streams.\n\nHis research interests include several projects supported by National Science Foundation, Engineer Research and Development Center, Cold Regions Research and Engineering Laboratory, and National Elite Foundation, spanning artificial intelligence-based high performance weather modeling, robotics, biomedical signal analysis, autonomous aircraft system based semantic perception, AI-based project management, autonomous knowledge discovery for smart networked systems, and several additional multidisciplinary research projects.\n\nDr. Moradi was the recipient of several academic awards and honors for academic excellence.`,
+      skills: [
+        'Artificial Intelligence',
+        'Complex Systems',
+        'Computational Intelligence',
+        'Embedded Systems',
+        'Digital Twins',
+        'Knowledge Discovery',
+        'High Performance Computing',
+        'Signal Processing',
+        'Neuroengineering',
+        'Autonomous Systems',
+        'Distributed AI',
+        'Big Data Analytics',
+        'Scientific Discovery'
+      ],
+      style: 'Innovative, research-driven, and multidisciplinary.',
+      cvUrl: './cv/cv-meisam-moradi.html'
+    }
 ];
 
 const AI_AGENTS = [
@@ -130,14 +129,20 @@ const appendMessage = (role, text) => {
 
 const renderSummary = (profile) => {
   if (!profileSummary) return;
+  const traitsHtml = (profile.traits || []).map(t => `<span class="trait-tag">${t}</span>`).join('');
   profileSummary.innerHTML = `
-    <p>${profile.bio}</p>
-    <ul>
-      <li><strong>Role:</strong> ${profile.role}</li>
-      <li><strong>Core Skills:</strong> ${profile.skills.join(', ')}</li>
-      <li><strong>Conversation Style:</strong> ${profile.style}</li>
-    </ul>
-    <a class="cv-link" href="${profile.cvUrl}">Open Full CV</a>
+    <div class="summary-card">
+      <img class="summary-avatar" src="${profile.avatar}" alt="${profile.name}" />
+      <div class="summary-body">
+        <p class="summary-text">${profile.summary || profile.bio}</p>
+        <div class="trait-list">${traitsHtml}</div>
+        <ul class="summary-meta">
+          <li><strong>Core Skills:</strong> ${profile.skills.slice(0, 5).join(', ')}</li>
+          <li><strong>Style:</strong> ${profile.style}</li>
+        </ul>
+        <a class="cv-link" href="${profile.cvUrl}">Open Full CV &rarr;</a>
+      </div>
+    </div>
   `;
 };
 

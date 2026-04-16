@@ -9,6 +9,105 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Sora:wght@500;700;800&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="team.css" />
+    <style>
+      /* Super User inline login panel */
+      .su-panel {
+        border: 1px solid rgba(255,255,255,.14);
+        border-radius: 14px;
+        background: rgba(7,18,39,.86);
+        padding: 1.2rem 1.4rem;
+        margin-top: .8rem;
+        max-width: 380px;
+      }
+      .su-panel.hidden { display: none; }
+      .su-panel .su-title {
+        margin: 0 0 .3rem;
+        font-family: "Sora", sans-serif;
+        font-size: 1rem;
+        color: #e9f2ff;
+      }
+      .su-panel .su-desc {
+        margin: 0 0 .8rem;
+        color: #9fb8d9;
+        font-size: .8rem;
+        line-height: 1.4;
+      }
+      .su-panel label {
+        display: block;
+        margin-bottom: .2rem;
+        font-size: .78rem;
+        color: #9fb8d9;
+      }
+      .su-panel input {
+        width: 100%;
+        padding: .5rem .7rem;
+        margin-bottom: .6rem;
+        border: 1px solid rgba(255,255,255,.16);
+        border-radius: 8px;
+        background: rgba(255,255,255,.07);
+        color: #e9f2ff;
+        font-size: .85rem;
+        outline: none;
+      }
+      .su-panel input:focus {
+        border-color: #63b5ff;
+        box-shadow: 0 0 0 3px rgba(99,181,255,.18);
+      }
+      .su-panel button {
+        width: 100%;
+        padding: .55rem;
+        border: none;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #63b5ff, #00d6c7);
+        color: #061124;
+        font-weight: 700;
+        font-size: .88rem;
+        cursor: pointer;
+      }
+      .su-panel button:hover { opacity: .9; }
+      .su-panel .error {
+        color: #ff6b6b;
+        font-size: .78rem;
+        margin-top: .4rem;
+        min-height: 1em;
+      }
+      .su-btn {
+        display: inline-block;
+        padding: .35rem .8rem;
+        border: 1px solid rgba(99,181,255,.4);
+        border-radius: 8px;
+        background: rgba(99,181,255,.1);
+        color: #63b5ff;
+        font-size: .78rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background .2s;
+      }
+      .su-btn:hover { background: rgba(99,181,255,.22); }
+      .su-badge {
+        display: inline-block;
+        padding: .2rem .6rem;
+        border-radius: 6px;
+        background: linear-gradient(135deg, #63b5ff, #00d6c7);
+        color: #061124;
+        font-size: .72rem;
+        font-weight: 700;
+        letter-spacing: .04em;
+      }
+      .su-logout {
+        display: inline-block;
+        margin-left: .5rem;
+        padding: .2rem .5rem;
+        border: 1px solid rgba(255,107,107,.4);
+        border-radius: 6px;
+        background: transparent;
+        color: #ff6b6b;
+        font-size: .72rem;
+        cursor: pointer;
+      }
+      .su-logout:hover { background: rgba(255,107,107,.15); }
+    </style>
   </head>
   <body>
     <div class="bg"></div>
@@ -16,10 +115,27 @@
       <header class="top">
         <div class="top-actions">
           <a class="back" href="../home/home.html">Back</a>
-          <a class="back" href="./cv/index.html">CV Hub</a>
+          <!-- Super User toggle -->
+          <span id="suStatus">
+            <button class="su-btn" id="suLoginBtn">Super User Login</button>
+          </span>
         </div>
         <h1>Team Avatar Hub</h1>
         <p>Pick a profile, view a realistic avatar, and chat directly with that team persona.</p>
+
+        <!-- Inline Super User login form -->
+        <div class="su-panel hidden" id="suPanel">
+          <h3 class="su-title">Super User Access</h3>
+          <p class="su-desc">Sign in to unlock profile editing and management tools.</p>
+          <form id="teamLoginForm">
+            <label for="teamUser">Username</label>
+            <input id="teamUser" type="text" autocomplete="username" required />
+            <label for="teamPass">Password</label>
+            <input id="teamPass" type="password" autocomplete="current-password" required />
+            <button type="submit">Authenticate</button>
+            <p class="error" id="teamAuthError"></p>
+          </form>
+        </div>
       </header>
 
       <section class="layout">
@@ -64,6 +180,60 @@
       </section>
     </main>
 
+    <script src="../os/auth.js"></script>
+    <script>
+    (function() {
+      const suStatus = document.getElementById('suStatus');
+      const suPanel = document.getElementById('suPanel');
+      const suLoginBtn = document.getElementById('suLoginBtn');
+      const form = document.getElementById('teamLoginForm');
+      const errEl = document.getElementById('teamAuthError');
+
+      function showLoggedIn() {
+        suStatus.innerHTML = '<span class="su-badge">Super User</span><button class="su-logout" id="suLogoutBtn">Logout</button>';
+        suPanel.classList.add('hidden');
+        document.getElementById('suLogoutBtn').addEventListener('click', function() {
+          if (window.SmartWorldAuth) window.SmartWorldAuth.logout();
+          showLoggedOut();
+        });
+      }
+
+      function showLoggedOut() {
+        suStatus.innerHTML = '<button class="su-btn" id="suLoginBtn">Super User Login</button>';
+        document.getElementById('suLoginBtn').addEventListener('click', function() {
+          suPanel.classList.toggle('hidden');
+        });
+      }
+
+      // Check if already authenticated as super user
+      if (window.SmartWorldAuth && window.SmartWorldAuth.isSuperUser()) {
+        showLoggedIn();
+      }
+
+      suLoginBtn.addEventListener('click', function() {
+        suPanel.classList.toggle('hidden');
+      });
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var user = document.getElementById('teamUser').value.trim();
+        var pass = document.getElementById('teamPass').value;
+        errEl.textContent = '';
+
+        if (!window.SmartWorldAuth) {
+          errEl.textContent = 'Auth system unavailable.';
+          return;
+        }
+
+        if (window.SmartWorldAuth.verifySuperCredentials(user, pass)) {
+          window.SmartWorldAuth.login(user, pass);
+          showLoggedIn();
+        } else {
+          errEl.textContent = 'Access denied. Super User credentials required.';
+        }
+      });
+    })();
+    </script>
     <script src="team.js"></script>
   <script>
 (function(){

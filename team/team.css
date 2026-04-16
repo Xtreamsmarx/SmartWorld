@@ -287,6 +287,56 @@ body {
   padding-left: 1rem;
 }
 
+/* Summary card layout */
+.summary-card {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+.summary-avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 14px;
+  object-fit: cover;
+  border: 2px solid var(--line);
+  flex-shrink: 0;
+}
+.summary-body {
+  flex: 1;
+  min-width: 0;
+}
+.summary-text {
+  margin: 0 0 0.6rem;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.trait-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-bottom: 0.55rem;
+}
+.trait-tag {
+  display: inline-block;
+  padding: 0.18rem 0.52rem;
+  border-radius: 7px;
+  background: rgba(99, 181, 255, 0.12);
+  border: 1px solid rgba(99, 181, 255, 0.25);
+  color: var(--blue);
+  font-size: 0.72rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.summary-meta {
+  margin: 0.3rem 0 0;
+  padding-left: 1rem;
+  font-size: 0.78rem;
+}
+.summary-meta li {
+  margin-bottom: 0.2rem;
+}
+
 .cv-link {
   display: inline-block;
   margin-top: 0.55rem;
